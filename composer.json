@@ -1,0 +1,21 @@
+{
+    "name": "popphp/pop-skeleton2",
+    "description": "Alternate Pop Web Application Framework Skeleton",
+    "license": "New BSD",
+    "authors": [
+        {
+            "name": "Nick Sagona",
+            "email": "dev@nolainteractive.com",
+            "homepage": "http://www.nolainteractive.com/"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "popphp/popphp-framework": "2.1.*"
+    },
+    "autoload" : {
+        "psr-4": {
+            "App\\": "app/src/"
+        }
+    }
+}
