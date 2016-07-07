@@ -7,5 +7,6 @@ try {
     $app->register('app', new App\Module(include __DIR__ . '/../app/config/application.php'));
     $app->run();
 } catch (\Exception $exception) {
-    echo $exception->getMessage();
+    $app = new App\Module();
+    $app->error($exception);
 }
