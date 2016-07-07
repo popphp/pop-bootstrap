@@ -25,12 +25,15 @@ return [
         'database'  => [
             'call'   => 'Pop\Db\Db::connect',
             'params' => [
-                'adapter' => 'mysql',
+                'adapter' => '',       // Database adapter ('mysql', 'pgsql', 'sqlite', 'pdo')
                 'options' => [
-                    'database' => 'popdb',
-                    'username' => 'popuser',
-                    'password' => '12pop34',
-                    'host'     => 'localhost'
+                    'database' => '',  // Database name
+                    'username' => '',  // Database username
+                    'password' => '',  // Database password
+                    /*
+                    'host'     => ''   // Database host, defaults to 'localhost'
+                    'type'     => ''   // PDO-only DSN type ('mysql', 'pgsql', 'sqlite')
+                    */
                 ]
             ]
         ]

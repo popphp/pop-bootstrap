@@ -1,5 +1,5 @@
 --
--- PAB 2016 MySQL Database
+-- Pop Bootstrap MySQL Database
 --
 
 -- --------------------------------------------------------
@@ -7,6 +7,8 @@
 --
 -- Table structure for table `user_roles`
 --
+
+DROP TABLE IF EXISTS `user_roles`;
 CREATE TABLE IF NOT EXISTS `user_roles` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `parent_id` int(16),
@@ -17,14 +19,14 @@ CREATE TABLE IF NOT EXISTS `user_roles` (
   PRIMARY KEY (`id`),
   INDEX `user_role_name` (`name`),
   CONSTRAINT `fk_role_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `user_roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2002 ;
 
 --
 -- Dumping data for table `user_roles`
 --
 
 INSERT INTO `user_roles` (`id`, `parent_id`, `name`, `verification`, `approval`, `permissions`) VALUES
-  (2001, NULL, 'Admin', 1, 1, 'a:2:{s:5:"allow";a:0:{}s:4:"deny";a:2:{i:0;a:2:{s:8:"resource";s:8:"register";s:10:"permission";N;}i:1;a:2:{s:8:"resource";s:11:"unsubscribe";s:10:"permission";N;}}}');
+(2001, NULL, 'Admin', 1, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -32,6 +34,7 @@ INSERT INTO `user_roles` (`id`, `parent_id`, `name`, `verification`, `approval`,
 -- Table structure for table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `role_id` int(16),
@@ -47,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   INDEX `user_role_id` (`role_id`),
   INDEX `username` (`username`),
   CONSTRAINT `fk_user_role` FOREIGN KEY (`role_id`) REFERENCES `user_roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1002 ;
 
 --
 -- Dumping data for table `users`
@@ -61,6 +64,7 @@ INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `active`, `verifie
 -- Table structure for table `user_logins`
 --
 
+DROP TABLE IF EXISTS `user_logins`;
 CREATE TABLE IF NOT EXISTS `user_logins` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `user_id` int(16),
@@ -69,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `user_logins` (
   `timestamp` datetime NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_login_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3002 ;
 
 -- --------------------------------------------------------
 
@@ -77,6 +81,7 @@ CREATE TABLE IF NOT EXISTS `user_logins` (
 -- Table structure for table `user_sessions`
 --
 
+DROP TABLE IF EXISTS `user_sessions`;
 CREATE TABLE IF NOT EXISTS `user_sessions` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `user_id` int(16),
@@ -85,4 +90,4 @@ CREATE TABLE IF NOT EXISTS `user_sessions` (
   `start` int(16) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_session_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4002 ;

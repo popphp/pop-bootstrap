@@ -9,6 +9,7 @@ use Pop\Http\Response;
 
 class Module extends \Pop\Module\Module
 {
+
     public function register(Application $application)
     {
         parent::register($application);
@@ -33,4 +34,5 @@ class Module extends \Pop\Module\Module
             $this->application->mergeConfig(['forms' => $this->config['forms']]);
         }
     }
+
 }
