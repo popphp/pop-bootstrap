@@ -25,13 +25,13 @@ return [
         'database'  => [
             'call'   => 'Pop\Db\Db::connect',
             'params' => [
-                'adapter' => '',       // Database adapter ('mysql', 'pgsql', 'sqlite', 'pdo')
+                'adapter' => '',       // Database adapter  ('mysql', 'pgsql', 'sqlite', 'pdo')
                 'options' => [
-                    'database' => '',  // Database name
-                    'username' => '',  // Database username
-                    'password' => '',  // Database password
+                    'database' => '',  // Database name     (for sqlite, it's the location of the SQLite database file)
+                    'username' => '',  // Database username (not required for SQLite)
+                    'password' => '',  // Database password (not required for SQLite)
                     /*
-                    'host'     => ''   // Database host, defaults to 'localhost'
+                    'host'     => ''   // Database host     (defaults to 'localhost')
                     'type'     => ''   // PDO-only DSN type ('mysql', 'pgsql', 'sqlite')
                     */
                 ]
