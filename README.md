@@ -10,3 +10,13 @@ Installation
 1. Copy `app/config/application.orig.php` to `app/config/application.php`
 2. Fill in the database information in that file
 3. Install the base database SQL file located in `app/data`
+
+Get Started
+===========
+
+Start the PHP server and point it to the `public` folder.
+Visit `http://localhost:8000` and you'll be redirected to a login
+screen. The initial credentials are:
+
+* Username: `admin`
+* Password: `password`
