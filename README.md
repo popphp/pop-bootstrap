@@ -1,5 +1,5 @@
-Pop Skeleton 2
-==============
+Pop Bootstrap
+=============
 
-Alternate Skeleton Application for the Pop Web Application Framework,
-using Bootstrap and Font Awesome
+An alternate skeleton application for the Pop Web Application Framework,
+using Bootstrap and Font Awesome frameworks.
