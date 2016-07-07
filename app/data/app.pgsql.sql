@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS "users" (
   "role_id" integer,
   "username" varchar(255) NOT NULL,
   "password" varchar(255) NOT NULL,
+  "email" varchar(255),
   "active" integer,
   "verified" integer,
   "last_ip" varchar(255),

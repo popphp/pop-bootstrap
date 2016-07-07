@@ -13,8 +13,6 @@ CREATE TABLE IF NOT EXISTS `user_roles` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `parent_id` int(16),
   `name` varchar(255) NOT NULL,
-  `verification` int(1),
-  `approval` int(1),
   `permissions` text,
   PRIMARY KEY (`id`),
   INDEX `user_role_name` (`name`),
@@ -25,8 +23,8 @@ CREATE TABLE IF NOT EXISTS `user_roles` (
 -- Dumping data for table `user_roles`
 --
 
-INSERT INTO `user_roles` (`id`, `parent_id`, `name`, `verification`, `approval`, `permissions`) VALUES
-(2001, NULL, 'Admin', 1, 1, NULL);
+INSERT INTO `user_roles` (`id`, `parent_id`, `name`, `permissions`) VALUES
+(2001, NULL, 'Admin', NULL);
 
 -- --------------------------------------------------------
 
@@ -40,6 +38,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `role_id` int(16),
   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `email` varchar(255),
   `active` int(1),
   `verified` int(1),
   `last_ip` varchar(255),

@@ -1,28 +1,13 @@
 <?php
 
 return [
-    'routes' => [
-        '/' => [
-            'controller' => 'App\Controller\IndexController',
-            'action'     => 'index'
-        ],
-        '/login' => [
-            'controller' => 'App\Controller\IndexController',
-            'action'     => 'login'
-        ],
-        '/logout' => [
-            'controller' => 'App\Controller\IndexController',
-            'action'     => 'logout'
-        ],
-        '*' => [
-            'controller' => 'App\Controller\IndexController',
-            'action'     => 'error'
-        ]
-    ],
-    'services' => [
-        'session'   => 'Pop\Web\Session::getInstance',
-        'acl'       => 'Pop\Acl\Acl',
-        'database'  => [
+    'routes'    => include 'routes.php',
+    'resources' => include 'resources.php',
+    'forms'     => include 'forms.php',
+    'services'  => [
+        'session'    => 'Pop\Web\Session::getInstance',
+        'acl'        => 'Pop\Acl\Acl',
+        'database'   => [
             'call'   => 'Pop\Db\Db::connect',
             'params' => [
                 'adapter' => '',       // Database adapter  ('mysql', 'pgsql', 'sqlite', 'pdo')
@@ -38,5 +23,9 @@ return [
             ]
         ]
     ],
-    'forms' => include 'forms.php',
+    'application_title'          => 'My Application',
+    'multiple_sessions'          => true,
+    'multiple_session_warning'   => false,
+    'session_expiration'         => 1800,
+    'session_expiration_warning' => true
 ];

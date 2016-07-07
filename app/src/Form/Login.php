@@ -18,13 +18,6 @@ class Login extends Form
         $this->setIndent('    ');
     }
 
-    /**
-     * Set the field values
-     *
-     * @param  array  $values
-     * @param  Auth   $auth
-     * @return Login
-     */
     public function setFieldValues(array $values = null, Auth $auth = null)
     {
         parent::setFieldValues($values);
