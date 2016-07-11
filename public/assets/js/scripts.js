@@ -27,4 +27,20 @@ $(document).ready(function(){
         });
 
     }
+    if (($('#role_id')[0] != undefined) && ($('#role_id').data('user') == 'add')) {
+        $('#role_id').change(function(){
+            if ($('#role_id').val() != 0) {
+                window.location.href = '/users/add/' + $('#role_id').val();
+            }
+        });
+    }
+    if ($('#users-form')[0] != undefined) {
+        $('#users-form').submit(function(){
+            if ($('#user_process_action').val() == '-1') {
+                return confirm('This action cannot be undone. Are you sure?');
+            } else {
+                return true;
+            }
+        });
+    }
 });

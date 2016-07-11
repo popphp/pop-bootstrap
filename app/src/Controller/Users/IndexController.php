@@ -51,41 +51,31 @@ class IndexController extends AbstractController
      */
     public function add($rid = null)
     {
-        /*
-        $this->prepareView('phire/users/add.phtml');
+        $this->prepareView('users/add.phtml');
         $this->view->title = 'Add User';
 
-        if ((null !== $rid) && ($this->services['acl']->isAllowed($this->sess->user->role, 'users-of-role-' . $rid, 'add'))) {
+        if (null !== $rid) {
             $role = new Model\Role();
             $role->getById($rid);
             $this->view->title .= ' : ' . $role->name;
 
-            if ($role->email_as_username) {
-                $fields = $this->application->config()['forms']['Phire\Form\UserEmail'];
-            } else {
-                $fields = $this->application->config()['forms']['Phire\Form\User'];
-                if ($role->email_required) {
-                    $fields[2]['email']['required'] = true;
-                }
-            }
-
+            $fields = $this->application->config()['forms']['App\Form\User'];
             $fields[1]['password1']['required'] = true;
             $fields[1]['password2']['required'] = true;
             $fields[0]['role_id']['value']      = $rid;
 
-            $this->view->form = ($role->email_as_username) ? new Form\UserEmail($fields) : new Form\User($fields);
-
+            $this->view->form = new Form\User($fields);
             if ($this->request->isPost()) {
-                $this->view->form->addFilter('strip_tags', null, 'textarea')
-                    ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
-                    ->setFieldValues($this->request->getPost());
+                $this->view->form->addFilter('strip_tags')
+                     ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+                     ->setFieldValues($this->request->getPost());
 
                 if ($this->view->form->isValid()) {
                     $this->view->form->clearFilters()
-                        ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
-                        ->filter();
+                         ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
+                         ->filter();
                     $user = new Model\User();
-                    $user->save($this->view->form->getFields());
+                    $user->save($this->view->form->getFields(), $this->application->config()['application_title']);
 
                     $this->view->id = $user->id;
                     $this->sess->setRequestValue('saved', true);
@@ -97,7 +87,6 @@ class IndexController extends AbstractController
         }
 
         $this->send();
-        */
     }
 
     /**
@@ -108,7 +97,6 @@ class IndexController extends AbstractController
      */
     public function edit($id)
     {
-        /*
         $user = new Model\User();
         $user->getById($id);
 
@@ -116,68 +104,49 @@ class IndexController extends AbstractController
             $this->redirect('/users');
         }
 
-        if ($this->services['acl']->isAllowed($this->sess->user->role, 'users-of-role-' . $user->role_id, 'edit')) {
-            $this->prepareView('phire/users/edit.phtml');
-            $this->view->title    = 'Edit User';
-            $this->view->username = $user->username;
+        $this->prepareView('users/edit.phtml');
+        $this->view->title    = 'Edit User';
+        $this->view->username = $user->username;
 
-            $role   = new Model\Role();
-            $role->getById($user->role_id);
-
-            if ($role->email_as_username) {
-                $fields = $this->application->config()['forms']['Phire\Form\UserEmail'];
-                $fields[1]['email']['attributes']['onkeyup'] = 'phire.changeTitle(this.value);';
-            } else {
-                $fields = $this->application->config()['forms']['Phire\Form\User'];
-                $fields[1]['username']['attributes']['onkeyup'] = 'phire.changeTitle(this.value);';
-                if ($role->email_required) {
-                    $fields[2]['email']['required'] = true;
-                }
-            }
-
-            $roles      = $role->getAll();
-            $roleValues = [];
-            foreach ($roles as $r) {
-                $roleValues[$r->id] = $r->name;
-            }
-
-            $fields[1]['password1']['required'] = false;
-            $fields[1]['password2']['required'] = false;
-            $fields[0]['role_id']['type']       = 'select';
-            $fields[0]['role_id']['label']      = 'Role';
-            $fields[0]['role_id']['value']      = $roleValues;
-            $fields[0]['role_id']['marked']     = $user->role_id;
-            $fields[0]['role_id']['attributes'] = [
-                'onchange' => 'phire.checkUserRole(this);'
-            ];
-
-            $this->view->form = ($role->email_as_username) ? new Form\UserEmail($fields) : new Form\User($fields);
-            $this->view->form->addFilter('strip_tags', null, 'textarea')
-                ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
-                ->setFieldValues($user->toArray());
-
-            if ($this->request->isPost()) {
-                $this->view->form->addFilter('strip_tags', null, 'textarea')
-                    ->setFieldValues($this->request->getPost());
-
-                if ($this->view->form->isValid()) {
-                    $this->view->form->clearFilters()
-                        ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
-                        ->filter();
-                    $user = new Model\User();
-                    $user->update($this->view->form->getFields(), $this->sess);
-
-                    $this->view->id = $user->id;
-                    $this->sess->setRequestValue('saved', true);
-                    $this->redirect('/users/edit/' . $user->id);
-                }
-            }
-
-            $this->send();
-        } else {
-            $this->redirect('/users');
+        $role       = new Model\Role();
+        $roles      = $role->getAll();
+        $roleValues = [];
+        foreach ($roles as $r) {
+            $roleValues[$r->id] = $r->name;
         }
-        */
+
+        $fields = $this->application->config()['forms']['App\Form\User'];
+
+        $fields[1]['password1']['required'] = false;
+        $fields[1]['password2']['required'] = false;
+        $fields[0]['role_id']['type']       = 'select';
+        $fields[0]['role_id']['label']      = 'Role';
+        $fields[0]['role_id']['value']      = $roleValues;
+        $fields[0]['role_id']['marked']     = $user->role_id;
+
+        $this->view->form = new Form\User($fields);
+        $this->view->form->addFilter('strip_tags', null, 'textarea')
+             ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+             ->setFieldValues($user->toArray());
+
+        if ($this->request->isPost()) {
+            $this->view->form->addFilter('strip_tags', null, 'textarea')
+                 ->setFieldValues($this->request->getPost());
+
+            if ($this->view->form->isValid()) {
+                $this->view->form->clearFilters()
+                    ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
+                    ->filter();
+                $user = new Model\User();
+                $user->update($this->view->form->getFields(), $this->application->config()['application_title'], $this->sess);
+
+                $this->view->id = $user->id;
+                $this->sess->setRequestValue('saved', true);
+                $this->redirect('/users/edit/' . $user->id);
+            }
+        }
+
+        $this->send();
     }
 
     /**
@@ -189,7 +158,7 @@ class IndexController extends AbstractController
     {
         if ($this->request->isPost()) {
             $user = new Model\User();
-            $user->process($this->request->getPost());
+            $user->process($this->request->getPost(), $this->application->config()['application_title']);
         }
 
         if ((null !== $this->request->getPost('user_process_action')) && ($this->request->getPost('user_process_action') == -1)) {

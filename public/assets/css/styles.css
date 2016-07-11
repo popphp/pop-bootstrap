@@ -11,12 +11,14 @@ html {
     margin: 0;
     padding: 0;
     min-height: 100%;
+    background-color: #fefefe;
     font-family: 'Source Sans Pro', arial, helvetica, verdana, sans-serif;
 }
 
 body {
     margin: 0 0 30px 0;
     padding: 50px 0 0 0;
+    background-color: #fefefe;
     font-family: 'Source Sans Pro', arial, helvetica, verdana, sans-serif;
 }
 
@@ -146,6 +148,70 @@ h1, h2, h3, h4, h5, h6, div, p {
     font-size: 1.1em;
 }
 
+#role-select-form {
+    margin: 10px auto 10px auto;
+    padding: 10px 0 10px 0;
+    width: 100%;
+    border-top: solid 1px #dcdcdc;
+}
+
+#form-footer {
+    margin: 0 auto 10px auto;
+    padding: 0 0 50px 0;
+    text-align: right;
+}
+
+#form-footer > input {
+    float: right;
+}
+
+#user_process_action {
+    margin: 2px 15px 0 10px;
+}
+
+.data-form {
+    margin: 10px auto 10px auto;
+    padding: 15px 0 15px 0;
+    width: 100%;
+    border-top: solid 1px #dcdcdc;
+}
+
+.data-form > dl:first-child {
+    margin: 0 0 20px 20px;
+    padding: 0 0 0 20px;
+    width: 220px;
+    border-left: solid 1px #dcdcdc;
+    float: right;
+    min-height: 400px;
+    height: 100%;
+}
+
+.data-form > dl:first-child > dd, .data-form > dl:first-child > dt {
+    width: 100%;
+}
+
+.data-form > dl:first-child > dt {
+    margin: 0 0 5px 0;
+    border-bottom: dotted 1px #aaa;
+}
+
+.data-form > dl:first-child > dd {
+    margin: 0 0 10px 0;
+}
+
+.data-form > dl:nth-child(2), .data-form > dl:nth-child(3),
+.data-form > dl:nth-child(4), .data-form > dl:nth-child(5){
+    margin: 0;
+    padding: 0;
+    width: calc(100% - 260px);
+    float: left;
+}
+
+.data-form > dl:nth-child(2) > dd, .data-form > dl:nth-child(3) > dd,
+.data-form > dl:nth-child(4) > dd, .data-form > dl:nth-child(5) > dd {
+    height: 60px;
+}
+
 @media (max-width: 750px) {
     #profile-form {
         margin: 0 auto;
@@ -210,6 +276,31 @@ div.page-links > a:hover {
     text-decoration: none;
 }
 
+.radio {
+    margin: 0 0 5px 0;
+    padding: 0 0 5px 0;
+    display: inline-block;
+}
+
+.radio-span {
+    margin: 0 8px 5px 0;
+    padding: 0 8px 5px 0;
+    display: inline-block;
+}
+
+.checkbox {
+    margin: 7px 2px 2px 2px;
+    padding: 2px;
+    clear: left;
+    float: left;
+}
+
+.checkbox-span {
+    margin: 2px;
+    padding: 2px;
+    float: left;
+}
+
 .edit-link {
     margin: 0 auto;
     padding: 0;
@@ -268,6 +359,11 @@ div.page-links > a:hover {
     background-image: url(../img/zoom.svg);
     text-indent: -1000px;
     background-size: 19px 21px;
+}
+
+.required {
+    color: #098ec6;
+    font-weight: bold;
 }
 
 .error {

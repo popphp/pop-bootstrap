@@ -112,13 +112,15 @@ class User extends AbstractModel
      * Save new user
      *
      * @param  array  $fields
+     * @param  string $title
      * @return void
      */
-    public function save(array $fields)
+    public function save(array $fields, $title)
     {
         $user = new Table\Users([
             'role_id'    => $fields['role_id'],
             'username'   => $fields['username'],
+            'password'   => (new Bcrypt())->create($fields['password1']),
             'email'      => (isset($fields['email']) ? $fields['email'] : null),
             'active'     => (int)$fields['active'],
             'verified'   => (int)$fields['verified']
@@ -128,18 +130,19 @@ class User extends AbstractModel
         $this->data = array_merge($this->data, $user->getColumns());
 
         if ((!$user->verified) && !empty($user->email)) {
-            $this->sendVerification($user);
+            $this->sendVerification($user, $title);
         }
     }
 
     /**
      * Update an existing user
      *
-     * @param  array               $fields
+     * @param  array                $fields
+     * @param  string               $title
      * @param  \Pop\Session\Session $sess
      * @return void
      */
-    public function update(array $fields, \Pop\Session\Session $sess = null)
+    public function update(array $fields, $title, \Pop\Session\Session $sess = null)
     {
         $user = Table\Users::findById((int)$fields['id']);
         if (isset($user->id)) {
@@ -164,7 +167,7 @@ class User extends AbstractModel
             $this->data = array_merge($this->data, $user->getColumns());
 
             if ((((null === $oldRoleId) && (null !== $user->role_id)) || ((!($oldActive) && ($user->active)))) && !empty($user->email)) {
-                $this->sendApproval($user);
+                $this->sendApproval($user, $title);
             }
         }
     }
@@ -172,10 +175,11 @@ class User extends AbstractModel
     /**
      * Process users
      *
-     * @param  array $post
+     * @param  array  $post
+     * @param  string $title
      * @return void
      */
-    public function process(array $post)
+    public function process(array $post, $title)
     {
         if (isset($post['process_users'])) {
             foreach ($post['process_users'] as $id) {
@@ -185,7 +189,7 @@ class User extends AbstractModel
                         case 1:
                             $user->active = 1;
                             $user->save();
-                            $this->sendApproval($user);
+                            $this->sendApproval($user, $title);
                             break;
                         case 0:
                             $user->active = 0;
@@ -370,13 +374,13 @@ class User extends AbstractModel
     /**
      * Send user verification notification
      *
-     * @param  mixed $user
+     * @param  mixed  $user
+     * @param  string $title
      * @return void
      */
-    protected function sendVerification($user)
+    protected function sendVerification($user, $title)
     {
-        /*
-        $host    = Table\Config::findById('domain')->value;
+        $host    = $_SERVER['HTTP_HOST'];
         $domain  = str_replace('www.', '', $host);
         $schema  = (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == '443')) ? 'https://' : 'http://';
 
@@ -384,54 +388,49 @@ class User extends AbstractModel
         $rcpt = [
             'name'   => $user->username,
             'email'  => $user->email,
-            'url'    => $schema . $host . BASE_PATH . ((null !== $uri) ? $uri : APP_URI) . '/verify/' .
-                $user->id . '/' . sha1($user->email),
-            'domain' => $domain
+            'url'    => $schema . $host . '/verify/' . $user->id . '/' . sha1($user->email),
+            'domain' => $domain,
+            'title'  => $title
         ];
 
         // Check for an override template
-        $mailTemplate = (file_exists(CONTENT_ABS_PATH . '/phire/view/phire/mail/verify.txt')) ?
-            CONTENT_ABS_PATH . '/phire/view/phire/mail/verify.txt' :
-            __DIR__ . '/../../view/phire/mail/verify.txt';
+        $mailTemplate = __DIR__ . '/../../view/mail/verify.txt';
 
         // Send email verification
-        $mail = new Mail($domain . ' - Email Verification', $rcpt);
+        $mail = new Mail($title . ' (' . $domain . ') - Email Verification', $rcpt);
         $mail->from('noreply@' . $domain);
         $mail->setText(file_get_contents($mailTemplate));
         $mail->send();
-        */
     }
 
     /**
      * Send user approval notification
      *
-     * @param  mixed $user
+     * @param  mixed  $user
+     * @param  string $title
      * @return void
      */
-    protected function sendApproval($user)
+    protected function sendApproval($user, $title)
     {
-        /*
-        $host   = Table\Config::findById('domain')->value;
+        $host   = $_SERVER['HTTP_HOST'];
         $domain = str_replace('www.', '', $host);
 
         // Set the recipient
         $rcpt = [
             'name'   => $user->username,
             'email'  => $user->email,
-            'domain' => $domain
+            'domain' => $domain,
+            'title'  => $title
         ];
 
         // Check for an override template
-        $mailTemplate = (file_exists(CONTENT_ABS_PATH . '/phire/view/phire/mail/approval.txt')) ?
-            CONTENT_ABS_PATH . '/phire/view/phire/mail/approval.txt' :
-            __DIR__ . '/../../view/phire/mail/approval.txt';
+        $mailTemplate = __DIR__ . '/../../view/mail/approval.txt';
 
         // Send email verification
-        $mail = new Mail($domain . ' - Approval', $rcpt);
+        $mail = new Mail($title . ' (' . $domain . ') - Approval', $rcpt);
         $mail->from('noreply@' . $domain);
         $mail->setText(file_get_contents($mailTemplate));
         $mail->send();
-        */
     }
 
     /**

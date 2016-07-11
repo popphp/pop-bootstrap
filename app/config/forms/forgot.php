@@ -17,7 +17,7 @@ return [
             'type'  => 'submit',
             'value' => 'Submit',
             'attributes' => [
-                'class'  => 'btn btn-lg btn-primary btn-block'
+                'class'  => 'btn btn-lg btn-info btn-block'
             ]
         ]
     ]
