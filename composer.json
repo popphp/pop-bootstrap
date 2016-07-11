@@ -1,5 +1,5 @@
 {
-    "name": "popphp/pop-skeleton2",
+    "name": "popphp/pop-bootstrap",
     "description": "Alternate Pop Web Application Framework Skeleton",
     "license": "New BSD",
     "authors": [
@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": ">=7.0.0",
-        "popphp/popphp-framework": "2.1.*"
+        "popphp/popphp-framework": "3.0.*"
     },
     "autoload" : {
         "psr-4": {

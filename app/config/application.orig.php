@@ -5,7 +5,7 @@ return [
     'resources' => include 'resources.php',
     'forms'     => include 'forms.php',
     'services'  => [
-        'session'    => 'Pop\Web\Session::getInstance',
+        'session'    => 'Pop\Session\Session::getInstance',
         'acl'        => 'Pop\Acl\Acl',
         'database'   => [
             'call'   => 'Pop\Db\Db::connect',
