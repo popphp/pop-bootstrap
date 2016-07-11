@@ -2,7 +2,11 @@
 
     <div id="login-container">
         <h2><?=$title; ?></h2>
-<?=$form; ?>
+<?php if ($result): ?>
+        <p style="text-align: center;">Thank you. Your account has been verified.</p>
+<?php else: ?>
+        <p style="text-align: center;">Sorry, your account could not be verified at this time.</p>
+<?php endif; ?>
     </div> <!-- /container -->
 
 <?php include __DIR__ . '/footer.phtml'; ?>

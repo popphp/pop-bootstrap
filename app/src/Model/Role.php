@@ -4,7 +4,7 @@ namespace App\Model;
 
 use App\Table;
 
-class UserRole extends AbstractModel
+class Role extends AbstractModel
 {
 
     /**
@@ -17,22 +17,18 @@ class UserRole extends AbstractModel
      */
     public function getAll($limit = null, $page = null, $sort = null)
     {
-        $order = $this->getSortOrder($sort, $page);
+        $order   = $this->getSortOrder($sort, $page);
+        $options = ['order'  => $order];
 
         if (null !== $limit) {
             $page = ((null !== $page) && ((int)$page > 1)) ?
                 ($page * $limit) - $limit : null;
 
-            return Table\UserRoles::findAll([
-                'offset' => $page,
-                'limit'  => $limit,
-                'order'  => $order
-            ])->rows();
-        } else {
-            return Table\UserRoles::findAll([
-                'order'  => $order
-            ])->rows();
+            $options['offset'] = $page;
+            $options['limit']  = $limit;
         }
+        
+        return Table\Roles::findAll($options, Table\Roles::ROW_AS_OBJECT)->rows();
     }
 
     /**
@@ -43,7 +39,7 @@ class UserRole extends AbstractModel
      */
     public function getById($id)
     {
-        $role = Table\UserRoles::findById((int)$id);
+        $role = Table\Roles::findById((int)$id);
         if (isset($role->id)) {
             $data = $role->getColumns();
             $data['role_parent_id'] = $data['parent_id'];
@@ -59,7 +55,7 @@ class UserRole extends AbstractModel
      */
     public function save(array $post)
     {
-        $role = new Table\UserRoles([
+        $role = new Table\Roles([
             'parent_id'         => ($post['role_parent_id'] != '----') ? (int)$post['role_parent_id'] : null,
             'name'              => html_entity_decode($post['name'], ENT_QUOTES, 'UTF-8'),
             'permissions'       => serialize($this->getPermissions($post))
@@ -78,7 +74,7 @@ class UserRole extends AbstractModel
      */
     public function update(array $post, $sess = null)
     {
-        $role = Table\UserRoles::findById((int)$post['id']);
+        $role = Table\Roles::findById((int)$post['id']);
         if (isset($role->id)) {
             $role->parent_id         = ($post['role_parent_id'] != '----') ? (int)$post['role_parent_id'] : null;
             $role->name              = html_entity_decode($post['name'], ENT_QUOTES, 'UTF-8');
@@ -103,7 +99,7 @@ class UserRole extends AbstractModel
     {
         if (isset($post['rm_roles'])) {
             foreach ($post['rm_roles'] as $id) {
-                $role = Table\UserRoles::findById((int)$id);
+                $role = Table\Roles::findById((int)$id);
                 if (isset($role->id)) {
                     $role->delete();
                 }
@@ -119,7 +115,7 @@ class UserRole extends AbstractModel
      */
     public function hasPages($limit)
     {
-        return (Table\UserRoles::findAll()->count() > $limit);
+        return (Table\Roles::findAll()->count() > $limit);
     }
 
     /**
@@ -129,7 +125,7 @@ class UserRole extends AbstractModel
      */
     public function getCount()
     {
-        return Table\UserRoles::findAll()->count();
+        return Table\Roles::findAll()->count();
     }
 
     /**

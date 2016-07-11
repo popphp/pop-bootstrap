@@ -117,6 +117,11 @@ class IndexController extends AbstractController
     {
         $this->prepareView('verify.phtml');
         $this->view->title = 'Verify Your Email';
+
+        $user = new Model\User();
+        $this->view->result = $user->verify($id, $hash);
+        $this->view->id     = $user->id;
+
         $this->send();
     }
 

@@ -5,25 +5,25 @@
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_roles`
+-- Table structure for table `roles`
 --
 
-DROP TABLE IF EXISTS `user_roles`;
-CREATE TABLE IF NOT EXISTS `user_roles` (
+DROP TABLE IF EXISTS `roles`;
+CREATE TABLE IF NOT EXISTS `roles` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `parent_id` int(16),
   `name` varchar(255) NOT NULL,
   `permissions` text,
   PRIMARY KEY (`id`),
-  INDEX `user_role_name` (`name`),
-  CONSTRAINT `fk_role_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `user_roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+  INDEX `role_name` (`name`),
+  CONSTRAINT `fk_role_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2002 ;
 
 --
--- Dumping data for table `user_roles`
+-- Dumping data for table `roles`
 --
 
-INSERT INTO `user_roles` (`id`, `parent_id`, `name`, `permissions`) VALUES
+INSERT INTO `roles` (`id`, `parent_id`, `name`, `permissions`) VALUES
 (2001, NULL, 'Admin', NULL);
 
 -- --------------------------------------------------------
@@ -46,9 +46,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   `total_logins` int(16),
   `failed_attempts` int(16),
   PRIMARY KEY (`id`),
-  INDEX `user_role_id` (`role_id`),
+  INDEX `role_id` (`role_id`),
   INDEX `username` (`username`),
-  CONSTRAINT `fk_user_role` FOREIGN KEY (`role_id`) REFERENCES `user_roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_user_role` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1002 ;
 
 --

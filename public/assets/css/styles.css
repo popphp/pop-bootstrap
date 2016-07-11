@@ -70,6 +70,28 @@ h1, h2, h3, h4, h5, h6, div, p {
     width: 40%;
 }
 
+#sub-nav {
+    margin: 0;
+    padding: 0 0 10px 0;
+}
+
+#sub-nav > nav {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+
+#sub-nav > nav > a {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#sub-nav > nav > a:hover {
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: none;
+}
+
 #saved {
     position: absolute;
     z-index: 10000;
@@ -130,6 +152,62 @@ h1, h2, h3, h4, h5, h6, div, p {
         padding: 0;
         width: 80%;
     }
+}
+
+.table-responsive {
+    clear: both;
+}
+
+div.page-links {
+    float: right;
+    margin: 0 0 5px 0;
+    padding: 0;
+}
+
+div.page-links > form {
+    margin: 0;
+    padding: 0;
+    display: inline;
+}
+
+div.page-links > form > div {
+    margin: 0 4px 0 0;
+    padding: 0;
+    display: inline;
+}
+
+div.page-links > form > div > input {
+    margin: 0 0 0 4px;
+    padding: 3px;
+    width: 25px;
+    height: 20px;
+    color: #666;
+    text-align: center;
+    font-size: 0.9em;
+    background-color: #fff;
+    border: solid 1px #aaa;
+    border-radius: 4px;
+}
+
+div.page-links > a {
+    margin: 0 3px 0 3px;
+    padding: 0 5px 6px 5px;
+    width: 10px;
+    height: 17px;
+    display: inline-block;
+    font-size: 1.1em;
+    text-align: center;
+    text-decoration: none;
+    color: #666;
+    background-color: #ddd;
+    border-radius: 4px;
+    box-sizing: initial;
+}
+
+div.page-links > a:hover {
+    color: #fff;
+    background-color: #bbb;
+    text-decoration: none;
 }
 
 .edit-link {
@@ -197,8 +275,73 @@ h1, h2, h3, h4, h5, h6, div, p {
     font-weight: bold;
 }
 
+.table {
+    border-left: solid 1px #ddd;
+    border-right: solid 1px #ddd;
+    border-bottom: solid 1px #ddd;
+}
+
+.table-striped > tbody > tr:nth-child(odd) {
+    background: transparent;
+}
+
+.table-striped > tbody > tr:nth-child(even) {
+    background-color: #eee;
+}
+
 .table-hover > tbody > tr:hover {
     background-color: #eaf8fc;
+}
+
+.table > thead > tr > th {
+    background-color: #ddd;
+    vertical-align: middle;
+}
+
+.table > tbody > tr > td {
+    vertical-align: middle;
+}
+
+.dashboard-header {
+    margin: 10px 0 10px 0;
+    padding: 10px 0 10px 0;
+}
+
+.dashboard-header:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f0e4";
+    margin: 0;
+    padding: 0 8px 0 0;
+    color: #b4b5b4;
+}
+
+.users-header {
+    margin: 10px 0 10px 0;
+    padding: 10px 0 10px 0;
+}
+
+.users-header:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f0c0";
+    margin: 0;
+    padding: 0 8px 0 0;
+    color: #b4b5b4;
+}
+
+.roles-header {
+    margin: 10px 0 10px 0;
+    padding: 10px 0 10px 0;
+}
+
+.roles-header:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f023";
+    margin: 0;
+    padding: 0 8px 0 0;
+    color: #b4b5b4;
 }
 
 /**

@@ -17,5 +17,6 @@ return [
         'acl'     => 'Pop\Acl\Acl'
     ],
     'application_title' => 'My Application',
-    'force_ssl'         => false
+    'force_ssl'         => false,
+    'pagination'        => 25
 ];

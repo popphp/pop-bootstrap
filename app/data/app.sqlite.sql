@@ -14,11 +14,11 @@ PRAGMA foreign_keys = ON;
 -- --------------------------------------------------------
 
 --
--- Table structure for table "user_roles"
+-- Table structure for table "roles"
 --
 
-DROP TABLE IF EXISTS "user_roles";
-CREATE TABLE IF NOT EXISTS "user_roles" (
+DROP TABLE IF EXISTS "roles";
+CREATE TABLE IF NOT EXISTS "roles" (
   "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
   "parent_id" integer,
   "name" varchar NOT NULL,
@@ -26,17 +26,17 @@ CREATE TABLE IF NOT EXISTS "user_roles" (
   "approval" integer,
   "permissions" text,
   UNIQUE ("id"),
-  CONSTRAINT "fk_role_parent_id" FOREIGN KEY ("parent_id") REFERENCES "user_roles" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT "fk_role_parent_id" FOREIGN KEY ("parent_id") REFERENCES "roles" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 ) ;
 
-INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('user_roles', 2000);
-CREATE INDEX "user_role_name" ON "user_roles" ("name");
+INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('roles', 2000);
+CREATE INDEX "role_name" ON "roles" ("name");
 
 --
 -- Dumping data for table "roles"
 --
 
-INSERT INTO "user_roles" ("id", "parent_id", "name", "verification", "approval", "permissions") VALUES
+INSERT INTO "roles" ("id", "parent_id", "name", "verification", "approval", "permissions") VALUES
 (2001, NULL, 'Admin', 1, 1, NULL);
 
 -- --------------------------------------------------------
@@ -59,11 +59,11 @@ CREATE TABLE IF NOT EXISTS "users" (
   "total_logins" integer,
   "failed_attempts" integer,
   UNIQUE ("id"),
-  CONSTRAINT "fk_user_role" FOREIGN KEY ("role_id") REFERENCES "user_roles" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT "fk_user_role" FOREIGN KEY ("role_id") REFERENCES "roles" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
 
 INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('users', 1000);
-CREATE INDEX "user_role_id" ON "users" ("role_id");
+CREATE INDEX "role_id" ON "users" ("role_id");
 CREATE INDEX "username" ON "users" ("username");
 
 --

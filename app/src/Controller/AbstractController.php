@@ -195,6 +195,29 @@ class AbstractController extends \Pop\Controller\AbstractController
     }
 
     /**
+     * Get query string
+     *
+     * @param  mixed  $omit
+     * @return string
+     */
+    public function getQueryString($omit = null)
+    {
+        if ((null !== $omit) && !is_array($omit)) {
+            $omit = [$omit];
+        }
+
+        $get   = $this->request->getQuery();
+        $query = [];
+        foreach ($get as $key => $value) {
+            if (!isset($query[$key]) && !in_array($key, $omit)) {
+                $query[$key] = $value;
+            }
+        }
+
+        return (count($query) > 0) ? http_build_query($query) : '';
+    }
+    
+    /**
      * Prepare view
      *
      * @param  string $template
@@ -209,11 +232,13 @@ class AbstractController extends \Pop\Controller\AbstractController
         if (isset($this->sess->saved)) {
             $this->view->saved = true;
         }
+
         if (isset($this->sess->removed)) {
             $this->view->removed = true;
         }
         
         if (isset($this->sess->user)) {
+            $this->view->acl  = $this->services['acl'];
             $this->view->user = $this->sess->user;
         }
     }
