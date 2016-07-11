@@ -16,5 +16,6 @@ return [
         'session' => 'Pop\Session\Session::getInstance',
         'acl'     => 'Pop\Acl\Acl'
     ],
-    'application_title' => 'My Application'
+    'application_title' => 'My Application',
+    'force_ssl'         => false
 ];

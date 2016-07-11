@@ -12,7 +12,7 @@ return [
         ],
         'password1' => [
             'type'       => 'password',
-            'label'      => 'Password',
+            'label'      => 'Change Password?',
             'validators' => new \Pop\Validator\LengthGte(6),
             'attributes' => [
                 'class' => 'form-control'

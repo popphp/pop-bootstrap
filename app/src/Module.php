@@ -62,7 +62,8 @@ class Module extends \Pop\Module\Module
             $this->application->mergeConfig(['resources' => $this->config['resources']]);
         }
 
-        $this->application->on('app.dispatch.pre', 'App\Event\Session::check', 1000);
+        $this->application->on('app.route.pre', 'App\Event\Ssl::check', 1000)
+             ->on('app.dispatch.pre', 'App\Event\Session::check', 1000);
     }
 
     public function error(\Exception $exception)

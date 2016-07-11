@@ -25,7 +25,7 @@ class AbstractController extends \Pop\Controller\AbstractController
 
     /**
      * Session object
-     * @var \Pop\Web\Session
+     * @var \Pop\Session\Session
      */
     protected $sess = null;
 
@@ -206,6 +206,13 @@ class AbstractController extends \Pop\Controller\AbstractController
 
         $this->view->application_title = $this->application->config()['application_title'];
 
+        if (isset($this->sess->saved)) {
+            $this->view->saved = true;
+        }
+        if (isset($this->sess->removed)) {
+            $this->view->removed = true;
+        }
+        
         if (isset($this->sess->user)) {
             $this->view->user = $this->sess->user;
         }

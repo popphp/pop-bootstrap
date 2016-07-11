@@ -2,6 +2,8 @@
     <footer class="footer">
         <div class="text-muted">&copy; <?=date('Y'); ?> <?=$application_title; ?>. All Rights Reserved.</div>
     </footer>
+    <div id="saved"<?=(isset($saved) ? ' data-saved="1"' : null); ?>>Saved</div>
+    <div id="removed"<?=(isset($removed) ? ' data-removed="1"' : null); ?>>Removed</div>
 <script src="//code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 <script src="/assets/js/scripts.js"></script>

@@ -13,7 +13,7 @@ class Profile extends Form
     {
         parent::__construct($fields, $action, $method);
         $this->setAttribute('id', 'profile-form');
-        $this->setAttribute('class', 'form-signin');
+        //$this->setAttribute('class', 'form-signin');
         $this->setIndent('    ');
     }
 
