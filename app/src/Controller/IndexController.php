@@ -15,7 +15,7 @@ class IndexController extends AbstractController
      */
     public function index()
     {
-        $this->prepareView('index-sidenav.phtml');
+        $this->prepareView('index.phtml');
         $this->view->title = 'Dashboard';
         $this->send();
     }
