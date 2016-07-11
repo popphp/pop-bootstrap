@@ -11,9 +11,9 @@ Installation
 $ composer create-project popphp/pop-bootstrap project-folder
 ```
 
-1. Copy `app/config/application.orig.php` to `app/config/application.php`
-2. Fill in the database information in that file
-3. Install the appropriate database SQL file located in `app/data`
+1. Install the appropriate database SQL file located in `app/data`
+2. Copy `app/config/application.orig.php` to `app/config/application.php`
+3. Fill in the database information in that file
 
 Get Started
 ===========
@@ -25,7 +25,7 @@ $ sudo php -S localhost:8000 -t public
 ```
 
 Visit `http://localhost:8000` and you'll be redirected to a login
-screen. The initial credentials are:
+screen. The default credentials are:
 
 * Username: `admin`
 * Password: `password`
