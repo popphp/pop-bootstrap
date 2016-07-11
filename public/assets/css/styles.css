@@ -60,6 +60,66 @@ h1, h2, h3, h4, h5, h6, div, p {
     font-size: 0.825em;
 }
 
+.edit-link {
+    margin: 0 auto;
+    padding: 0;
+    display: block;
+    overflow: hidden;
+    width: 19px;
+    height: 21px;
+    background-image: url(../img/edit.svg);
+    text-indent: -1000px;
+    background-size: 19px 21px;
+}
+
+.copy-link {
+    margin: 0 auto;
+    padding: 0;
+    display: block;
+    overflow: hidden;
+    width: 19px;
+    height: 21px;
+    background-image: url(../img/copy.svg);
+    text-indent: -1000px;
+    background-size: 19px 21px;
+}
+
+.download-link {
+    margin: 0 auto;
+    padding: 0;
+    display: block;
+    overflow: hidden;
+    width: 19px;
+    height: 21px;
+    background-image: url(../img/download.svg);
+    text-indent: -1000px;
+    background-size: 19px 21px;
+}
+
+.view-link {
+    margin: 0 auto;
+    padding: 0;
+    display: block;
+    overflow: hidden;
+    width: 19px;
+    height: 21px;
+    background-image: url(../img/view.svg);
+    text-indent: -1000px;
+    background-size: 19px 21px;
+}
+
+.zoom-link {
+    margin: 0 auto;
+    padding: 0;
+    display: block;
+    overflow: hidden;
+    width: 19px;
+    height: 21px;
+    background-image: url(../img/zoom.svg);
+    text-indent: -1000px;
+    background-size: 19px 21px;
+}
+
 .error {
     color: #f00;
     font-weight: bold;
