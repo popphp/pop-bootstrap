@@ -25,6 +25,31 @@ class Module extends \Pop\Module\Module
             );
         }
 
+        if (!empty($this->application->config()['database']) && !empty($this->application->config()['database']['adapter'])) {
+            $adapter = $this->application->config()['database']['adapter'];
+            $options = [
+                'database' => $this->application->config()['database']['database'],
+                'username' => $this->application->config()['database']['username'],
+                'password' => $this->application->config()['database']['password'],
+                'host'     => $this->application->config()['database']['host'],
+                'type'     => $this->application->config()['database']['type']
+            ];
+            
+            $check = \Pop\Db\Db::check($adapter, $options);
+            
+            if (null !== $check) {
+                throw new Exception('DB ' . $check);
+            }
+            
+            $this->application->services()->set('database', [
+                'call'   => 'Pop\Db\Db::connect',
+                'params' => [
+                    'adapter' => $adapter,
+                    'options' => $options
+                ]
+            ]);
+        }
+
         if ($this->application->services()->isAvailable('database')) {
             Record::setDb($this->application->getService('database'));
         }
