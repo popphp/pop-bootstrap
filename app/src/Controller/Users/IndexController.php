@@ -18,29 +18,43 @@ class IndexController extends AbstractController
      */
     public function index($rid = null)
     {
-        $this->prepareView('users/index.phtml');
+        if ((null === $rid) || ($this->services['acl']->isAllowed($this->sess->user->role, 'users-of-role-' . $rid, 'index'))) {
+            $deniedRoles = [];
+            $resources   = $this->services['acl']->getResources();
+            foreach ($resources as $name => $resource) {
+                if (!$this->services['acl']->isAllowed($this->sess->user->role, $name, 'index')) {
+                    $deniedRoles[] = (int)substr($name, strrpos($name, '-') + 1);
+                }
+            }
 
-        $user = new Model\User();
+            $user = new Model\User();
 
-        if ($user->hasPages($this->application->config()['pagination'], $rid)) {
-            $limit = $this->application->config()['pagination'];
-            $pages = new Paginator($user->getCount($rid), $limit);
-            $pages->useInput(true);
+            $searchUsername = $this->request->getQuery('search_username');
+
+            if ($user->hasPages($this->application->config()['pagination'], $rid, $searchUsername, $deniedRoles)) {
+                $limit = $this->application->config()['pagination'];
+                $pages = new Paginator($user->getCount($rid, $searchUsername, $deniedRoles), $limit);
+                $pages->useInput(true);
+            } else {
+                $limit = null;
+                $pages = null;
+            }
+
+            $this->prepareView('users/index.phtml');
+            $this->view->title          = 'Users';
+            $this->view->pages          = $pages;
+            $this->view->roleId         = $rid;
+            $this->view->queryString    = $this->getQueryString('sort');
+            $this->view->searchUsername = $searchUsername;
+            $this->view->users          = $user->getAll(
+                $rid, $searchUsername, $deniedRoles, $limit,
+                $this->request->getQuery('page'), $this->request->getQuery('sort')
+            );
+            $this->view->roles = $user->getRoles();
+            $this->send();
         } else {
-            $limit = null;
-            $pages = null;
+            $this->redirect('/users');
         }
-        
-        $this->view->title       = 'Users';
-        $this->view->roleId      = $rid;
-        $this->view->pages       = $pages;
-        $this->view->queryString = $this->getQueryString('sort');
-        $this->view->roles       = $user->getRoles();
-        $this->view->users       = $user->getAll(
-            $rid, $limit, $this->request->getQuery('page'), $this->request->getQuery('sort')
-        );
-
-        $this->send();
     }
 
     /**

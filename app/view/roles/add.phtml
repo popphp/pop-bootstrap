@@ -3,7 +3,9 @@
 <div class="container-fluid">
     <h1 class="roles-header"><?=$title; ?></span></h1>
     <nav id="sub-nav">
+<?php if ($acl->isAllowed($user->role, 'roles', 'add')): ?>
         <nav><a class="btn-sm btn-info" href="/roles/add">+ Add</a></nav>
+<?php endif; ?>
         <nav><a class="btn-sm btn-info" href="/roles">Back</a></nav>
     </nav>
 <?=$form; ?>

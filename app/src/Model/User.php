@@ -13,30 +13,73 @@ class User extends AbstractModel
     /**
      * Get all users
      *
-     * @param  int    $rid
+     * @param  int    $roleId
+     * @param  string $username
+     * @param  array  $deniedRoles
      * @param  int    $limit
      * @param  int    $page
      * @param  string $sort
      * @return array
      */
-    public function getAll($rid = null, $limit = null, $page = null, $sort = null)
+    public function getAll($roleId = null, $username = null, array $deniedRoles = null, $limit = null, $page = null, $sort = null)
     {
-        $order   = $this->getSortOrder($sort, $page);
-        $options = ['order'  => $order];
+
+        $sql        = Table\Users::sql();
+        $usersTable = $sql->getTable();
+        $rolesTable = Table\Roles::sql()->getTable();
+
+        $sql->select([
+            'id'           => $usersTable . '.id',
+            'user_role_id' => $usersTable . '.role_id',
+            'username'     => $usersTable . '.username',
+            'email'        => $usersTable . '.email',
+            'active'       => $usersTable . '.active',
+            'verified'     => $usersTable . '.verified',
+            'role_id'      => $rolesTable . '.id',
+            'role_name'    => $rolesTable . '.name'
+        ])->join($rolesTable, [$usersTable . '.role_id' => $rolesTable . '.id']);
 
         if (null !== $limit) {
             $page = ((null !== $page) && ((int)$page > 1)) ?
                 ($page * $limit) - $limit : null;
 
-            $options['offset'] = $page;
-            $options['limit']  = $limit;
+            $sql->select()->offset($page)->limit($limit);
+        }
+        $params = [];
+        $order  = $this->getSortOrder($sort, $page);
+        $by     = explode(' ', $order);
+        $sql->select()->orderBy($by[0], $by[1]);
+
+        if (null !== $username) {
+            $sql->select()->where('username LIKE :username');
+            $params['username'] = $username . '%';
         }
 
-        if (null !== $rid) {
-            return Table\Users::findBy(['role_id' => $rid], $options, Table\Roles::ROW_AS_OBJECT)->rows();
-        } else {
-            return Table\Users::findAll($options, Table\Roles::ROW_AS_OBJECT)->rows();
+        if (is_array($deniedRoles) && (count($deniedRoles) > 0)) {
+            foreach ($deniedRoles as $key => $denied) {
+                $sql->select()->where('role_id != :role_id' . ($key + 1));
+                $params['role_id' . ($key + 1)] = $denied;
+            }
         }
+
+        if (null !== $roleId) {
+            if ($roleId == 0) {
+                $sql->select()->where($usersTable . '.role_id IS NULL');
+                $rows = (count($params) > 0) ?
+                    Table\Users::execute((string)$sql, $params, Table\Users::ROW_AS_OBJECT)->rows() :
+                    Table\Users::query((string)$sql, Table\Users::ROW_AS_OBJECT)->rows();
+            } else {
+                $sql->select()->where($usersTable . '.role_id = :role_id');
+                $params['role_id'] = $roleId;
+                $rows = Table\Users::execute((string)$sql, $params, Table\Users::ROW_AS_OBJECT)->rows();
+            }
+        } else {
+            $rows = (count($params) > 0) ?
+                Table\Users::execute((string)$sql, $params, Table\Users::ROW_AS_OBJECT)->rows() :
+                Table\Users::query((string)$sql, Table\Users::ROW_AS_OBJECT)->rows();
+        }
+
+        return $rows;
     }
 
     /**
@@ -217,9 +260,12 @@ class User extends AbstractModel
         $user->total_logins++;
         $user->save();
 
+        $role = Table\Roles::findById($user->role_id);
+
         $sess->user = new \ArrayObject([
             'id'           => $user->id,
             'role_id'      => $user->role_id,
+            'role'         => $role->name,
             'username'     => $user->username,
             'email'        => $user->email,
             'last_ip'      => $user->last_ip,
@@ -300,19 +346,19 @@ class User extends AbstractModel
      *
      * @param  int    $limit
      * @param  int    $roleId
-     * @param  array  $search
+     * @param  string $username
      * @param  array  $deniedRoles
      * @return boolean
      */
-    public function hasPages($limit, $roleId = null, array $search = null, array $deniedRoles = [])
+    public function hasPages($limit, $roleId = null, $username = null, array $deniedRoles = [])
     {
         $params = [];
         $sql    = Table\Users::sql();
         $sql->select();
 
-        if (null !== $search) {
-            $sql->select()->where($search['by'] . ' LIKE :' . $search['by']);
-            $params[$search['by']] = $search['for'] . '%';
+        if (null !== $username) {
+            $sql->select()->where('username LIKE :username');
+            $params['username'] = $username . '%';
         }
 
         if (null !== $roleId) {
@@ -338,19 +384,19 @@ class User extends AbstractModel
      * Get count of users
      *
      * @param  int    $roleId
-     * @param  array  $search
+     * @param  string $username
      * @param  array  $deniedRoles
      * @return int
      */
-    public function getCount($roleId = null, array $search = null, array $deniedRoles = [])
+    public function getCount($roleId = null, $username = null, array $deniedRoles = [])
     {
         $params = [];
         $sql    = Table\Users::sql();
         $sql->select();
 
-        if (null !== $search) {
-            $sql->select()->where($search['by'] . ' LIKE :' . $search['by']);
-            $params[$search['by']] = $search['for'] . '%';
+        if (null !== $username) {
+            $sql->select()->where('username LIKE :username');
+            $params['username'] = $username . '%';
         }
 
         if (null !== $roleId) {

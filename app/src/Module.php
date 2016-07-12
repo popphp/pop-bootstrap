@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\Table;
+use Pop\Acl\Resource\Resource;
+use Pop\Acl\Role\Role;
 use Pop\Application;
 use Pop\Db\Record;
 use Pop\Http\Request;
@@ -64,7 +67,75 @@ class Module extends \Pop\Module\Module
 
         $this->application->on('app.route.pre', 'App\Event\Ssl::check', 1000)
              ->on('app.dispatch.pre', 'App\Event\Session::check', 1000);
+
+        $this->initAcl();
     }
+
+    public function initAcl()
+    {
+        $roles = Table\Roles::findAll()->rows();
+        $resources = $this->application->config()['resources'];
+        foreach ($roles as $role) {
+            $roleName = str_replace(' ', '-', strtolower(str_replace(' ', '-', $role->name)));
+            $resources['role-' . $role->id . '|role-' . $roleName] = [
+                'edit', 'remove'
+            ];
+            $resources['users-of-role-' . $role->id . '|users-of-role-' . $roleName] = [
+                'index', 'add', 'edit', 'remove'
+            ];
+        }
+
+        $this->application->mergeConfig(['resources' => $resources]);
+
+        foreach ($this->application->config()['resources'] as $resource => $permissions) {
+            if (strpos($resource, '|') !== false) {
+                $resource = substr($resource, 0, strpos($resource, '|'));
+            }
+            $this->application->getService('acl')->addResource(new Resource($resource));
+        }
+
+        $allRoles  = [];
+
+        foreach ($roles as $role) {
+            $r = new Role($role->name);
+            $allRoles[$role->id] = $r;
+            $this->application->getService('acl')->addRole($r);
+
+            if (null !== $role->permissions) {
+                $role->permissions = unserialize($role->permissions);
+            }
+            if ((null === $role->permissions) || (is_array($role->permissions) && (count($role->permissions) == 0))) {
+                $this->application->getService('acl')->allow($role->name);
+            } else {
+                if (count($role->permissions['allow']) > 0) {
+                    foreach ($role->permissions['allow'] as $allow) {
+                        $this->application->getService('acl')->allow($role->name, $allow['resource'], $allow['permission']);
+                    }
+                } else {
+                    $this->application->getService('acl')->allow($role->name);
+                }
+                if (count($role->permissions['deny']) > 0) {
+                    foreach ($role->permissions['deny'] as $deny) {
+                        $this->application->getService('acl')->deny($role->name, $deny['resource'], $deny['permission']);
+                    }
+                }
+            }
+        }
+
+        // Set up parent/child roles
+        foreach ($allRoles as $id => $child) {
+            $r = Table\Roles::findById($id);
+            if (isset($r->id) && (null !== $r->parent_id) && isset($allRoles[$r->parent_id])) {
+                $child->setParent($allRoles[$r->parent_id]);
+            }
+        }
+
+        // Set the acl in the main nav object
+        //$this->application->getService('nav.phire')->setAcl($this->application->getService('acl'));
+
+        return $this;
+    }
+
 
     public function error(\Exception $exception)
     {
