@@ -90,6 +90,11 @@ $(document).ready(function(){
             }
         });
     }
+    if ($('#roles-form')[0] != undefined) {
+        $('#roles-form').submit(function(){
+            return confirm('This action cannot be undone. Are you sure?');
+        });
+    }
     if ($('#permission-add-link')[0] != undefined) {
         var resources = $('select[id^="resource_"]');
         for (var i = 0; i < resources.length; i++) {
