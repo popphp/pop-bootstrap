@@ -11,7 +11,7 @@ The command below will install all of the necessary components and
 take you through the installation steps automatically:
 
 ```console
-$ composer create-project --dev popphp/pop-bootstrap project-folder
+$ composer create-project popphp/pop-bootstrap project-folder
 ```
 
 Get Started
