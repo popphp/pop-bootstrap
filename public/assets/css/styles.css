@@ -97,26 +97,23 @@ h1, h2, h3, h4, h5, h6, div, p {
 #saved {
     position: absolute;
     z-index: 10000;
-    right: 30px;
+    right: 15px;
     top: 80px;
     display: none;
     margin: 0;
     padding: 8px 15px 8px 15px;
     font-weight: bold;
-    text-align: left;
-    width: 125px;
-    color: #315900;
-    background-color: #dbf2bf;
-    border-radius: 4px;
-    box-shadow: 0 0 10px 3px #b8c9a1;
+    text-align: right;
+    width: 20%;
+
 }
 
-#saved:before {
+#saved:after {
     font-family: "FontAwesome";
     font-weight: normal;
     content: "\f00c";
     margin: 0;
-    padding: 0 5px 0 0;
+    padding: 0 0 0 5px;
     color: #5f8700;
     font-size: 1.1em;
 }
@@ -124,26 +121,22 @@ h1, h2, h3, h4, h5, h6, div, p {
 #removed {
     position: absolute;
     z-index: 10000;
-    right: 30px;
+    right: 15px;
     top: 80px;
     display: none;
     margin: 0;
     padding: 8px 15px 8px 15px;
     font-weight: bold;
-    text-align: left;
-    width: 125px;
-    color: #8e0202;
-    background-color: #e8d0d0;
-    border-radius: 4px;
-    box-shadow: 0 0 10px 3px #bfa4a4;
+    text-align: right;
+    width: 20%;
 }
 
-#removed:before {
+#removed:after {
     font-family: "FontAwesome";
     font-weight: normal;
     content: "\f00d";
     margin: 0;
-    padding: 0 5px 0 0;
+    padding: 0 0 0 5px;
     color: #9c0000;
     font-size: 1.1em;
 }
@@ -169,6 +162,26 @@ h1, h2, h3, h4, h5, h6, div, p {
     margin: 2px 15px 0 10px;
 }
 
+.navbar-nav > li > a.profile-link {
+    font-weight: bold;
+    color: #ED7E00;
+    font-size: 0.9em;
+}
+
+.navbar-nav > li > a.logout-link {
+    font-size: 0.9em;
+}
+
+.navbar-nav > li > a.logout-link:after {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f08b";
+    margin: 0;
+    padding: 0 0 0 5px;
+    color: #fff;
+    font-size: 1.1em;
+}
+
 .data-form {
     margin: 10px auto 10px auto;
     padding: 15px 0 15px 0;
@@ -191,7 +204,7 @@ h1, h2, h3, h4, h5, h6, div, p {
 }
 
 .data-form > dl:first-child > dt {
-    margin: 0 0 5px 0;
+    margin: 0 0 10px 0;
     border-bottom: dotted 1px #aaa;
 }
 
@@ -200,7 +213,7 @@ h1, h2, h3, h4, h5, h6, div, p {
 }
 
 .data-form > dl:nth-child(2), .data-form > dl:nth-child(3),
-.data-form > dl:nth-child(4), .data-form > dl:nth-child(5){
+.data-form > dl:nth-child(4), .data-form > dl:nth-child(5) {
     margin: 0;
     padding: 0;
     width: calc(100% - 260px);
@@ -210,6 +223,23 @@ h1, h2, h3, h4, h5, h6, div, p {
 .data-form > dl:nth-child(2) > dd, .data-form > dl:nth-child(3) > dd,
 .data-form > dl:nth-child(4) > dd, .data-form > dl:nth-child(5) > dd {
     height: 60px;
+}
+
+#role-form-field-group-3 {
+    padding-top: 20px;
+    border-top: solid 1px #dcdcdc;
+}
+
+#role-form-field-group-3 > dd {
+    width: 200px;
+    display: inline-block;
+}
+
+#role-form-field-group-3 > dd > select {
+    margin: 0 5px 5px 0;
+    width: 180px;
+    display: block;
+    font-size: 0.9em;
 }
 
 @media (max-width: 750px) {

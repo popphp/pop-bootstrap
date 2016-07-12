@@ -81,6 +81,10 @@ return [
             'permission' => 'edit'
         ]
     ],
+    '/roles/json/:id' => [
+        'controller' => 'App\Controller\Roles\IndexController',
+        'action'     => 'json'
+    ],
     '/roles/remove' => [
         'controller' => 'App\Controller\Roles\IndexController',
         'action'     => 'remove',

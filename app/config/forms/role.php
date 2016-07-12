@@ -36,11 +36,8 @@ return [
     [
         'resource_1' => [
             'type'       => 'select',
-            'label'      => '<a href="#" onclick="return phire.addResource();">[+]</a> Resources, Actions &amp; Permissions',
-            'value'      => null,
-            'attributes' => [
-                'onchange' => 'phire.changeActions(this);'
-            ]
+            'label'      => '<a href="#" id="permission-add-link">[+]</a> Resources, Actions &amp; Permissions',
+            'value'      => null
         ],
         'action_1' => [
             'type'       => 'select',

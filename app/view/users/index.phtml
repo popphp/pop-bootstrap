@@ -32,7 +32,7 @@
                     <td><?=($u->active) ? 'Yes' : 'No'; ?></td>
                     <td><?=($u->verified) ? 'Yes' : 'No'; ?></td>
                     <td class="text-center"><a class="edit-link" href="/users/edit/<?=$u->id; ?>">Edit</a></td>
-                    <td class="text-center"><input type="checkbox" name="process_users[]" value="<?=$u->id; ?>" /></td>
+                    <td class="text-center"><?php if ($user->id != $u->id): ?><input type="checkbox" name="process_users[]" value="<?=$u->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
                 </tr>
 <?php endforeach; ?>
                 </tbody>

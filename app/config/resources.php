@@ -16,11 +16,7 @@ return [
         'index',
         'add',
         'edit',
+        'json',
         'remove'
-    ],
-    'sessions' => [
-        'index',
-        'logins',
-        'remove'
-    ],
+    ]
 ];
