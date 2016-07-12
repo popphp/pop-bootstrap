@@ -7,22 +7,12 @@ using Bootstrap and Font Awesome frameworks.
 Installation
 ============ 
 
-#### Installation via Composer
-
 The command below will install all of the necessary components and
 take you through the installation steps automatically:
 
 ```console
 $ composer create-project --dev popphp/pop-bootstrap project-folder
 ```
-
-#### Manual Installation
-
-If you prefer to install it manually, you can follow the steps below:
-
-1. Install the appropriate database SQL file located in `app/data`
-2. Copy `app/config/application.orig.php` to `app/config/application.php`
-3. Fill in the database information in that file
 
 Get Started
 ===========

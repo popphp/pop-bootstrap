@@ -25,19 +25,17 @@ class User extends AbstractModel
     {
 
         $sql        = Table\Users::sql();
-        $usersTable = $sql->getTable();
-        $rolesTable = Table\Roles::sql()->getTable();
 
         $sql->select([
-            'id'           => $usersTable . '.id',
-            'user_role_id' => $usersTable . '.role_id',
-            'username'     => $usersTable . '.username',
-            'email'        => $usersTable . '.email',
-            'active'       => $usersTable . '.active',
-            'verified'     => $usersTable . '.verified',
-            'role_id'      => $rolesTable . '.id',
-            'role_name'    => $rolesTable . '.name'
-        ])->join($rolesTable, [$usersTable . '.role_id' => $rolesTable . '.id']);
+            'id'           => DB_PREFIX . 'users.id',
+            'user_role_id' => DB_PREFIX . 'users.role_id',
+            'username'     => DB_PREFIX . 'users.username',
+            'email'        => DB_PREFIX . 'users.email',
+            'active'       => DB_PREFIX . 'users.active',
+            'verified'     => DB_PREFIX . 'users.verified',
+            'role_id'      => DB_PREFIX . 'roles.id',
+            'role_name'    => DB_PREFIX . 'roles.name'
+        ])->join(DB_PREFIX . 'roles', [DB_PREFIX . 'users.role_id' => DB_PREFIX . 'roles.id']);
 
         if (null !== $limit) {
             $page = ((null !== $page) && ((int)$page > 1)) ?
@@ -64,12 +62,12 @@ class User extends AbstractModel
 
         if (null !== $roleId) {
             if ($roleId == 0) {
-                $sql->select()->where($usersTable . '.role_id IS NULL');
+                $sql->select()->where(DB_PREFIX . 'users.role_id IS NULL');
                 $rows = (count($params) > 0) ?
                     Table\Users::execute((string)$sql, $params, Table\Users::ROW_AS_OBJECT)->rows() :
                     Table\Users::query((string)$sql, Table\Users::ROW_AS_OBJECT)->rows();
             } else {
-                $sql->select()->where($usersTable . '.role_id = :role_id');
+                $sql->select()->where(DB_PREFIX . 'users.role_id = :role_id');
                 $params['role_id'] = $roleId;
                 $rows = Table\Users::execute((string)$sql, $params, Table\Users::ROW_AS_OBJECT)->rows();
             }
