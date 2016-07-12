@@ -88,13 +88,13 @@ class Composer
                         $dbHost = 'localhost';
                     }
 
-                    $dbCheck = Db::check([
+                    $dbCheck = Db::check($dbInterface, [
                         'database' => $dbName,
                         'username' => $dbUser,
                         'password' => $dbPass,
                         'host'     => $dbHost,
                         'type'     => $dbType,
-                    ], $dbInterface);
+                    ]);
 
                     if (null !== $dbCheck) {
                         $console->write();
@@ -115,8 +115,8 @@ class Composer
 
             // Install database
             $sql = (stripos($dbInterface, 'pdo') !== false) ?
-                __DIR__ . '/../data/phire.' . strtolower($dbType) . '.sql' :
-                __DIR__ . '/../data/phire.' . strtolower($dbInterface) . '.sql';
+                __DIR__ . '/../data/pop.' . strtolower($dbType) . '.sql' :
+                __DIR__ . '/../data/pop.' . strtolower($dbInterface) . '.sql';
 
             if ($dbPrefix == '') {
                 $dbPrefix = 'pop_';
@@ -145,11 +145,11 @@ class Composer
                 [
                     "define('DB_PREFIX', '" . $dbPrefix . "');",
                     "'adapter'  => '" . strtolower($dbInterface) . "',",
-                    "'database' => ' . $realDbName . ',",
+                    "'database' => " . $realDbName . ",",
                     "'username' => '" . $dbUser . "',",
                     "'password' => '" . $dbPass . "',",
                     "'host'     => '" . $dbHost . "',",
-                    "'type'     => '" . strtolower($dbInterface) . "'"
+                    "'type'     => '" . $dbType . "'"
                 ], file_get_contents(__DIR__ . '/../../app/config/application.orig.php')
             );
 
