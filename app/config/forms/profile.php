@@ -41,7 +41,7 @@ return [
             'type'  => 'submit',
             'value' => 'Save',
             'attributes' => [
-                'class'  => 'btn btn-lg btn-info btn-block'
+                'class'  => 'btn btn-lg btn-info btn-block text-uppercase'
             ]
         ],
         'id' => [

@@ -26,7 +26,7 @@ return [
             'type'  => 'submit',
             'value' => 'Login',
             'attributes' => [
-                'class'  => 'btn btn-lg btn-info btn-block'
+                'class'  => 'btn btn-lg btn-info btn-block text-uppercase'
             ]
         ]
     ]
