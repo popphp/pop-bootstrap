@@ -8,7 +8,7 @@ Installation
 ============
 
 ```console
-$ composer create-project popphp/pop-bootstrap project-folder
+$ composer create-project --dev popphp/pop-bootstrap project-folder
 ```
 
 1. Install the appropriate database SQL file located in `app/data`
