@@ -1,11 +1,6 @@
 <?php
 
 return [
-    'dashboard' => [
-        'main',
-        'side',
-        'system'
-    ],
     'users' => [
         'index',
         'add',
