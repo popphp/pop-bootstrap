@@ -118,49 +118,54 @@ class IndexController extends AbstractController
             $this->redirect('/users');
         }
 
-        $this->prepareView('users/edit.phtml');
-        $this->view->title    = 'Edit User';
-        $this->view->username = $user->username;
+        if ($this->services['acl']->isAllowed($this->sess->user->role, 'users-of-role-' . $user->role_id, 'edit')) {
+            $this->prepareView('users/edit.phtml');
+            $this->view->title    = 'Edit User';
+            $this->view->username = $user->username;
 
-        $role       = new Model\Role();
-        $roles      = $role->getAll();
-        $roleValues = [];
-        foreach ($roles as $r) {
-            $roleValues[$r->id] = $r->name;
-        }
-
-        $fields = $this->application->config()['forms']['App\Form\User'];
-
-        $fields[1]['password1']['required'] = false;
-        $fields[1]['password2']['required'] = false;
-        $fields[0]['role_id']['type']       = 'select';
-        $fields[0]['role_id']['label']      = 'Role';
-        $fields[0]['role_id']['value']      = $roleValues;
-        $fields[0]['role_id']['marked']     = $user->role_id;
-
-        $this->view->form = new Form\User($fields);
-        $this->view->form->addFilter('strip_tags', null, 'textarea')
-             ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
-             ->setFieldValues($user->toArray());
-
-        if ($this->request->isPost()) {
-            $this->view->form->addFilter('strip_tags', null, 'textarea')
-                 ->setFieldValues($this->request->getPost());
-
-            if ($this->view->form->isValid()) {
-                $this->view->form->clearFilters()
-                    ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
-                    ->filter();
-                $user = new Model\User();
-                $user->update($this->view->form->getFields(), $this->application->config()['application_title'], $this->sess);
-
-                $this->view->id = $user->id;
-                $this->sess->setRequestValue('saved', true);
-                $this->redirect('/users/edit/' . $user->id);
+            $role       = new Model\Role();
+            $roles      = $role->getAll();
+            $roleValues = [];
+            foreach ($roles as $r) {
+                $roleValues[$r->id] = $r->name;
             }
+
+            $fields = $this->application->config()['forms']['App\Form\User'];
+
+            $fields[1]['password1']['required'] = false;
+            $fields[1]['password2']['required'] = false;
+            $fields[0]['role_id']['type']       = 'select';
+            $fields[0]['role_id']['label']      = 'Role';
+            $fields[0]['role_id']['value']      = $roleValues;
+            $fields[0]['role_id']['marked']     = $user->role_id;
+
+            $this->view->form = new Form\User($fields);
+            $this->view->form->addFilter('strip_tags', null, 'textarea')
+                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+                 ->setFieldValues($user->toArray());
+
+            if ($this->request->isPost()) {
+                $this->view->form->addFilter('strip_tags', null, 'textarea')
+                    ->setFieldValues($this->request->getPost());
+
+                if ($this->view->form->isValid()) {
+                    $this->view->form->clearFilters()
+                        ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
+                        ->filter();
+                    $user = new Model\User();
+                    $user->update($this->view->form->getFields(), $this->application->config()['application_title'], $this->sess);
+
+                    $this->view->id = $user->id;
+                    $this->sess->setRequestValue('saved', true);
+                    $this->redirect('/users/edit/' . $user->id);
+                }
+            }
+            $this->send();
+        } else {
+            $this->redirect('/users');
         }
 
-        $this->send();
+
     }
 
     /**

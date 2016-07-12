@@ -259,6 +259,44 @@ input[type=checkbox] {
     height: 60px;
 }
 
+#pop-nav > li > ul {
+    position: absolute;
+    display: none;
+    width: 180px;
+    left: -25px;
+}
+
+#pop-nav > li:hover > ul {
+    display: block;
+}
+
+#pop-nav > li > ul > li {
+    margin: 0;
+    padding: 0;
+    display: block;
+    list-style-type: none;
+}
+
+#pop-nav > li > ul > li > a {
+    position: relative;
+    margin: 0;
+    padding: 6px 10px 6px 10px;
+    display: block;
+    color: #a5e1ff;
+    font-size: 0.825em;
+    font-weight: normal;
+    text-align: left;
+    text-decoration: none;
+    background-color: #036fa6;
+}
+
+#pop-nav > li > ul > li > a:hover {
+    font-weight: normal;
+    color: #fff;
+    text-decoration: none;
+    background-color: #26a4e2;
+}
+
 #role-form-field-group-3 {
     padding-top: 20px;
     border-top: solid 1px #dcdcdc;
@@ -319,6 +357,38 @@ input[type=checkbox] {
         margin: 0 auto;
         padding: 0;
         width: 80%;
+    }
+
+    #pop-nav > li > ul {
+        position: relative;
+        display: block;
+    }
+
+    #pop-nav > li > ul > li {
+        margin: 0;
+        padding: 0;
+        display: block;
+        list-style-type: none;
+    }
+
+    #pop-nav > li > ul > li > a {
+        position: relative;
+        margin: 0;
+        padding: 5px 10px 5px 35px;
+        display: block;
+        color: #aaa;
+        font-size: 0.825em;
+        font-weight: normal;
+        text-align: left;
+        text-decoration: none;
+        background: transparent;
+    }
+
+    #pop-nav > li > ul > li > a:hover {
+        font-weight: normal;
+        color: #fff;
+        text-decoration: none;
+        background: transparent;
     }
 }
 

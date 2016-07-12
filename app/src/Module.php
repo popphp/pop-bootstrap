@@ -66,9 +66,13 @@ class Module extends \Pop\Module\Module
         }
 
         $this->application->on('app.route.pre', 'App\Event\Ssl::check', 1000)
-             ->on('app.dispatch.pre', 'App\Event\Session::check', 1000);
+             ->on('app.dispatch.pre', 'App\Event\Session::check', 1001)
+             ->on('app.dispatch.pre', 'App\Event\Acl::check', 1000);
 
-        $this->initAcl();
+        // Add roles to user nav
+        $this->addRoles();
+
+        return $this;
     }
 
     public function initAcl()
@@ -131,11 +135,37 @@ class Module extends \Pop\Module\Module
         }
 
         // Set the acl in the main nav object
-        //$this->application->getService('nav.phire')->setAcl($this->application->getService('acl'));
+        $this->application->getService('nav.pop')->setAcl($this->application->getService('acl'));
 
         return $this;
     }
 
+    /**
+     * Add user roles to navigation
+     *
+     * @return void
+     */
+    public function addRoles()
+    {
+        $params = $this->application->services()->getParams('nav.pop');
+        $roles  = Table\Roles::findAll();
+
+        foreach ($roles->rows() as $role) {
+            if (!isset($params['tree']['users']['children'])) {
+                $params['tree']['users']['children'] = [];
+            }
+            $params['tree']['users']['children']['users-of-role-' . $role->id] = [
+                'name' => $role->name,
+                'href' => '/users/' . $role->id,
+                'acl' => [
+                    'resource' => 'users-of-role-' . $role->id,
+                    'permission' => 'index'
+                ]
+            ];
+        }
+
+        $this->application->services()->setParams('nav.pop', $params);
+    }
 
     public function error(\Exception $exception)
     {

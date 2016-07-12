@@ -23,139 +23,143 @@ class Composer
         if (!file_exists(__DIR__ . '/../../app/config/application.php')) {
             $console->write();
             $console->write($console->colorize(
-                'A configuration file was not detected. You will be prompted to create one.', Console::BOLD_YELLOW
+                'A configuration file was not detected.', Console::BOLD_YELLOW
             ));
-
             $console->write();
+            $createConfig = $console->prompt('Would you like to create one and install the database? [Y/N] ', ['y', 'n']);
 
-            // Configure application database
-            $dbName      = '';
-            $dbUser      = '';
-            $dbPass      = '';
-            $dbHost      = '';
-            $dbPrefix    = '';
-
-            $dbAdapters = self::getDbAdapters();
-            $adapters   = array_keys($dbAdapters);
-            $dbChoices  = [];
-            $dsn        = null;
-            $i          = 1;
-            foreach ($dbAdapters as $a) {
-                $console->write($i . ': ' . $a);
-                $dbChoices[] = $i;
-                $i++;
-            }
-
-            $console->write();
-            $adapter = $console->prompt('Please select one of the above database adapters: ', $dbChoices);
-            $console->write();
-
-            // If PDO
-            if (strpos($adapters[$adapter - 1], 'pdo') !== false) {
-                $console->write('1: mysql');
-                $console->write('2: pgsql');
-                $console->write('3: sqlite');
+            if (strtolower($createConfig) == 'y') {
                 $console->write();
-                $dsn         = $console->prompt('Please select the PDO DSN: ', [1, 2, 3]);
-                $dbInterface = 'Pdo';
-                $dbType      = str_replace('pdo_', '', strtolower($adapters[$adapter - 1]));
-                $console->write();
-            } else {
-                $dbInterface = ucfirst(strtolower($adapters[$adapter - 1]));
-                $dbType      = null;
-            }
 
-            // If SQLite
-            if (($dsn == 3) || ($adapters[$adapter - 1] == 'sqlite')) {
-                if (!file_exists(__DIR__ . '/../../data/.htpop.sqlite')) {
-                    touch(__DIR__ . '/../../data/.htpop.sqlite');
-                    chmod(__DIR__ . '/../../data/.htpop.sqlite', 0777);
+                // Configure application database
+                $dbName = '';
+                $dbUser = '';
+                $dbPass = '';
+                $dbHost = '';
+                $dbPrefix = '';
+
+                $dbAdapters = self::getDbAdapters();
+                $adapters = array_keys($dbAdapters);
+                $dbChoices = [];
+                $dsn = null;
+                $i = 1;
+                foreach ($dbAdapters as $a) {
+                    $console->write($i . ': ' . $a);
+                    $dbChoices[] = $i;
+                    $i++;
                 }
-                $dbName     = __DIR__ . '/../../data/.htpop.sqlite';
-                $realDbName = "__DIR__ . '/../../data/.htpop.sqlite'";
-                $dbPrefix   = $console->prompt('DB Table Prefix: [pop_] ');
+
                 $console->write();
-            } else {
-                $dbCheck = 1;
-                while (null !== $dbCheck) {
-                    $dbName   = $console->prompt('DB Name: ');
-                    $dbUser   = $console->prompt('DB User: ');
-                    $dbPass   = $console->prompt('DB Password: ');
-                    $dbHost   = $console->prompt('DB Host: [localhost] ');
-                    $dbPrefix = $console->prompt('DB Table Prefix: [pop_] ');
+                $adapter = $console->prompt('Please select one of the above database adapters: ', $dbChoices);
+                $console->write();
 
-                    if ($dbHost == '') {
-                        $dbHost = 'localhost';
-                    }
-
-                    $dbCheck = Db::check($dbInterface, [
-                        'database' => $dbName,
-                        'username' => $dbUser,
-                        'password' => $dbPass,
-                        'host'     => $dbHost,
-                        'type'     => $dbType,
-                    ]);
-
-                    if (null !== $dbCheck) {
-                        $console->write();
-                        $console->write($console->colorize(
-                            'Database configuration test failed. Please try again.', Console::BOLD_RED
-                        ));
-                    } else {
-                        $realDbName = "'" . $dbName . "'";
-
-                        $console->write();
-                        $console->write($console->colorize(
-                            'Database configuration test passed.', Console::BOLD_GREEN
-                        ));
-                    }
+                // If PDO
+                if (strpos($adapters[$adapter - 1], 'pdo') !== false) {
+                    $console->write('1: mysql');
+                    $console->write('2: pgsql');
+                    $console->write('3: sqlite');
                     $console->write();
+                    $dsn = $console->prompt('Please select the PDO DSN: ', [1, 2, 3]);
+                    $dbInterface = 'Pdo';
+                    $dbType = str_replace('pdo_', '', strtolower($adapters[$adapter - 1]));
+                    $console->write();
+                } else {
+                    $dbInterface = ucfirst(strtolower($adapters[$adapter - 1]));
+                    $dbType = null;
                 }
+
+                // If SQLite
+                if (($dsn == 3) || ($adapters[$adapter - 1] == 'sqlite')) {
+                    if (!file_exists(__DIR__ . '/../../data/.htpop.sqlite')) {
+                        touch(__DIR__ . '/../../data/.htpop.sqlite');
+                        chmod(__DIR__ . '/../../data/.htpop.sqlite', 0777);
+                    }
+                    $dbName     = __DIR__ . '/../../data/.htpop.sqlite';
+                    $realDbName = "__DIR__ . '/../../data/.htpop.sqlite'";
+                    $dbPrefix   = $console->prompt('DB Table Prefix: [pop_] ');
+                    $console->write();
+                } else {
+                    $dbCheck = 1;
+                    while (null !== $dbCheck) {
+                        $dbName   = $console->prompt('DB Name: ');
+                        $dbUser   = $console->prompt('DB User: ');
+                        $dbPass   = $console->prompt('DB Password: ');
+                        $dbHost   = $console->prompt('DB Host: [localhost] ');
+                        $dbPrefix = $console->prompt('DB Table Prefix: [pop_] ');
+
+                        if ($dbHost == '') {
+                            $dbHost = 'localhost';
+                        }
+
+                        $dbCheck = Db::check($dbInterface, [
+                            'database' => $dbName,
+                            'username' => $dbUser,
+                            'password' => $dbPass,
+                            'host'     => $dbHost,
+                            'type'     => $dbType,
+                        ]);
+
+                        if (null !== $dbCheck) {
+                            $console->write();
+                            $console->write($console->colorize(
+                                'Database configuration test failed. Please try again.', Console::BOLD_RED
+                            ));
+                        } else {
+                            $realDbName = "'" . $dbName . "'";
+
+                            $console->write();
+                            $console->write($console->colorize(
+                                'Database configuration test passed.', Console::BOLD_GREEN
+                            ));
+                        }
+                        $console->write();
+                    }
+                }
+
+                // Install database
+                $sql = (stripos($dbInterface, 'pdo') !== false) ?
+                    __DIR__ . '/../data/pop.' . strtolower($dbType) . '.sql' :
+                    __DIR__ . '/../data/pop.' . strtolower($dbInterface) . '.sql';
+
+                if ($dbPrefix == '') {
+                    $dbPrefix = 'pop_';
+                }
+
+                Db::install($sql, [
+                    'database' => $dbName,
+                    'username' => $dbUser,
+                    'password' => $dbPass,
+                    'host'     => $dbHost,
+                    'prefix'   => $dbPrefix,
+                    'type'     => $dbType
+                ], $dbInterface);
+
+                // Write config file
+                $config = str_replace(
+                    [
+                        "define('DB_PREFIX', '');",
+                        "'adapter'  => '',",
+                        "'database' => '',",
+                        "'username' => '',",
+                        "'password' => '',",
+                        "'host'     => '',",
+                        "'type'     => null"
+                    ],
+                    [
+                        "define('DB_PREFIX', '" . $dbPrefix . "');",
+                        "'adapter'  => '" . strtolower($dbInterface) . "',",
+                        "'database' => " . $realDbName . ",",
+                        "'username' => '" . $dbUser . "',",
+                        "'password' => '" . $dbPass . "',",
+                        "'host'     => '" . $dbHost . "',",
+                        "'type'     => '" . $dbType . "'"
+                    ], file_get_contents(__DIR__ . '/../../app/config/application.orig.php')
+                );
+
+                file_put_contents(__DIR__ . '/../../app/config/application.php', $config);
+
+                $console->write($console->colorize('Application configuration completed.', Console::BOLD_GREEN));
             }
-
-            // Install database
-            $sql = (stripos($dbInterface, 'pdo') !== false) ?
-                __DIR__ . '/../data/pop.' . strtolower($dbType) . '.sql' :
-                __DIR__ . '/../data/pop.' . strtolower($dbInterface) . '.sql';
-
-            if ($dbPrefix == '') {
-                $dbPrefix = 'pop_';
-            }
-
-            Db::install($sql, [
-                'database' => $dbName,
-                'username' => $dbUser,
-                'password' => $dbPass,
-                'host'     => $dbHost,
-                'prefix'   => $dbPrefix,
-                'type'     => $dbType
-            ], $dbInterface);
-
-            // Write config file
-            $config = str_replace(
-                [
-                    "define('DB_PREFIX', '');",
-                    "'adapter'  => '',",
-                    "'database' => '',",
-                    "'username' => '',",
-                    "'password' => '',",
-                    "'host'     => '',",
-                    "'type'     => null"
-                ],
-                [
-                    "define('DB_PREFIX', '" . $dbPrefix . "');",
-                    "'adapter'  => '" . strtolower($dbInterface) . "',",
-                    "'database' => " . $realDbName . ",",
-                    "'username' => '" . $dbUser . "',",
-                    "'password' => '" . $dbPass . "',",
-                    "'host'     => '" . $dbHost . "',",
-                    "'type'     => '" . $dbType . "'"
-                ], file_get_contents(__DIR__ . '/../../app/config/application.orig.php')
-            );
-
-            file_put_contents(__DIR__ . '/../../app/config/application.php', $config);
-
-            $console->write($console->colorize('Application configuration completed.', Console::BOLD_GREEN));
         }
 
         $console->write();

@@ -238,8 +238,11 @@ class AbstractController extends \Pop\Controller\AbstractController
         }
         
         if (isset($this->sess->user)) {
-            $this->view->acl  = $this->services['acl'];
-            $this->view->user = $this->sess->user;
+            $this->services['nav.pop']->setRole($this->services['acl']->getRole($this->sess->user->role));
+            $this->services['nav.pop']->returnFalse(true);
+            $this->view->popNav = $this->services['nav.pop'];
+            $this->view->acl    = $this->services['acl'];
+            $this->view->user   = $this->sess->user;
         }
     }
 
