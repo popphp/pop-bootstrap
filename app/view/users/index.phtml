@@ -11,7 +11,7 @@
 <?php if (count($users) > 0): ?>
         <div class="table-responsive">
             <form id="users-form" action="/users/process" method="post">
-            <table class="table table-striped table-hover table-condensed">
+            <table class="table table-striped table-hover">
                 <thead>
                 <tr>
                     <th class="col-md-1 text-center"><a href="/users<?=((null !== $roleId) ? '/' . $roleId : null) . '?sort=id' . (($queryString != '') ? '&' . $queryString : '');?>">#</a></th>

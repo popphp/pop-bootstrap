@@ -26,6 +26,18 @@ h1, h2, h3, h4, h5, h6, div, p {
     font-family: 'Source Sans Pro', arial, helvetica, verdana, sans-serif;
 }
 
+input[type=checkbox] {
+    position: relative;
+    top: 2px;
+    margin: 0;
+    padding: 0;
+}
+
+#checkAll {
+    position: relative;
+    top: 3px;
+}
+
 #login-container {
     margin: 160px auto 0 auto;
     padding: 40px;
@@ -420,11 +432,13 @@ div.page-links > a:hover {
 }
 
 .table > thead > tr > th {
+    padding: 8px 5px 8px 5px;
     background-color: #ddd;
     vertical-align: middle;
 }
 
 .table > tbody > tr > td {
+    padding: 10px 5px 10px 5px;
     vertical-align: middle;
 }
 
@@ -454,6 +468,7 @@ div.page-links > a:hover {
     margin: 0;
     padding: 0 8px 0 0;
     color: #b4b5b4;
+    font-size: 0.825em;
 }
 
 .roles-header {
@@ -468,6 +483,35 @@ div.page-links > a:hover {
     margin: 0;
     padding: 0 8px 0 0;
     color: #b4b5b4;
+    font-size: 0.9em;
+}
+
+.users-nav-icon:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f0c0";
+    display: inline-block;
+    margin: 0;
+    padding: 0 10px 0 0;
+    vertical-align: middle;
+    color: #b4b5b4;
+    font-size: 1.3em;
+    width: 25px;
+    text-align: center;
+}
+
+.roles-nav-icon:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f023";
+    display: inline-block;
+    margin: 0;
+    padding: 0 5px 0 0;
+    vertical-align: middle;
+    color: #b4b5b4;
+    font-size: 1.5em;
+    width: 25px;
+    text-align: center;
 }
 
 /**

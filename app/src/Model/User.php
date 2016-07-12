@@ -219,6 +219,7 @@ class User extends AbstractModel
 
         $sess->user = new \ArrayObject([
             'id'           => $user->id,
+            'role_id'      => $user->role_id,
             'username'     => $user->username,
             'email'        => $user->email,
             'last_ip'      => $user->last_ip,

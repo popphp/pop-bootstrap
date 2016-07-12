@@ -75,8 +75,8 @@ class IndexController extends AbstractController
 
         if ($this->request->isPost()) {
             $this->view->form->addFilter('strip_tags')
-                ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
-                ->setFieldValues($this->request->getPost());
+                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+                 ->setFieldValues($this->request->getPost());
 
             if ($this->view->form->isValid()) {
                 $role->save($this->request->getPost());
@@ -97,19 +97,18 @@ class IndexController extends AbstractController
      */
     public function edit($id)
     {
-        /*
         $role = new Model\Role();
         $role->getById($id);
 
         if (!isset($role->id)) {
-            $this->redirect(BASE_PATH . APP_URI . '/roles');
+            $this->redirect('/roles');
         }
 
-        $this->prepareView('phire/roles/edit.phtml');
+        $this->prepareView('roles/edit.phtml');
         $this->view->title     = 'Roles';
         $this->view->role_name = $role->name;
 
-        $fields = $this->application->config()['forms']['Phire\Form\Role'];
+        $fields = $this->application->config()['forms']['App\Form\Role'];
         $config = $this->application->config();
 
         $resources = ['----' => '----'];
@@ -137,7 +136,7 @@ class IndexController extends AbstractController
 
         $this->view->form = new Form\Role($fields);
         $this->view->form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
-            ->setFieldValues($role->toArray());
+             ->setFieldValues($role->toArray());
 
         if ($this->request->isPost()) {
             $this->view->form->addFilter('strip_tags')
@@ -148,12 +147,11 @@ class IndexController extends AbstractController
                 $role->update($this->request->getPost(), $this->sess);
                 $this->view->id = $role->id;
                 $this->sess->setRequestValue('saved', true);
-                $this->redirect(BASE_PATH . APP_URI . '/roles/edit/' . $role->id);
+                $this->redirect('/roles/edit/' . $role->id);
             }
         }
 
         $this->send();
-        */
     }
 
     /**
