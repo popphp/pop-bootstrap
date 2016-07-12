@@ -1,5 +1,7 @@
 <?php
 
+define('DB_PREFIX', '');
+
 return [
     'routes'    => include 'routes.php',
     'resources' => include 'resources.php',
