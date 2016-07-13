@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]users" (
   "email" varchar(255),
   "active" integer,
   "verified" integer,
+  "last_login" timestamp,
   "last_ip" varchar(255),
   "last_ua" varchar(255),
   "total_logins" integer,

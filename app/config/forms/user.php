@@ -29,6 +29,15 @@ return [
             ],
             'marked' => 0
         ],
+        'failed_attempts'   => [
+            'type'  => 'text',
+            'label' => 'Failed Attempts',
+            'value' => 0,
+            'attributes' => [
+                'class' => 'form-control input-sm',
+                'size'  => 3
+            ]
+        ],
         'role_id'   => [
             'type'  => 'hidden',
             'value' => 0

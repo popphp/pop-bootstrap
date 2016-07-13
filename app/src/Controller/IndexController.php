@@ -61,14 +61,19 @@ class IndexController extends AbstractController
                  ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
                  ->setFieldValues($this->request->getPost(), $auth);
 
-            if ($this->view->form->isValid()) {
-                $user = new Model\User();
-                $user->login($auth->adapter()->getUser(), $this->sess);
+            $user    = new Model\User();
+            $session = new Model\Session();
+
+            if ($this->view->form->isValid() && ($session->validate($auth->adapter()->getUser(), $this->application->config()))) {
+                $user->login($auth->adapter()->getUser(), $this->sess, $this->application->config());
                 $this->redirect('/');
             } else {
                 if ((null !== $auth->adapter()->getUser()) && (null !== $auth->adapter()->getUser()->id)) {
-                    $user = new Model\User();
                     $user->failed($auth->adapter()->getUser());
+                    if ($this->view->form->isValid()) {
+                        $this->sess->setRequestValue('failed', true);
+                        $this->redirect('/login');
+                    }
                 }
             }
         }

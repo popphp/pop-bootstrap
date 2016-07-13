@@ -65,6 +65,7 @@ class IndexController extends AbstractController
             $fields[1]['password1']['required'] = true;
             $fields[1]['password2']['required'] = true;
             $fields[0]['role_id']['value']      = $rid;
+            unset($fields[0]['failed_attempts']);
 
             $this->view->form = new Form\User($fields);
             if ($this->request->isPost()) {

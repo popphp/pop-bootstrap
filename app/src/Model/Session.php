@@ -29,7 +29,7 @@ class Session extends AbstractModel
         }
 
         $params = [];
-        $order  = $this->getSortOrder($sort, $page);
+        $order  = (null !== $sort) ? $this->getSortOrder($sort, $page) : 'start DESC';
         $by     = explode(' ', $order);
         $sql->select()->orderBy($by[0], $by[1]);
 
@@ -65,7 +65,7 @@ class Session extends AbstractModel
         }
 
         $params = [];
-        $order  = $this->getSortOrder($sort, $page);
+        $order  = (null !== $sort) ? $this->getSortOrder($sort, $page) : 'timestamp DESC';
         $by     = explode(' ', $order);
         $sql->select()->orderBy($by[0], $by[1]);
 
@@ -77,6 +77,27 @@ class Session extends AbstractModel
         return (count($params) > 0) ?
             Table\UserLogins::execute((string)$sql, $params, Table\UserLogins::ROW_AS_OBJECT)->rows() :
             Table\UserLogins::query((string)$sql, Table\UserLogins::ROW_AS_OBJECT)->rows();
+    }
+
+    public function getAllUsers()
+    {
+        return Table\Users::findAll(null, Table\Users::ROW_AS_OBJECT)->rows();
+    }
+
+    public function validate($user, $config)
+    {
+        $result = true;
+
+        // Check for multiple sessions
+        if ((!$config['multiple_sessions']) && isset(Table\UserSessions::findBy(['user_id' => $user->id])->id)) {
+            $result = false;
+        }
+        // Check for too many failed attempts
+        if (($config['login_attempts'] > 0) && ($user->failed_attempts >= $config['login_attempts'])) {
+            $result = false;
+        }
+
+        return $result;
     }
 
     public function login($uid, $ip = '', $ua = '')

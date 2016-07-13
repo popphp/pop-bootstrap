@@ -3,7 +3,8 @@
  */
 
 pop = {
-    addResource : function(vals) {
+    sessionToInt : null,
+    addResource  : function(vals) {
         var resource     = $('select[id^="resource_"]:last');
         var resourceId   = 'resource_' + (parseInt(resource.prop("id").match(/\d+/g), 10) + 1);
         var action       = $('select[id^="action_"]:last');
@@ -32,6 +33,7 @@ pop = {
             }
         }
     },
+
     changeAction : function(id, action) {
         $('#action_' + id + ' > option').remove();
         $('#action_' + id).append('<option value="----">----</option>');
@@ -46,6 +48,121 @@ pop = {
                 }
             }
         });
+    },
+
+    timeoutWarning : function(){
+        if ($('#session-timeout')[0] == undefined) {
+            $('body').append(
+                '<div id="session-timeout">' +
+                '<h4 id="countdown">30</h4>Your session is about to expire.<br /><span>' +
+                '<a href="#" onclick="pop.sessionContinue(); return false;">Continue</a>? ' +
+                '[No, <a href="/logout">Logout</a>]</span>' +
+                '</div>'
+            );
+
+            $('#session-timeout').fadeIn();
+
+            pop.sessionToInt = setInterval(function(){
+                var sec = parseInt($('#countdown')[0].innerHTML);
+                if (sec > 0) {
+                    var newSec = sec - 1;
+                    $('#countdown')[0].innerHTML = newSec;
+                } else {
+                    window.location = '/logout';
+                }
+            }, 1000);
+        }
+    },
+
+    sessionContinue : function() {
+        $('#session-timeout').fadeOut({complete : function(){
+            $('#session-timeout').remove();
+            clearInterval(pop.sessionToInt);
+
+            var timeout = pop.cookie.load('pop_session_timeout');
+            var warning = pop.cookie.load('pop_timeout_warning');
+            if ((timeout != '') && (warning != '')) {
+                pop.sessionToInt = setInterval(pop.timeoutWarning, (timeout - warning) * 1000);
+            }
+        }});
+    },
+
+    cookie : {
+        save : function(name, value, options) {
+            if (typeof value != 'string') {
+                if (typeof value == 'number') {
+                    value = value.toString();
+                } else {
+                    value = JSON.stringify(value);
+                }
+            }
+            var cookie = name + '=' + encodeURI(value);
+
+            // Parse options
+            if (options != undefined) {
+                cookie += (options.domain != undefined) ? ';domain=' + options.domain : '';
+                cookie += (options.path != undefined) ? ';path=' + options.path : '';
+                if (options.expire != undefined) {
+                    var expdate = new Date();
+                    expdate.setDate(expdate.getDate() + options.expire);
+                    cookie += ';expires=' + expdate.toGMTString();
+                }
+            }
+
+            // Set the cookie.
+            document.cookie = cookie;
+
+            return this;
+        },
+        load : function(name) {
+            var value = '';
+
+            // If the cookie is set, parse the value.
+            if (document.cookie.length > 0) {
+                if (name == null) {
+                    value = {};
+                    var ary = document.cookie.split(';');
+                    for (var i = 0; i < ary.length; i++) {
+                        var a = ary[i].trim().split('=');
+                        var n = a[0];
+                        var v = decodeURI(a[1]);
+                        if ((v.indexOf('{') != -1) || (v.indexOf('[') != -1)) {
+                            v = JSON.parse(decodeURIComponent(v));
+                        }
+                        value[n] = v;
+                    }
+                } else {
+                    var start = document.cookie.indexOf(name + '=');
+
+                    if (start != -1) {
+                        start = start + name.length + 1;
+                        var end = document.cookie.indexOf(';', start);
+                        if (end == -1) {
+                            end = document.cookie.length;
+                        }
+
+                        value = decodeURI(document.cookie.substring(start, end));
+                        if ((value.indexOf('{') != -1) || (value.indexOf('[') != -1)) {
+                            value = JSON.parse(decodeURIComponent(value));
+                        }
+                    }
+                }
+            }
+
+            return value;
+        },
+        remove : function(name) {
+            if (name == null) {
+                var c = this.load();
+                for (var n in c) {
+                    this.save(n, '', {"expire" : -1});
+                }
+            } else {
+                this.save(name, '', {"expire" : -1});
+            }
+
+            return this
+        }
     }
 };
 
@@ -63,6 +180,11 @@ $(document).ready(function(){
     if ($('#expired').data('expired') == 1) {
         $('#expired').fadeIn({complete : function(){
             $('#expired').delay(1500).fadeOut();
+        }});
+    }
+    if ($('#failed').data('failed') == 1) {
+        $('#failed').fadeIn({complete : function(){
+            $('#failed').delay(1500).fadeOut();
         }});
     }
     if ($('#checkAll')[0] != undefined) {
@@ -137,5 +259,17 @@ $(document).ready(function(){
                 }
             }
         });
+    }
+
+    var timeout = pop.cookie.load('pop_session_timeout');
+    var warning = pop.cookie.load('pop_timeout_warning');
+    if (timeout != '') {
+        if (warning != '') {
+            pop.sessionToInt = setInterval(pop.timeoutWarning, (timeout - warning) * 1000);
+        } else {
+            setTimeout(function () {
+                window.location = '/logout';
+            }, timeout * 1000);
+        }
     }
 });

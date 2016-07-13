@@ -42,5 +42,9 @@ return [
     ],
     'application_title' => 'My Application',
     'force_ssl'         => false,
-    'pagination'        => 25
+    'pagination'        => 25,
+    'multiple_sessions' => true,
+    'login_attempts'    => 0,
+    'session_timeout'   => 0,  // In minutes
+    'timeout_warning'   => 0   // In seconds
 ];

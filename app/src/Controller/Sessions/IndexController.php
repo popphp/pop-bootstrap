@@ -12,7 +12,6 @@ class IndexController extends AbstractController
 
     public function index()
     {
-        $user    = new Model\User();
         $session = new Model\Session();
 
         $searchUsername = $this->request->getQuery('search_username');
@@ -31,7 +30,7 @@ class IndexController extends AbstractController
         $this->view->pages          = $pages;
         $this->view->queryString    = $this->getQueryString('sort');
         $this->view->searchUsername = $searchUsername;
-        $this->view->users          = $user->getAll();
+        $this->view->users          = $session->getAllUsers();
         $this->view->sessions       = $session->getAll(
             $searchUsername, $limit, $this->request->getQuery('page'), $this->request->getQuery('sort')
         );
@@ -57,8 +56,6 @@ class IndexController extends AbstractController
             }
             $this->redirect('/sessions/logins');
         } else {
-            $user = new Model\User();
-
             $searchUsername = $this->request->getQuery('search_username');
 
             if ($session->hasLoginPages($this->application->config()['pagination'], $searchUsername)) {
@@ -75,7 +72,7 @@ class IndexController extends AbstractController
             $this->view->pages          = $pages;
             $this->view->queryString    = $this->getQueryString('sort');
             $this->view->searchUsername = $searchUsername;
-            $this->view->users          = $user->getAll();
+            $this->view->users          = $session->getAllUsers();
             $this->view->logins         = $session->getLogins(
                 $searchUsername, $limit, $this->request->getQuery('page'), $this->request->getQuery('sort')
             );
@@ -83,6 +80,7 @@ class IndexController extends AbstractController
         }
     }
 
+   
     public function remove()
     {
         if ($this->request->isPost()) {

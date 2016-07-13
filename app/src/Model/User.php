@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\Table;
+use Pop\Cookie\Cookie;
 use Pop\Crypt\Bcrypt;
 use Pop\Db\Sql;
 
@@ -140,13 +141,14 @@ class User extends AbstractModel
             $oldRoleId = $user->role_id;
             $oldActive = $user->active;
 
-            $user->role_id    = (isset($fields['role_id']) ? $fields['role_id'] : $user->role_id);
-            $user->username   = $fields['username'];
-            $user->password   = (!empty($fields['password1'])) ?
+            $user->role_id         = (isset($fields['role_id']) ? $fields['role_id'] : $user->role_id);
+            $user->username        = $fields['username'];
+            $user->password        = (!empty($fields['password1'])) ?
                 (new Bcrypt())->create($fields['password1']) : $user->password;
-            $user->email      = (isset($fields['email']) ? $fields['email'] : $user->email);
-            $user->active     = (isset($fields['active']) ? (int)$fields['active'] : $user->active);
-            $user->verified   = (isset($fields['verified']) ? (int)$fields['verified'] : $user->verified);
+            $user->email           = (isset($fields['email']) ? $fields['email'] : $user->email);
+            $user->active          = (isset($fields['active']) ? (int)$fields['active'] : $user->active);
+            $user->verified        = (isset($fields['verified']) ? (int)$fields['verified'] : $user->verified);
+            $user->failed_attempts = (isset($fields['failed_attempts']) ? (int)$fields['failed_attempts'] : $user->failed_attempts);
 
             $user->save();
 
@@ -190,7 +192,7 @@ class User extends AbstractModel
         }
     }
 
-    public function login($user, $sess)
+    public function login($user, $sess, $config)
     {
         $user->failed_attempts = 0;
         $user->total_logins++;
@@ -203,6 +205,16 @@ class User extends AbstractModel
         $session->login($user->id, $ip, $ua);
         $session->start($user->id, $sess->getId(), $ip, $ua);
 
+        if ((int)$config['session_timeout'] > 0) {
+            $cookie = Cookie::getInstance(['path' => '/']);
+            $cookie->delete('pop_session_timeout');
+            $cookie->set('pop_session_timeout', (int)$config['session_timeout'] * 60);
+            if ((int)$config['timeout_warning'] > 0) {
+                $cookie->delete('pop_timeout_warning');
+                $cookie->set('pop_timeout_warning', (int)$config['timeout_warning']);
+            }
+        }
+
         $role = Table\Roles::findById($user->role_id);
 
         $sess->user = new \ArrayObject([
@@ -212,9 +224,8 @@ class User extends AbstractModel
             'role'         => $role->name,
             'username'     => $user->username,
             'email'        => $user->email,
-            'last_ip'      => $user->last_ip,
-            'last_ua'      => $user->last_ua,
-            'total_logins' => $user->total_logins
+            'last_login'   => $user->last_login,
+            'last_ip'      => $user->last_ip
         ], \ArrayObject::ARRAY_AS_PROPS);
     }
 
@@ -231,9 +242,14 @@ class User extends AbstractModel
         $session = new Session();
         $session->clear($sess->user->sess_id, $sess->user->id, $sess->getId());
 
+        $cookie = Cookie::getInstance(['path' => '/']);
+        $cookie->delete('pop_session_timeout');
+        $cookie->delete('pop_timeout_warning');
+
         if (isset($user->id)) {
-            $user->last_ip = (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null);
-            $user->last_ua = (isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : null);
+            $user->last_login = date('Y-m-d H:i:s');
+            $user->last_ip    = (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null);
+            $user->last_ua    = (isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : null);
             $user->save();
         }
     }

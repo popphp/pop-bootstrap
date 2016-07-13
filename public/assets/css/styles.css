@@ -153,7 +153,7 @@ input[type=checkbox] {
     font-size: 1.1em;
 }
 
-#expired {
+#expired, #failed {
     position: absolute;
     z-index: 10000;
     right: 0;
@@ -226,6 +226,46 @@ input[type=checkbox] {
     float: right;
 }
 
+#failed_attempts {
+    width: 35px;
+    text-align: center;
+}
+
+#session-timeout {
+    position: absolute;
+    z-index: 10000;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: none;
+    /*opacity: 0; */
+    margin: auto;
+    font-weight: bold;
+    text-align: center;
+    padding: 12px;
+    width: 240px;
+    height: 90px;
+    font-size: 0.9em;
+    line-height: 1.5em;
+    color: #555;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 0 6px 2px #bbb;
+}
+
+#session-timeout a, #session-timeout span {
+    font-weight: normal;
+}
+
+#session-timeout h4 {
+    margin: 0;
+    padding: 4px 0 8px 0;
+    font-size: 1.8em;
+    font-weight: normal;
+    color: #999;
+}
+
 .navbar-nav > li > a.profile-link {
     font-weight: bold;
     color: #ED7E00;
@@ -244,6 +284,18 @@ input[type=checkbox] {
     padding: 0 0 0 5px;
     color: #fff;
     font-size: 1.1em;
+}
+
+.user-header {
+    margin: 17px 0 0 0;
+    padding: 0 15px 0 0;
+    color: #999;
+    font-size: 0.9em;
+    border-right: solid 1px #666;
+}
+
+.user-header > span {
+    padding: 0 3px 0 3px;
 }
 
 .data-form {
