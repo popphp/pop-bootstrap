@@ -1,3 +1,4 @@
 /app/config/application.php
+/logs
 composer.lock
 vendor

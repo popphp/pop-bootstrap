@@ -1,6 +1,6 @@
 {
     "name": "popphp/pop-bootstrap",
-    "description": "Alternate Pop Web Application Framework Skeleton",
+    "description": "A skeleton application for the Pop Web Application Framework, using Bootstrap and Font Awesome frameworks.",
     "license": "New BSD",
     "authors": [
         {
@@ -16,6 +16,11 @@
     "autoload" : {
         "psr-4": {
             "App\\": "app/src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "4.0.x-dev"
         }
     },
     "scripts": {

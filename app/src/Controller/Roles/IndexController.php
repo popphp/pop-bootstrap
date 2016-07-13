@@ -10,11 +10,6 @@ use Pop\Paginator\Paginator;
 class IndexController extends AbstractController
 {
 
-    /**
-     * Index action method
-     *
-     * @return void
-     */
     public function index()
     {
         $role = new Model\Role();
@@ -36,11 +31,6 @@ class IndexController extends AbstractController
         $this->send();
     }
 
-    /**
-     * Add action method
-     *
-     * @return void
-     */
     public function add()
     {
         $this->prepareView('roles/add.phtml');
@@ -89,12 +79,6 @@ class IndexController extends AbstractController
         $this->send();
     }
 
-    /**
-     * Edit action method
-     *
-     * @param  int $id
-     * @return void
-     */
     public function edit($id)
     {
         $role = new Model\Role();
@@ -154,12 +138,6 @@ class IndexController extends AbstractController
         $this->send();
     }
 
-    /**
-     * JSON action method
-     *
-     * @param  int $id
-     * @return void
-     */
     public function json($id)
     {
         $json = [];
@@ -206,11 +184,6 @@ class IndexController extends AbstractController
         $this->send(200, ['Content-Type' => 'application/json']);
     }
 
-    /**
-     * Remove action method
-     *
-     * @return void
-     */
     public function remove()
     {
         if ($this->request->isPost()) {

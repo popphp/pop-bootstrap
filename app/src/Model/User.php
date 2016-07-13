@@ -5,26 +5,13 @@ namespace App\Model;
 use App\Table;
 use Pop\Crypt\Bcrypt;
 use Pop\Db\Sql;
-use Pop\Mail\Mail;
 
 class User extends AbstractModel
 {
 
-    /**
-     * Get all users
-     *
-     * @param  int    $roleId
-     * @param  string $username
-     * @param  array  $deniedRoles
-     * @param  int    $limit
-     * @param  int    $page
-     * @param  string $sort
-     * @return array
-     */
     public function getAll($roleId = null, $username = null, array $deniedRoles = null, $limit = null, $page = null, $sort = null)
     {
-
-        $sql        = Table\Users::sql();
+        $sql = Table\Users::sql();
 
         $sql->select([
             'id'           => DB_PREFIX . 'users.id',
@@ -80,11 +67,6 @@ class User extends AbstractModel
         return $rows;
     }
 
-    /**
-     * Get all user roles
-     *
-     * @return array
-     */
     public function getRoles()
     {
         $roles    = Table\Roles::findAll(null, Table\Roles::ROW_AS_OBJECT)->rows();
@@ -98,23 +80,11 @@ class User extends AbstractModel
         return $rolesAry;
     }
 
-    /**
-     * Get users by role ID
-     *
-     * @param  int $rid
-     * @return array
-     */
     public function getByRoleId($rid)
     {
         return Table\Users::findBy(['role_id' => (int)$rid], null, Table\Roles::ROW_AS_OBJECT)->rows();
     }
 
-    /**
-     * Get users by role name
-     *
-     * @param  string $name
-     * @return array
-     */
     public function getByRole($name)
     {
         $role  = Table\Roles::findBy(['name' => $name], null, Table\Roles::ROW_AS_OBJECT);
@@ -126,12 +96,6 @@ class User extends AbstractModel
         return $users;
     }
 
-    /**
-     * Get user by ID
-     *
-     * @param  int $id
-     * @return void
-     */
     public function getById($id)
     {
         $user = Table\Users::findById((int)$id);
@@ -149,13 +113,6 @@ class User extends AbstractModel
         }
     }
 
-    /**
-     * Save new user
-     *
-     * @param  array  $fields
-     * @param  string $title
-     * @return void
-     */
     public function save(array $fields, $title)
     {
         $user = new Table\Users([
@@ -171,18 +128,11 @@ class User extends AbstractModel
         $this->data = array_merge($this->data, $user->getColumns());
 
         if ((!$user->verified) && !empty($user->email)) {
-            $this->sendVerification($user, $title);
+            $notify = new Notification();
+            $notify->sendVerification($user, $title);
         }
     }
 
-    /**
-     * Update an existing user
-     *
-     * @param  array                $fields
-     * @param  string               $title
-     * @param  \Pop\Session\Session $sess
-     * @return void
-     */
     public function update(array $fields, $title, \Pop\Session\Session $sess = null)
     {
         $user = Table\Users::findById((int)$fields['id']);
@@ -208,18 +158,12 @@ class User extends AbstractModel
             $this->data = array_merge($this->data, $user->getColumns());
 
             if ((((null === $oldRoleId) && (null !== $user->role_id)) || ((!($oldActive) && ($user->active)))) && !empty($user->email)) {
-                $this->sendApproval($user, $title);
+                $notify = new Notification();
+                $notify->sendApproval($user, $title);
             }
         }
     }
 
-    /**
-     * Process users
-     *
-     * @param  array  $post
-     * @param  string $title
-     * @return void
-     */
     public function process(array $post, $title)
     {
         if (isset($post['process_users'])) {
@@ -230,7 +174,8 @@ class User extends AbstractModel
                         case 1:
                             $user->active = 1;
                             $user->save();
-                            $this->sendApproval($user, $title);
+                            $notify = new Notification();
+                            $notify->sendApproval($user, $title);
                             break;
                         case 0:
                             $user->active = 0;
@@ -245,23 +190,24 @@ class User extends AbstractModel
         }
     }
 
-    /**
-     * Log a user into the app
-     *
-     * @param  mixed                $user
-     * @param  \Pop\Session\Session $sess
-     * @return void
-     */
     public function login($user, $sess)
     {
         $user->failed_attempts = 0;
         $user->total_logins++;
         $user->save();
 
+        $ip = (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '');
+        $ua = (isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '');
+
+        $session = new Session();
+        $session->login($user->id, $ip, $ua);
+        $session->start($user->id, $sess->getId(), $ip, $ua);
+
         $role = Table\Roles::findById($user->role_id);
 
         $sess->user = new \ArrayObject([
             'id'           => $user->id,
+            'sess_id'      => $session->id,
             'role_id'      => $user->role_id,
             'role'         => $role->name,
             'username'     => $user->username,
@@ -272,27 +218,18 @@ class User extends AbstractModel
         ], \ArrayObject::ARRAY_AS_PROPS);
     }
 
-    /**
-     * Record a failed login attempt
-     *
-     * @param  mixed $user
-     * @return void
-     */
     public function failed($user)
     {
         $user->failed_attempts++;
         $user->save();
     }
 
-    /**
-     * Log a user out of the app
-     *
-     * @param  int $id
-     * @return void
-     */
-    public function logout($id)
+    public function logout($sess)
     {
-        $user = Table\Users::findById($id);
+        $user = Table\Users::findById($sess->user->id);
+
+        $session = new Session();
+        $session->clear($sess->user->sess_id, $sess->user->id, $sess->getId());
 
         if (isset($user->id)) {
             $user->last_ip = (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null);
@@ -301,13 +238,6 @@ class User extends AbstractModel
         }
     }
 
-    /**
-     * Verify a user
-     *
-     * @param  int    $id
-     * @param  string $hash
-     * @return boolean
-     */
     public function verify($id, $hash)
     {
         $result = false;
@@ -323,31 +253,16 @@ class User extends AbstractModel
         return $result;
     }
 
-    /**
-     * Send a user a forgot password reminder
-     *
-     * @param  array  $fields
-     * @param  string $title
-     * @return void
-     */
     public function forgot(array $fields, $title)
     {
         $user = Table\Users::findBy(['email' => $fields['email']]);
         if (isset($user->id)) {
             $this->data['id'] = $user->id;
-            $this->sendReset($user, $title);
+            $notify = new Notification();
+            $notify->sendReset($user, $title);
         }
     }
 
-    /**
-     * Determine if list of users have pages
-     *
-     * @param  int    $limit
-     * @param  int    $roleId
-     * @param  string $username
-     * @param  array  $deniedRoles
-     * @return boolean
-     */
     public function hasPages($limit, $roleId = null, $username = null, array $deniedRoles = [])
     {
         $params = [];
@@ -372,20 +287,12 @@ class User extends AbstractModel
         }
 
         if (count($params) > 0) {
-            return (Table\Users::execute((string)$sql, $params)->count() > $limit);
+            return (Table\Users::execute((string)$sql, $params, Table\Users::ROW_AS_ARRAY)->count() > $limit);
         } else {
-            return (Table\Users::findAll()->count() > $limit);
+            return (Table\Users::findAll(null, Table\Users::ROW_AS_ARRAY)->count() > $limit);
         }
     }
 
-    /**
-     * Get count of users
-     *
-     * @param  int    $roleId
-     * @param  string $username
-     * @param  array  $deniedRoles
-     * @return int
-     */
     public function getCount($roleId = null, $username = null, array $deniedRoles = [])
     {
         $params = [];
@@ -410,123 +317,10 @@ class User extends AbstractModel
         }
 
         if (count($params) > 0) {
-            return Table\Users::execute((string)$sql, $params)->count();
+            return Table\Users::execute((string)$sql, $params, Table\Users::ROW_AS_ARRAY)->count();
         } else {
-            return Table\Users::findAll()->count();
+            return Table\Users::findAll(null, Table\Users::ROW_AS_ARRAY)->count();
         }
-    }
-
-    /**
-     * Send user verification notification
-     *
-     * @param  mixed  $user
-     * @param  string $title
-     * @return void
-     */
-    protected function sendVerification($user, $title)
-    {
-        $host    = $_SERVER['HTTP_HOST'];
-        $domain  = str_replace('www.', '', $host);
-        $schema  = (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == '443')) ? 'https://' : 'http://';
-
-        // Set the recipient
-        $rcpt = [
-            'name'   => $user->username,
-            'email'  => $user->email,
-            'url'    => $schema . $host . '/verify/' . $user->id . '/' . sha1($user->email),
-            'domain' => $domain,
-            'title'  => $title
-        ];
-
-        // Check for an override template
-        $mailTemplate = __DIR__ . '/../../view/mail/verify.txt';
-
-        // Send email verification
-        $mail = new Mail($title . ' (' . $domain . ') - Email Verification', $rcpt);
-        $mail->from('noreply@' . $domain);
-        $mail->setText(file_get_contents($mailTemplate));
-        $mail->send();
-    }
-
-    /**
-     * Send user approval notification
-     *
-     * @param  mixed  $user
-     * @param  string $title
-     * @return void
-     */
-    protected function sendApproval($user, $title)
-    {
-        $host   = $_SERVER['HTTP_HOST'];
-        $domain = str_replace('www.', '', $host);
-
-        // Set the recipient
-        $rcpt = [
-            'name'   => $user->username,
-            'email'  => $user->email,
-            'domain' => $domain,
-            'title'  => $title
-        ];
-
-        // Check for an override template
-        $mailTemplate = __DIR__ . '/../../view/mail/approval.txt';
-
-        // Send email verification
-        $mail = new Mail($title . ' (' . $domain . ') - Approval', $rcpt);
-        $mail->from('noreply@' . $domain);
-        $mail->setText(file_get_contents($mailTemplate));
-        $mail->send();
-    }
-
-    /**
-     * Send user password reset notification
-     *
-     * @param  mixed  $user
-     * @param  string $title
-     * @return void
-     */
-    protected function sendReset($user, $title)
-    {
-        $host           = $_SERVER['HTTP_HOST'];
-        $domain         = str_replace('www.', '', $host);
-        $newPassword    = $this->random();
-        $user->password = (new Bcrypt())->create($newPassword);
-        $user->save();
-
-        $rcpt = [
-            'name'     => $user->username,
-            'email'    => $user->email,
-            'domain'   => $domain,
-            'username' => $user->username,
-            'password' => $newPassword,
-            'title'    => $title
-        ];
-
-        $mailTemplate = __DIR__ . '/../../view/mail/forgot.txt';
-
-        // Send email verification
-        $mail = new Mail($title . ' (' . $domain . ') - Password Reset', $rcpt);
-        $mail->from('noreply@' . $domain);
-        $mail->setText(file_get_contents($mailTemplate));
-        $mail->send();
-    }
-
-    protected function random()
-    {
-        $chars = [
-            0 => str_split('abcdefghjkmnpqrstuvwxyz'),
-            1 => str_split('23456789')
-        ];
-        $indices = [0, 1];
-        $str     = '';
-
-        for ($i = 0; $i < 8; $i++) {
-            $index = $indices[rand(0, (count($indices) - 1))];
-            $subIndex = rand(0, (count($chars[$index]) - 1));
-            $str .= $chars[$index][$subIndex];
-        }
-
-        return $str;
     }
 
 }

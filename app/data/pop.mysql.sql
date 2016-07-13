@@ -56,3 +56,38 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]users` (
 --
 INSERT INTO `[{prefix}]users` (`id`, `role_id`, `username`, `password`, `active`, `verified`) VALUES
 (1001, 2001, 'admin', '$2y$08$ckh6UXNYdjdSVzhlcWh2OOCrjBWHarr8Fxf3i2BYVlC29Ag/eoGkC', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_logins`
+--
+
+DROP TABLE IF EXISTS `[{prefix}]user_logins`;
+CREATE TABLE `[{prefix}]user_logins` (
+  `id` int(16) NOT NULL AUTO_INCREMENT,
+  `user_id` int(16) DEFAULT NULL,
+  `ip` varchar(255) NOT NULL,
+  `ua` varchar(255) NOT NULL,
+  `timestamp` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_user_login_id` FOREIGN KEY (`user_id`) REFERENCES `[{prefix}]users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=3002 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `[{prefix}]user_sessions`
+--
+
+CREATE TABLE `[{prefix}]user_sessions` (
+  `id` int(16) NOT NULL AUTO_INCREMENT,
+  `user_id` int(16) DEFAULT NULL,
+  `session_id` varchar(255) NOT NULL,
+  `ip` varchar(255) NOT NULL,
+  `ua` varchar(255) NOT NULL,
+  `start` int(16) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE `session_key` (`id`, `user_id`, `session_id`),
+  CONSTRAINT `fk_user_session_id` FOREIGN KEY (`user_id`) REFERENCES `[{prefix}]users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=4002 ;

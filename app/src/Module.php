@@ -37,13 +37,13 @@ class Module extends \Pop\Module\Module
                 'host'     => $this->application->config()['database']['host'],
                 'type'     => $this->application->config()['database']['type']
             ];
-            
+
             $check = \Pop\Db\Db::check($adapter, $options);
-            
+
             if (null !== $check) {
                 throw new Exception('DB ' . $check);
             }
-            
+
             $this->application->services()->set('database', [
                 'call'   => 'Pop\Db\Db::connect',
                 'params' => [
@@ -69,7 +69,6 @@ class Module extends \Pop\Module\Module
              ->on('app.dispatch.pre', 'App\Event\Session::check', 1001)
              ->on('app.dispatch.pre', 'App\Event\Acl::check', 1000);
 
-        // Add roles to user nav
         $this->addRoles();
 
         return $this;

@@ -9,16 +9,6 @@ use Pop\Validator;
 class Role extends Form
 {
 
-    /**
-     * Constructor
-     *
-     * Instantiate the form object
-     *
-     * @param  array  $fields
-     * @param  string $action
-     * @param  string $method
-     * @return Role
-     */
     public function __construct(array $fields = null, $action = null, $method = 'post')
     {
         parent::__construct($fields, $action, $method);
@@ -27,12 +17,6 @@ class Role extends Form
         $this->setIndent('    ');
     }
 
-    /**
-     * Set the field values
-     *
-     * @param  array $values
-     * @return User
-     */
     public function setFieldValues(array $values = null)
     {
         parent::setFieldValues($values);

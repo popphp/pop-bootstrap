@@ -10,12 +10,6 @@ use Pop\Paginator\Paginator;
 class IndexController extends AbstractController
 {
 
-    /**
-     * Index action method
-     *
-     * @param  int $rid
-     * @return void
-     */
     public function index($rid = null)
     {
         if ((null === $rid) || ($this->services['acl']->isAllowed($this->sess->user->role, 'users-of-role-' . $rid, 'index'))) {
@@ -57,12 +51,6 @@ class IndexController extends AbstractController
         }
     }
 
-    /**
-     * Add action method
-     *
-     * @param  int $rid
-     * @return void
-     */
     public function add($rid = null)
     {
         $this->prepareView('users/add.phtml');
@@ -103,12 +91,6 @@ class IndexController extends AbstractController
         $this->send();
     }
 
-    /**
-     * Edit action method
-     *
-     * @param  int $id
-     * @return void
-     */
     public function edit($id)
     {
         $user = new Model\User();
@@ -168,11 +150,6 @@ class IndexController extends AbstractController
 
     }
 
-    /**
-     * Process action method
-     *
-     * @return void
-     */
     public function process()
     {
         if ($this->request->isPost()) {

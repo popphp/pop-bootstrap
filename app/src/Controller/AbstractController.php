@@ -216,7 +216,7 @@ class AbstractController extends \Pop\Controller\AbstractController
 
         return (count($query) > 0) ? http_build_query($query) : '';
     }
-    
+
     /**
      * Prepare view
      *
@@ -229,6 +229,10 @@ class AbstractController extends \Pop\Controller\AbstractController
 
         $this->view->application_title = $this->application->config()['application_title'];
 
+        if (isset($this->sess->expired)) {
+            $this->view->expired = true;
+        }
+
         if (isset($this->sess->saved)) {
             $this->view->saved = true;
         }
@@ -236,7 +240,7 @@ class AbstractController extends \Pop\Controller\AbstractController
         if (isset($this->sess->removed)) {
             $this->view->removed = true;
         }
-        
+
         if (isset($this->sess->user)) {
             $this->services['nav.pop']->setRole($this->services['acl']->getRole($this->sess->user->role));
             $this->services['nav.pop']->returnFalse(true);

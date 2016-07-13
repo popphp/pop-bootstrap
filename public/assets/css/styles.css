@@ -153,6 +153,20 @@ input[type=checkbox] {
     font-size: 1.1em;
 }
 
+#expired {
+    position: absolute;
+    z-index: 10000;
+    right: 0;
+    left: 0;
+    top: 80px;
+    display: none;
+    margin: 0 auto;
+    padding: 8px 15px 8px 15px;
+    font-weight: bold;
+    text-align: center;
+    width: 200px;
+}
+
 #role-select-form {
     margin: 10px auto 10px auto;
     padding: 10px 0 10px 0;
@@ -170,7 +184,7 @@ input[type=checkbox] {
     float: right;
 }
 
-#user_process_action {
+#user_process_action, #clear_logins_by, #clear_sessions_by {
     margin: 3px 15px 0 10px;
     padding-top: 0;
     padding-right: 28px;
@@ -187,13 +201,29 @@ input[type=checkbox] {
     background-size: 18px 7px;
 }
 
-#user_process_action::-ms-expand {
+#user_process_action::-ms-expand, #clear_logins_by::-ms-expand, #clear_sessions_by::-ms-expand {
     display: none;
 }
 
-#user_process_action > option {
+#user_process_action > option, #clear_logins_by > option, #clear_sessions_by > option {
     margin: 0;
-    padding: 0;
+    padding: 4px 3px 4px 3px;
+}
+
+#clear-all-logins {
+    margin: 0 15px 0 0;
+    padding: 5px 0 0 0;
+    float: right;
+    font-size: 0.825em;
+}
+#clear-all-logins > span {
+    margin: 5px 0 0 5px;
+    float: right;
+}
+
+#clear-all-logins > input[type=checkbox] {
+    margin: 2px 0 0 5px;
+    float: right;
 }
 
 .navbar-nav > li > a.profile-link {
@@ -621,6 +651,21 @@ div.page-links > a:hover {
     font-size: 0.9em;
 }
 
+.sessions-header {
+    margin: 10px 0 10px 0;
+    padding: 10px 0 10px 0;
+}
+
+.sessions-header:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f017";
+    margin: 0;
+    padding: 0 8px 0 0;
+    color: #b4b5b4;
+    font-size: 0.9em;
+}
+
 .users-nav-icon:before {
     font-family: "FontAwesome";
     font-weight: normal;
@@ -639,6 +684,20 @@ div.page-links > a:hover {
     font-family: "FontAwesome";
     font-weight: normal;
     content: "\f023";
+    display: inline-block;
+    margin: 0;
+    padding: 0 5px 0 0;
+    vertical-align: middle;
+    color: #b4b5b4;
+    font-size: 1.5em;
+    width: 25px;
+    text-align: center;
+}
+
+.sessions-nav-icon:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f017";
     display: inline-block;
     margin: 0;
     padding: 0 5px 0 0;

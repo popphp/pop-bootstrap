@@ -1,10 +1,8 @@
 <?php include __DIR__ . '/../header.phtml'; ?>
-<?php if (count($roles) > 0): ?>
     <form id="asset-search-form" action="/users" method="get">
         <div><input class="btn btn-default input-sm" tabindex="2" type="submit" id="submit" value="Search" /></div>
         <div><input class="form-control input-sm" tabindex="1" type="text" name="search_username" id="search_username" value="<?=((null !== $searchUsername) ? $searchUsername : null); ?>" placeholder="Username" size="25" /></div>
     </form>
-<?php endif; ?>
     <div class="container-fluid">
         <h1 class="users-header"><?=$title; ?><?php if (isset($roleId) && isset($roles) && isset($roles[$roleId])): ?> : <?=$roles[$roleId]; ?><?php endif; ?></h1>
 <?php if (null !== $pages): ?>
@@ -67,7 +65,7 @@
 <?php endif; ?>
         </div>
 <?php else: ?>
-        <p>There are current no users.</p>
+        <p>There are currently no users.</p>
 <?php endif; ?>
     </div>
 

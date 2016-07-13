@@ -5,7 +5,6 @@ namespace App;
 use Pop\Console\Console;
 use Pop\Db\Db;
 use Pop\Db\Record;
-use Pop\File\Dir;
 
 class Composer
 {

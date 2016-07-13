@@ -60,6 +60,11 @@ $(document).ready(function(){
             $('#removed').delay(1500).fadeOut();
         }});
     }
+    if ($('#expired').data('expired') == 1) {
+        $('#expired').fadeIn({complete : function(){
+            $('#expired').delay(1500).fadeOut();
+        }});
+    }
     if ($('#checkAll')[0] != undefined) {
         $('#checkAll').click(function(){
             var checkName  = $('#checkAll').data('name');

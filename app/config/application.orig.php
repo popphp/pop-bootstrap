@@ -22,30 +22,7 @@ return [
         'nav.pop' => [
             'call'   => 'Pop\Nav\Nav',
             'params' => [
-                'tree' => [
-                    'users' => [
-                        'name' => 'Users',
-                        'href' => '/users',
-                        'acl'  => [
-                            'resource'   => 'users',
-                            'permission' => 'index'
-                        ],
-                        'attributes' => [
-                            'class' => 'users-nav-icon'
-                        ]
-                    ],
-                    'roles' => [
-                        'name' => 'Roles',
-                        'href' => '/roles',
-                        'acl'  => [
-                            'resource'   => 'roles',
-                            'permission' => 'index'
-                        ],
-                        'attributes' => [
-                            'class' => 'roles-nav-icon'
-                        ]
-                    ]
-                ],
+                'tree' => include 'nav.php',
                 'config' => [
                     'top'     => [
                         'id'    => 'pop-nav',

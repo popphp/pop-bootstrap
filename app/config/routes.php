@@ -93,6 +93,30 @@ return [
             'permission' => 'remove'
         ]
     ],
+    '/sessions[/]' => [
+        'controller' => 'App\Controller\Sessions\IndexController',
+        'action'     => 'index',
+        'acl'        => [
+            'resource'   => 'sessions',
+            'permission' => 'index'
+        ]
+    ],
+    '/sessions/remove' => [
+        'controller' => 'App\Controller\Sessions\IndexController',
+        'action'     => 'remove',
+        'acl'        => [
+            'resource'   => 'sessions',
+            'permission' => 'remove'
+        ]
+    ],
+    '/sessions/logins' => [
+        'controller' => 'App\Controller\Sessions\IndexController',
+        'action'     => 'logins',
+        'acl'        => [
+            'resource'   => 'sessions',
+            'permission' => 'logins'
+        ]
+    ],
     '*' => [
         'controller' => 'App\Controller\IndexController',
         'action'     => 'error'

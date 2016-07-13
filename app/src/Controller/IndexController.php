@@ -80,7 +80,7 @@ class IndexController extends AbstractController
     {
         if (isset($this->sess->user)) {
             $user = new Model\User();
-            $user->logout($this->sess->user->id);
+            $user->logout($this->sess);
         }
         $this->sess->kill();
         $this->redirect('/login');

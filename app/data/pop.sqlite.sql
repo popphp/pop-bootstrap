@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]roles" (
   CONSTRAINT "fk_role_parent_id" FOREIGN KEY ("parent_id") REFERENCES "[{prefix}]roles" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 ) ;
 
-INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('roles', 2000);
+INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('[{prefix}]roles', 2000);
 CREATE INDEX "role_name" ON "[{prefix}]roles" ("name");
 
 --
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]users" (
   CONSTRAINT "fk_user_role" FOREIGN KEY ("role_id") REFERENCES "[{prefix}]roles" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
 
-INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('users', 1000);
+INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('[{prefix}]users', 1000);
 CREATE INDEX "role_id" ON "[{prefix}]users" ("role_id");
 CREATE INDEX "username" ON "[{prefix}]users" ("username");
 
@@ -72,3 +72,42 @@ CREATE INDEX "username" ON "[{prefix}]users" ("username");
 
 INSERT INTO "[{prefix}]users" ("id", "role_id", "username", "password", "active", "verified") VALUES
 (1001, 2001, 'admin', '$2y$08$ckh6UXNYdjdSVzhlcWh2OOCrjBWHarr8Fxf3i2BYVlC29Ag/eoGkC', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table "user_logins"
+--
+
+DROP TABLE IF EXISTS "[{prefix}]user_logins";
+CREATE TABLE "[{prefix}]user_logins" (
+  "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+  "user_id" integer DEFAULT NULL,
+  "ip" varchar NOT NULL,
+  "ua" varchar NOT NULL,
+  "timestamp" datetime NOT NULL,
+  UNIQUE ("id"),
+  CONSTRAINT "fk_user_login_id" FOREIGN KEY ("user_id") REFERENCES "[{prefix}]users" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+) ;
+
+INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('[{prefix}]user_logins', 3000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table "[{prefix}]user_sessions"
+--
+
+CREATE TABLE "[{prefix}]user_sessions" (
+  "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+  "user_id" integer DEFAULT NULL,
+  "session_id" varchar NOT NULL,
+  "ip" varchar NOT NULL,
+  "ua" varchar NOT NULL,
+  "start" integer NOT NULL,
+  UNIQUE ("id"),
+  UNIQUE ("id", "user_id", "session_id"),
+  CONSTRAINT "fk_user_session_id" FOREIGN KEY ("user_id") REFERENCES "[{prefix}]users" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+) ;
+
+INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('[{prefix}]user_sessions', 4000);
