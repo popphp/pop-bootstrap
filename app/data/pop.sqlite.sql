@@ -76,25 +76,6 @@ INSERT INTO "[{prefix}]users" ("id", "role_id", "username", "password", "active"
 -- --------------------------------------------------------
 
 --
--- Table structure for table "user_logins"
---
-
-DROP TABLE IF EXISTS "[{prefix}]user_logins";
-CREATE TABLE "[{prefix}]user_logins" (
-  "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
-  "user_id" integer DEFAULT NULL,
-  "ip" varchar NOT NULL,
-  "ua" varchar NOT NULL,
-  "timestamp" datetime NOT NULL,
-  UNIQUE ("id"),
-  CONSTRAINT "fk_user_login_id" FOREIGN KEY ("user_id") REFERENCES "[{prefix}]users" ("id") ON DELETE CASCADE ON UPDATE CASCADE
-) ;
-
-INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('[{prefix}]user_logins', 3000);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table "[{prefix}]user_sessions"
 --
 
@@ -110,4 +91,23 @@ CREATE TABLE "[{prefix}]user_sessions" (
   CONSTRAINT "fk_user_session_id" FOREIGN KEY ("user_id") REFERENCES "[{prefix}]users" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
 
-INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('[{prefix}]user_sessions', 4000);
+INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('[{prefix}]user_sessions', 3000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table "user_logins"
+--
+
+DROP TABLE IF EXISTS "[{prefix}]user_logins";
+CREATE TABLE "[{prefix}]user_logins" (
+  "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+  "user_id" integer DEFAULT NULL,
+  "ip" varchar NOT NULL,
+  "ua" varchar NOT NULL,
+  "timestamp" datetime NOT NULL,
+  UNIQUE ("id"),
+  CONSTRAINT "fk_user_login_id" FOREIGN KEY ("user_id") REFERENCES "[{prefix}]users" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+) ;
+
+INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('[{prefix}]user_logins', 4000);
