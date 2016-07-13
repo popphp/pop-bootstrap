@@ -4,6 +4,13 @@
 
 pop = {
     sessionToInt : null,
+
+    changeTitle : function(value) {
+        if ($('#title-span')[0] != undefined) {
+            $('#title-span')[0].innerHTML = value;
+        }
+    },
+
     addResource  : function(vals) {
         var resource     = $('select[id^="resource_"]:last');
         var resourceId   = 'resource_' + (parseInt(resource.prop("id").match(/\d+/g), 10) + 1);
@@ -68,7 +75,7 @@ pop = {
                     var newSec = sec - 1;
                     $('#countdown')[0].innerHTML = newSec;
                 } else {
-                    window.location = '/logout';
+                    window.location = '/logout?expired=1';
                 }
             }, 1000);
         }
@@ -85,6 +92,64 @@ pop = {
                 pop.sessionToInt = setInterval(pop.timeoutWarning, (timeout - warning) * 1000);
             }
         }});
+    },
+
+    browser : function() {
+        var browser = {
+            "ua"      : navigator.userAgent,
+            "name"    : '',
+            "version" : '',
+            "device"  : '',
+            "os"      : ''
+        };
+
+        var os  = browser.ua.toLowerCase().match(/(windows|macintosh|linux|freebsd|openbsd|netbsd|sunos)/i);
+        var brw = browser.ua.toLowerCase().match(/(chrome|firefox|msie|trident|edge|konqueror|navigator|opera|safari)/i);
+        var dev = browser.ua.toLowerCase().match(/(android|blackberry|windows ce|windows phone|opera mini|pre|presto|ipod|iphone|ipad|nokia|symbian|palm|treo|hiptop|avantgo|plucker|xiino|blazer|elaine|teleca|up.browser|up.link|mmp|smartphone|midp|wap|vodafone|o2|pocket|kindle|mobile|pda|psp)/i);
+
+        if ((os != null) && (os[0] != undefined)) {
+            browser.os = os[0].charAt(0).toUpperCase() + os[0].substring(1).replace('bsd', 'BSD').replace('os', 'OS');
+        }
+
+        if ((brw != null) && (brw[0] != undefined)) {
+            if ((brw[0] == 'msie') || (brw[0] == 'trident') || (brw[0] == 'edge')) {
+                browser.name = 'MSIE';
+            } else {
+                browser.name = brw[0].charAt(0).toUpperCase() + brw[0].substring(1);
+            }
+        }
+
+        switch (browser.name) {
+            case 'Chrome':
+                browser.version = browser.ua.substring(browser.ua.indexOf('Chrome/') + 7);
+                browser.version = browser.version.substring(0, browser.version.indexOf(' '));
+                break;
+            case 'Firefox':
+                browser.version = browser.ua.substring(browser.ua.indexOf('Firefox/') + 8);
+                break;
+            case 'MSIE':
+                if (browser.ua.indexOf('Edge') != -1) {
+                    browser.version = browser.ua.substring(browser.ua.indexOf('Edge') + 4);
+                }
+                if (browser.ua.indexOf('MSIE ') != -1) {
+                    browser.version = browser.ua.substring(browser.ua.indexOf('MSIE ') + 5);
+                    browser.version = browser.version.substring(0, browser.version.indexOf(';'));
+                } else {
+                    browser.version = browser.ua.substring(browser.ua.indexOf('rv:') + 3);
+                    browser.version = browser.version.substring(0, browser.version.indexOf(')'));
+                }
+                break;
+            case 'Safari':
+                browser.version = browser.ua.substring(browser.ua.indexOf('Version/') + 8);
+                browser.version = browser.version.substring(0, browser.version.indexOf(' '));
+                break;
+        }
+
+        if ((dev != null) && (dev[0] != undefined)) {
+            browser.device = dev[0];
+        }
+
+        return browser;
     },
 
     cookie : {
@@ -169,24 +234,32 @@ pop = {
 $(document).ready(function(){
     if ($('#saved').data('saved') == 1) {
         $('#saved').fadeIn({complete : function(){
-            $('#saved').delay(1500).fadeOut();
+            $('#saved').delay(2000).fadeOut();
         }});
     }
     if ($('#removed').data('removed') == 1) {
         $('#removed').fadeIn({complete : function(){
-            $('#removed').delay(1500).fadeOut();
+            $('#removed').delay(2000).fadeOut();
         }});
     }
     if ($('#expired').data('expired') == 1) {
         $('#expired').fadeIn({complete : function(){
-            $('#expired').delay(1500).fadeOut();
+            $('#expired').delay(3000).fadeOut();
         }});
     }
     if ($('#failed').data('failed') == 1) {
         $('#failed').fadeIn({complete : function(){
-            $('#failed').delay(1500).fadeOut();
+            $('#failed').delay(3000).fadeOut();
         }});
     }
+
+    if ($('#browser-detect')[0] != undefined) {
+        var browser = pop.browser();
+        if ((browser.name != '') && (browser.version != '')) {
+            $('#browser-detect')[0].innerHTML = browser.name + ' (' + browser.version + ')';
+        }
+    }
+
     if ($('#checkAll')[0] != undefined) {
         $('#checkAll').click(function(){
             var checkName  = $('#checkAll').data('name');
@@ -201,6 +274,7 @@ $(document).ready(function(){
         });
 
     }
+
     if (($('#role_id')[0] != undefined) && ($('#role_id').data('user') == 'add')) {
         $('#role_id').change(function(){
             if ($('#role_id').val() != 0) {
@@ -208,6 +282,7 @@ $(document).ready(function(){
             }
         });
     }
+
     if ($('#users-form')[0] != undefined) {
         $('#users-form').submit(function(){
             if ($('#user_process_action').val() == '-1') {
@@ -217,11 +292,13 @@ $(document).ready(function(){
             }
         });
     }
+
     if ($('#roles-form')[0] != undefined) {
         $('#roles-form').submit(function(){
             return confirm('This action cannot be undone. Are you sure?');
         });
     }
+
     if ($('#permission-add-link')[0] != undefined) {
         var resources = $('select[id^="resource_"]');
         for (var i = 0; i < resources.length; i++) {
@@ -268,7 +345,7 @@ $(document).ready(function(){
             pop.sessionToInt = setInterval(pop.timeoutWarning, (timeout - warning) * 1000);
         } else {
             setTimeout(function () {
-                window.location = '/logout';
+                window.location = '/logout?expired=1';
             }, timeout * 1000);
         }
     }

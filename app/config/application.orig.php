@@ -1,5 +1,9 @@
 <?php
 
+if (!defined('APP_VERSION')) {
+    define('APP_VERSION', '');
+}
+
 if (!defined('DB_PREFIX')) {
     define('DB_PREFIX', '');
 }

@@ -115,6 +115,7 @@ class IndexController extends AbstractController
 
             $fields = $this->application->config()['forms']['App\Form\User'];
 
+            $fields[1]['username']['attributes']['onkeyup'] = 'pop.changeTitle(this.value);';
             $fields[1]['password1']['required'] = false;
             $fields[1]['password2']['required'] = false;
             $fields[0]['role_id']['type']       = 'select';

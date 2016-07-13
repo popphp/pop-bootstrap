@@ -12,7 +12,12 @@ class IndexController extends AbstractController
     public function index()
     {
         $this->prepareView('index.phtml');
-        $this->view->title = 'Dashboard';
+        $this->view->title     = 'Dashboard';
+        $this->view->dbVersion = $this->services['database']->version();
+        $this->view->database  = (strtolower($this->application->config()['database']['adapter']) == 'pdo') ?
+            $this->application->config()['database']['type'] . ' (pdo)' :
+            $this->view->database = $this->application->config()['database']['adapter'];
+        
         $this->send();
     }
 
@@ -87,7 +92,11 @@ class IndexController extends AbstractController
             $user = new Model\User();
             $user->logout($this->sess);
         }
-        $this->sess->kill();
+
+        if ((int)$this->request->getQuery('expired') == 1) {
+            $this->sess->setRequestValue('expired', true);
+        }
+
         $this->redirect('/login');
     }
 

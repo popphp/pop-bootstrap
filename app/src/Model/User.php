@@ -252,6 +252,8 @@ class User extends AbstractModel
             $user->last_ua    = (isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : null);
             $user->save();
         }
+
+        unset($sess->user);
     }
 
     public function verify($id, $hash)

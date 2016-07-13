@@ -28,3 +28,14 @@ screen. The default credentials are:
 
 * Username: `admin`
 * Password: `password`
+
+Features
+========
+
+This skeleton application provides a basic set of features common to
+web applications. This includes:
+
+- User Login
+- User Roles
+- User Sessions
+- User Management

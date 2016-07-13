@@ -3,9 +3,8 @@
  */
 
 /**
- * Custom application styles
+ * Global
  */
-
 html {
     position: relative;
     margin: 0;
@@ -33,6 +32,9 @@ input[type=checkbox] {
     padding: 0;
 }
 
+/**
+ * IDs
+ */
 #checkAll {
     position: relative;
     top: 3px;
@@ -104,6 +106,100 @@ input[type=checkbox] {
     text-transform: uppercase;
     font-weight: bold;
     text-decoration: none;
+}
+
+
+#pop-nav > li > ul {
+    position: absolute;
+    display: none;
+    width: 180px;
+    left: -25px;
+}
+
+#pop-nav > li:hover > ul {
+    display: block;
+}
+
+#pop-nav > li > ul > li {
+    margin: 0;
+    padding: 0;
+    display: block;
+    list-style-type: none;
+}
+
+#pop-nav > li > ul > li > a {
+    position: relative;
+    margin: 0;
+    padding: 8px 12px 8px 12px;
+    display: block;
+    color: #a5e1ff;
+    font-size: 0.9em;
+    font-weight: normal;
+    text-align: left;
+    text-decoration: none;
+    background-color: #036fa6;
+}
+
+#pop-nav > li > ul > li > a:hover {
+    font-weight: normal;
+    color: #fff;
+    text-decoration: none;
+    background-color: #26a4e2;
+}
+
+#role-form-field-group-3 {
+    padding-top: 20px;
+    border-top: solid 1px #dcdcdc;
+}
+
+#role-form-field-group-3 > dd {
+    width: 200px;
+    display: inline-block;
+}
+
+#role-form-field-group-3 > dd > select {
+    margin: 0 5px 5px 0;
+    width: 180px;
+    display: block;
+    font-size: 0.9em;
+}
+
+#asset-search-form {
+    margin: 32px 15px 0 0;
+    padding: 0;
+    float: right;
+}
+
+#asset-search-form > div {
+    margin: 0 0 0 5px;
+    padding: 0;
+    float: right;
+    display: block;
+}
+
+#asset-search-form > div > input[type=text] {
+    float: right;
+    display: block;
+}
+
+#asset-search-form > div > input[type=submit] {
+    float: right;
+    display: block;
+    font-size: 0.825em;
+}
+
+#asset-upload-form > div > input[type=submit] {
+    margin: 0;
+    padding: 4px 4px 4px 4px;
+    height: 28px;
+    font-size: 0.825em;
+    float: right;
+    display: block;
+    color: #444;
+    border-radius: 4px;
+    border: solid 1px #aaa;
+    background: linear-gradient(#dedede, #ababab);
+    background-color: #ddd;
 }
 
 #saved {
@@ -266,6 +362,9 @@ input[type=checkbox] {
     color: #999;
 }
 
+/**
+ * Classes
+ */
 .navbar-nav > li > a.profile-link {
     font-weight: bold;
     color: #ED7E00;
@@ -288,7 +387,7 @@ input[type=checkbox] {
 
 .user-header {
     margin: 17px 0 0 0;
-    padding: 0 15px 0 0;
+    padding: 0 15px 2px 0;
     color: #999;
     font-size: 0.9em;
     border-right: solid 1px #666;
@@ -339,139 +438,6 @@ input[type=checkbox] {
 .data-form > dl:nth-child(2) > dd, .data-form > dl:nth-child(3) > dd,
 .data-form > dl:nth-child(4) > dd, .data-form > dl:nth-child(5) > dd {
     height: 60px;
-}
-
-#pop-nav > li > ul {
-    position: absolute;
-    display: none;
-    width: 180px;
-    left: -25px;
-}
-
-#pop-nav > li:hover > ul {
-    display: block;
-}
-
-#pop-nav > li > ul > li {
-    margin: 0;
-    padding: 0;
-    display: block;
-    list-style-type: none;
-}
-
-#pop-nav > li > ul > li > a {
-    position: relative;
-    margin: 0;
-    padding: 6px 10px 6px 10px;
-    display: block;
-    color: #a5e1ff;
-    font-size: 0.825em;
-    font-weight: normal;
-    text-align: left;
-    text-decoration: none;
-    background-color: #036fa6;
-}
-
-#pop-nav > li > ul > li > a:hover {
-    font-weight: normal;
-    color: #fff;
-    text-decoration: none;
-    background-color: #26a4e2;
-}
-
-#role-form-field-group-3 {
-    padding-top: 20px;
-    border-top: solid 1px #dcdcdc;
-}
-
-#role-form-field-group-3 > dd {
-    width: 200px;
-    display: inline-block;
-}
-
-#role-form-field-group-3 > dd > select {
-    margin: 0 5px 5px 0;
-    width: 180px;
-    display: block;
-    font-size: 0.9em;
-}
-
-#asset-search-form {
-    margin: 32px 15px 0 0;
-    padding: 0;
-    float: right;
-}
-
-#asset-search-form > div {
-    margin: 0 0 0 5px;
-    padding: 0;
-    float: right;
-    display: block;
-}
-
-#asset-search-form > div > input[type=text] {
-    float: right;
-    display: block;
-}
-
-#asset-search-form > div > input[type=submit] {
-    float: right;
-    display: block;
-    font-size: 0.825em;
-}
-
-#asset-upload-form > div > input[type=submit] {
-    margin: 0;
-    padding: 4px 4px 4px 4px;
-    height: 28px;
-    font-size: 0.825em;
-    float: right;
-    display: block;
-    color: #444;
-    border-radius: 4px;
-    border: solid 1px #aaa;
-    background: linear-gradient(#dedede, #ababab);
-    background-color: #ddd;
-}
-
-@media (max-width: 750px) {
-    #profile-form {
-        margin: 0 auto;
-        padding: 0;
-        width: 80%;
-    }
-
-    #pop-nav > li > ul {
-        position: relative;
-        display: block;
-    }
-
-    #pop-nav > li > ul > li {
-        margin: 0;
-        padding: 0;
-        display: block;
-        list-style-type: none;
-    }
-
-    #pop-nav > li > ul > li > a {
-        position: relative;
-        margin: 0;
-        padding: 5px 10px 5px 35px;
-        display: block;
-        color: #aaa;
-        font-size: 0.825em;
-        font-weight: normal;
-        text-align: left;
-        text-decoration: none;
-        background: transparent;
-    }
-
-    #pop-nav > li > ul > li > a:hover {
-        font-weight: normal;
-        color: #fff;
-        text-decoration: none;
-        background: transparent;
-    }
 }
 
 .btn-default {
@@ -758,6 +724,55 @@ div.page-links > a:hover {
     font-size: 1.5em;
     width: 25px;
     text-align: center;
+}
+
+p.welcome {
+    padding: 10px 20px 5px 20px;
+    font-size: 0.9em;
+}
+
+@media (max-width: 750px) {
+    #profile-form {
+        margin: 0 auto;
+        padding: 0;
+        width: 80%;
+    }
+
+    #pop-nav > li > ul {
+        position: relative;
+        display: block;
+    }
+
+    #pop-nav > li > ul > li {
+        margin: 0;
+        padding: 0;
+        display: block;
+        list-style-type: none;
+    }
+
+    #pop-nav > li > ul > li > a {
+        position: relative;
+        margin: 0;
+        padding: 5px 10px 5px 35px;
+        display: block;
+        color: #aaa;
+        font-size: 0.825em;
+        font-weight: normal;
+        text-align: left;
+        text-decoration: none;
+        background: transparent;
+    }
+
+    #pop-nav > li > ul > li > a:hover {
+        font-weight: normal;
+        color: #fff;
+        text-decoration: none;
+        background: transparent;
+    }
+
+    .user-header {
+        display: none;
+    }
 }
 
 /**
