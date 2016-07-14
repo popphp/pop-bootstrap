@@ -30,10 +30,10 @@ return [
     'services'  => [
         'session' => 'Pop\Session\Session::getInstance',
         'acl'     => 'Pop\Acl\Acl',
-        'nav.pop' => [
+        'nav.top' => [
             'call'   => 'Pop\Nav\Nav',
             'params' => [
-                'tree' => include 'nav/main.php',
+                'tree' => include 'nav/top.php',
                 'config' => [
                     'top'     => [
                         'id'    => 'pop-nav',
@@ -50,15 +50,34 @@ return [
                 ]
             ]
         ],
-        'nav.side' => [
+        'nav.fluid' => [
             'call'   => 'Pop\Nav\Nav',
             'params' => [
-                'tree' => include 'nav/side.php',
+                'tree' => include 'nav/fluid.php',
                 'config' => [
                     'top'     => [
-                        'id'    => 'pop-side-nav',
+                        'id'    => 'pop-fluid-nav',
                         'node'  => 'ul',
                         'class' => 'nav nav-sidebar'
+                    ],
+                    'parent' => [
+                        'node' => 'ul'
+                    ],
+                    'child'  => [
+                        'node' => 'li'
+                    ],
+                    'indent' => '    '
+                ]
+            ]
+        ],
+        'nav.static' => [
+            'call'   => 'Pop\Nav\Nav',
+            'params' => [
+                'tree' => include 'nav/static.php',
+                'config' => [
+                    'top'     => [
+                        'id'    => 'pop-static-nav',
+                        'node'  => 'ul'
                     ],
                     'parent' => [
                         'node' => 'ul'

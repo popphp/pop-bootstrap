@@ -86,29 +86,7 @@ input[type=checkbox] {
     width: 40%;
 }
 
-#sub-nav {
-    margin: 0;
-    padding: 0 0 10px 0;
-}
-
-#sub-nav > nav {
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-}
-
-#sub-nav > nav > a {
-    margin: 0 5px 0 0;
-    padding: 4px 7px 4px 7px;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-#sub-nav > nav > a:hover {
-    text-transform: uppercase;
-    font-weight: bold;
-    text-decoration: none;
-}
+/* Start Pop Side Nav */
 
 #pop-nav > li > ul {
     position: absolute;
@@ -192,12 +170,15 @@ input[type=checkbox] {
     background-color: #86949e;
 }
 
-#pop-side-nav {
+/* End Pop Side Nav */
+
+/* Start Pop Side Nav */
+
+#pop-fluid-nav {
     position: relative;
 }
 
-
-#pop-side-nav > li > a {
+#pop-fluid-nav > li > a {
     padding-top: 12px;
     padding-bottom: 12px;
     color: #1997e5;
@@ -205,27 +186,27 @@ input[type=checkbox] {
     border-bottom: solid 1px #e5e5e5;
 }
 
-#pop-side-nav > li > a:hover {
+#pop-fluid-nav > li > a:hover {
     color: #fff;
     background-color: #1997e5;
 }
 
-#pop-side-nav > li > a:hover {
+#pop-fluid-nav > li > a:hover {
     color: #fff;
 }
 
-#pop-side-nav > li > ul {
+#pop-fluid-nav > li > ul {
     margin: 0;
     padding: 0;
 }
 
-#pop-side-nav > li > ul > li {
+#pop-fluid-nav > li > ul > li {
     margin: 0;
     padding: 0;
     list-style-type: none;
 }
 
-#pop-side-nav > li > ul > li > a {
+#pop-fluid-nav > li > ul > li > a {
     margin: 0;
     padding: 10px 0 10px 12px;
     display: block;
@@ -237,20 +218,20 @@ input[type=checkbox] {
     border-bottom: solid 1px #cdcdcd;
 }
 
-#pop-side-nav > li > ul > li > a > span {
+#pop-fluid-nav > li > ul > li > a > span {
     display: block;
     margin-right: 20px;
     float: right;
     width: calc(100% - 40px);
 }
 
-#pop-side-nav > li > ul > li > a:hover {
+#pop-fluid-nav > li > ul > li > a:hover {
     color: #fff;
     background-color: #858991;
     text-decoration: none;
 }
 
-#pop-side-nav > li > ul > li > a:before {
+#pop-fluid-nav > li > ul > li > a:before {
     position: relative;
     top: 0;
     font-family: "FontAwesome";
@@ -262,22 +243,22 @@ input[type=checkbox] {
     font-size: 1.0em;
 }
 
-#pop-side-nav > li > ul > li > a:hover:before {
+#pop-fluid-nav > li > ul > li > a:hover:before {
     color: #fff;
 }
 
-#pop-side-nav > li > ul > li > ul {
+#pop-fluid-nav > li > ul > li > ul {
     margin: 0;
     padding: 0;
 }
 
-#pop-side-nav > li > ul > li > ul > li {
+#pop-fluid-nav > li > ul > li > ul > li {
     margin: 0;
     padding: 0;
     list-style-type: none;
 }
 
-#pop-side-nav > li > ul > li > ul > li > a {
+#pop-fluid-nav > li > ul > li > ul > li > a {
     margin: 0;
     padding: 7px 0 7px 12px;
     display: block;
@@ -289,20 +270,20 @@ input[type=checkbox] {
     border-bottom: solid 1px #dcdcdc;
 }
 
-#pop-side-nav > li > ul > li > ul > li > a > span {
+#pop-fluid-nav > li > ul > li > ul > li > a > span {
     display: block;
     margin-right: 20px;
     float: right;
     width: calc(100% - 50px);
 }
 
-#pop-side-nav > li > ul > li > ul > li > a:hover {
+#pop-fluid-nav > li > ul > li > ul > li > a:hover {
     color: #fff;
     background-color: #545a5e;
     text-decoration: none;
 }
 
-#pop-side-nav > li > ul > li > ul > li > a:before {
+#pop-fluid-nav > li > ul > li > ul > li > a:before {
     position: relative;
     top: 0;
     font-family: "FontAwesome";
@@ -314,8 +295,144 @@ input[type=checkbox] {
     font-size: 1.0em;
 }
 
-#pop-side-nav > li > ul > li > ul > li > a:hover:before {
+#pop-fluid-nav > li > ul > li > ul > li > a:hover:before {
     color: #fff;
+}
+
+/* End Pop Side Nav */
+
+/* Start Pop Static Nav */
+
+#pop-static-nav {
+    position: relative;
+    z-index: 10;
+    margin: 0;
+    padding: 0;
+    width: 160px;
+    min-height: 100%;
+}
+
+#pop-static-nav > li {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: block;
+}
+
+#pop-static-nav > li > a {
+    position: relative;
+    margin: 0;
+    padding: 7px 0 7px 10px;
+    display: block;
+    font-weight: bold;
+    font-size: 1.0em;
+    color: #fff;
+    text-align: left;
+    text-decoration: none;
+    border-bottom: solid 1px #4f4b4a;
+}
+
+#pop-static-nav > li:hover {
+    background-color: #18252c;
+}
+
+#pop-static-nav > li > ul {
+    position: absolute;
+    display: none;
+    width: 180px;
+    top: 0;
+    left: 120px;
+}
+
+#pop-static-nav > li > ul > li {
+    position: relative;
+    list-style-type: none;
+}
+
+#pop-static-nav > li > ul > li > a {
+    position: relative;
+    margin: 0;
+    padding: 10px;
+    display: block;
+    color: #fff;
+    text-align: left;
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 0.9em;
+    background-color: #036fa6;
+}
+
+#pop-static-nav > li > ul > li > a:hover {
+    color: #46bcfa;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+#pop-static-nav > li:hover > ul {
+    display: block;
+}
+
+#pop-static-nav > li > ul > li > ul {
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 100px;
+    width: 180px;
+}
+
+#pop-static-nav > li > ul > li > ul > li {
+    list-style-type: none;
+}
+
+#pop-static-nav > li > ul > li > ul > li > a {
+    position: relative;
+    margin: 0;
+    padding: 10px;
+    display: block;
+    font-weight: normal;
+    font-size: 0.825em;
+    color: #111;
+    text-align: left;
+    text-decoration: none;
+    background-color: #aaa;
+}
+
+#pop-static-nav > li > ul > li > ul > li > a:hover {
+    font-weight: normal;
+    color: #fff;
+    text-decoration: underline;
+    background-color: #666;
+}
+
+#pop-static-nav > li > ul > li:hover > ul {
+    display: block;
+}
+
+/* End Pop Static Nav */
+
+#sub-nav {
+    margin: 0;
+    padding: 0 0 10px 0;
+}
+
+#sub-nav > nav {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+
+#sub-nav > nav > a {
+    margin: 0 5px 0 0;
+    padding: 4px 7px 4px 7px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#sub-nav > nav > a:hover {
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 #role-form-field-group-3 {
@@ -536,6 +653,11 @@ input[type=checkbox] {
 /**
  * Classes
  */
+
+.navbar-brand {
+    width: 160px;
+}
+
 .navbar-nav > li > a.profile-link {
     font-weight: bold;
     color: #ED7E00;
@@ -902,12 +1024,41 @@ p.welcome {
     font-size: 0.9em;
 }
 
+.no-gutter-left {
+    padding-left: 0;
+}
+
+li.nav-arrow:hover {
+    background-image: url(../img/nav-arrow-left.png);
+    background-repeat: no-repeat;
+    background-position: right center;
+}
+
+.static-sidebar {
+    position: fixed;
+    z-index: 1000;
+    margin: 0;
+    padding: 50px 0 0 0;
+    top: 0;
+    bottom: 0;
+    width: 160px;
+    background-color: #343434;
+}
+
+.static-main {
+    position: relative;
+    z-index: 1;
+    margin: 0 0 0 170px;
+    padding: 0;
+    width: calc(100% - 160px);
+    float: left;
+}
+
 @media (max-width: 990px) {
     .user-header {
         display: none;
     }
 }
-
 
 @media (max-width: 750px) {
     #profile-form {

@@ -359,4 +359,13 @@ $(document).ready(function(){
         $('.row-offcanvas').toggleClass('active');
         return false;
     });
+
+    if ($('#pop-static-nav')[0] != undefined) {
+        var lis = $('#pop-static-nav > li');
+        for (var i = 0; i < lis.length; i++) {
+            if ((lis[i].children[1] != undefined) && (lis[i].children[1].nodeName == 'UL')) {
+                $(lis[i]).prop('class', 'nav-arrow');
+            }
+        }
+    }
 });

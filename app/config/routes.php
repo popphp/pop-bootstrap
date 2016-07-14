@@ -11,6 +11,10 @@ return [
         'controller' => 'App\Controller\IndexController',
         'action'     => 'side'
     ],
+    '/static' => [
+        'controller' => 'App\Controller\IndexController',
+        'action'     => 'staticSide'
+    ],
     '/login' => [
         'controller' => 'App\Controller\IndexController',
         'action'     => 'login'

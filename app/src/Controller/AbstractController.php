@@ -269,13 +269,17 @@ class AbstractController extends \Pop\Controller\AbstractController
         }
 
         if (isset($this->sess->user)) {
-            $this->services['nav.pop']->setRole($this->services['acl']->getRole($this->sess->user->role));
-            $this->services['nav.pop']->returnFalse(true);
-            if ($this->services->isAvailable('nav.side')) {
-                $this->services['nav.side']->setRole($this->services['acl']->getRole($this->sess->user->role));
-                $this->services['nav.side']->returnFalse(true);
+            $this->services['nav.top']->setRole($this->services['acl']->getRole($this->sess->user->role));
+            $this->services['nav.top']->returnFalse(true);
+            if ($this->services->isAvailable('nav.fluid')) {
+                $this->services['nav.fluid']->setRole($this->services['acl']->getRole($this->sess->user->role));
+                $this->services['nav.fluid']->returnFalse(true);
             }
-            $this->view->popNav = $this->services['nav.pop'];
+            if ($this->services->isAvailable('nav.static')) {
+                $this->services['nav.static']->setRole($this->services['acl']->getRole($this->sess->user->role));
+                $this->services['nav.static']->returnFalse(true);
+            }
+            $this->view->popNav = $this->services['nav.top'];
             $this->view->acl    = $this->services['acl'];
             $this->view->user   = $this->sess->user;
         }

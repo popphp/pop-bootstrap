@@ -167,9 +167,12 @@ class Module extends \Pop\Module\Module
         }
 
         // Set the acl in the nav objects
-        $this->application->getService('nav.pop')->setAcl($this->application->getService('acl'));
-        if ($this->application->services()->isAvailable('nav.side')) {
-            $this->application->getService('nav.side')->setAcl($this->application->getService('acl'));
+        $this->application->getService('nav.top')->setAcl($this->application->getService('acl'));
+        if ($this->application->services()->isAvailable('nav.fluid')) {
+            $this->application->getService('nav.fluid')->setAcl($this->application->getService('acl'));
+        }
+        if ($this->application->services()->isAvailable('nav.static')) {
+            $this->application->getService('nav.static')->setAcl($this->application->getService('acl'));
         }
 
         return $this;
@@ -182,7 +185,7 @@ class Module extends \Pop\Module\Module
      */
     public function initNav()
     {
-        $params = $this->application->services()->getParams('nav.pop');
+        $params = $this->application->services()->getParams('nav.top');
         $roles  = Table\Roles::findAll();
 
         foreach ($roles->rows() as $role) {
@@ -199,7 +202,7 @@ class Module extends \Pop\Module\Module
             ];
         }
 
-        $this->application->services()->setParams('nav.pop', $params);
+        $this->application->services()->setParams('nav.top', $params);
     }
 
     /**
