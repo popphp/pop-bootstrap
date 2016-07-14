@@ -655,7 +655,8 @@ input[type=checkbox] {
  */
 
 .navbar-brand {
-    width: 160px;
+    min-width: 160px;
+    max-width: 240px;
 }
 
 .navbar-nav > li > a.profile-link {
