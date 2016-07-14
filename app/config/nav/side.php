@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Pop Web Bootstrap Application Framework side nav configuration
+ */
 return [
     'overview' => [
         'name' => 'Overview',

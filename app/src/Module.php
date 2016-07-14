@@ -1,5 +1,16 @@
 <?php
+/**
+ * Pop Web Bootstrap Application Framework (http://www.popphp.org/)
+ *
+ * @link       https://github.com/popphp/pop-bootstrap
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.popphp.org/license     New BSD License
+ */
 
+/**
+ * @namespace
+ */
 namespace App;
 
 use App\Table;
@@ -11,9 +22,26 @@ use Pop\Http\Request;
 use Pop\Http\Response;
 use Pop\View\View;
 
+/**
+ * Main module class
+ *
+ * @category   Pop_Bootstrap
+ * @package    Pop_Bootstrap
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.popphp.org/license     New BSD License
+ * @version    1.0
+ */
 class Module extends \Pop\Module\Module
 {
 
+    /**
+     * Register module
+     *
+     * @param  Application $application
+     * @throws Exception
+     * @return Module
+     */
     public function register(Application $application)
     {
         parent::register($application);
@@ -74,6 +102,11 @@ class Module extends \Pop\Module\Module
         return $this;
     }
 
+    /**
+     * Initialize the ACL service
+     *
+     * @return Module
+     */
     public function initAcl()
     {
         $roles = Table\Roles::findAll()->rows();
@@ -143,7 +176,7 @@ class Module extends \Pop\Module\Module
     }
 
     /**
-     * Add user roles to navigation
+     * Initialize navigation object
      *
      * @return void
      */
@@ -169,6 +202,12 @@ class Module extends \Pop\Module\Module
         $this->application->services()->setParams('nav.pop', $params);
     }
 
+    /**
+     * Custom error handler method
+     *
+     * @param  \Exception $exception
+     * @return void
+     */
     public function error(\Exception $exception)
     {
         $view = new View(__DIR__ . '/../view/exception.phtml');

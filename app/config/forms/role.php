@@ -1,6 +1,6 @@
 <?php
 /**
- * Phire\Form\Role configuration
+ * Pop Web Bootstrap Application Framework role form configuration
  */
 return [
     [

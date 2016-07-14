@@ -356,6 +356,7 @@ $(document).ready(function(){
         } else {
             $("#side-nav-toggle").animate({left: '-8px'}, {duration: 75});
         }
-        $('.row-offcanvas').toggleClass('active')
+        $('.row-offcanvas').toggleClass('active');
+        return false;
     });
 });

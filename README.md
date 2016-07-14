@@ -2,7 +2,7 @@ Pop Bootstrap
 =============
 
 A skeleton application for the Pop Web Application Framework,
-using Bootstrap and Font Awesome frameworks.
+using the Bootstrap and Font Awesome frameworks. 
 
 Installation
 ============ 

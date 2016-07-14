@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Pop Web Bootstrap Application Framework profile form configuration
+ */
 return [
     [
         'username' => [

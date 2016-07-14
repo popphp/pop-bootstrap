@@ -1,5 +1,16 @@
 <?php
+/**
+ * Pop Web Bootstrap Application Framework (http://www.popphp.org/)
+ *
+ * @link       https://github.com/popphp/pop-bootstrap
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.popphp.org/license     New BSD License
+ */
 
+/**
+ * @namespace
+ */
 namespace App\Controller\Roles;
 
 use App\Controller\AbstractController;
@@ -7,9 +18,24 @@ use App\Form;
 use App\Model;
 use Pop\Paginator\Paginator;
 
+/**
+ * Roles controller class
+ *
+ * @category   Pop_Bootstrap
+ * @package    Pop_Bootstrap
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.popphp.org/license     New BSD License
+ * @version    1.0
+ */
 class IndexController extends AbstractController
 {
 
+    /**
+     * Index action method
+     *
+     * @return void
+     */
     public function index()
     {
         $role = new Model\Role();
@@ -31,6 +57,11 @@ class IndexController extends AbstractController
         $this->send();
     }
 
+    /**
+     * Add action method
+     *
+     * @return void
+     */
     public function add()
     {
         $this->prepareView('roles/add.phtml');
@@ -78,7 +109,12 @@ class IndexController extends AbstractController
 
         $this->send();
     }
-
+    
+    /**
+     * Edit action method
+     *
+     * @return void
+     */
     public function edit($id)
     {
         $role = new Model\Role();
@@ -139,6 +175,11 @@ class IndexController extends AbstractController
         $this->send();
     }
 
+    /**
+     * JSON action method
+     *
+     * @return void
+     */
     public function json($id)
     {
         $json = [];
@@ -184,7 +225,12 @@ class IndexController extends AbstractController
         $this->response->setBody(json_encode($json, JSON_PRETTY_PRINT));
         $this->send(200, ['Content-Type' => 'application/json']);
     }
-
+    
+    /**
+     * Remove action method
+     *
+     * @return void
+     */
     public function remove()
     {
         if ($this->request->isPost()) {

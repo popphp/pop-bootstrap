@@ -1,6 +1,6 @@
 <?php
 /**
- * Phire\Form\User configuration
+ * Pop Web Bootstrap Application Framework user form configuration
  */
 return [
     [

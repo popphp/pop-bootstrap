@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Pop Web Bootstrap Application Framework form configurations
+ */
 return [
     'App\Form\Login'   => include 'forms/login.php',
     'App\Form\Forgot'  => include 'forms/forgot.php',

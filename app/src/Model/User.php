@@ -1,5 +1,16 @@
 <?php
+/**
+ * Pop Web Bootstrap Application Framework (http://www.popphp.org/)
+ *
+ * @link       https://github.com/popphp/pop-bootstrap
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.popphp.org/license     New BSD License
+ */
 
+/**
+ * @namespace
+ */
 namespace App\Model;
 
 use App\Table;
@@ -7,9 +18,30 @@ use Pop\Cookie\Cookie;
 use Pop\Crypt\Bcrypt;
 use Pop\Db\Sql;
 
+/**
+ * User model class
+ *
+ * @category   Pop_Bootstrap
+ * @package    Pop_Bootstrap
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.popphp.org/license     New BSD License
+ * @version    1.0
+ */
 class User extends AbstractModel
 {
 
+    /**
+     * Get all users
+     *
+     * @param  int    $roleId
+     * @param  string $username
+     * @param  array  $deniedRoles
+     * @param  int    $limit
+     * @param  int    $page
+     * @param  string $sort
+     * @return array
+     */
     public function getAll($roleId = null, $username = null, array $deniedRoles = null, $limit = null, $page = null, $sort = null)
     {
         $sql = Table\Users::sql();
@@ -68,6 +100,11 @@ class User extends AbstractModel
         return $rows;
     }
 
+    /**
+     * Get all user roles
+     *
+     * @return array
+     */
     public function getRoles()
     {
         $roles    = Table\Roles::findAll(null, Table\Roles::ROW_AS_OBJECT)->rows();
@@ -81,11 +118,23 @@ class User extends AbstractModel
         return $rolesAry;
     }
 
+    /**
+     * Get users by role ID
+     *
+     * @param  int $rid
+     * @return array
+     */
     public function getByRoleId($rid)
     {
         return Table\Users::findBy(['role_id' => (int)$rid], null, Table\Roles::ROW_AS_OBJECT)->rows();
     }
 
+    /**
+     * Get users by role name
+     *
+     * @param  string $name
+     * @return array
+     */
     public function getByRole($name)
     {
         $role  = Table\Roles::findBy(['name' => $name], null, Table\Roles::ROW_AS_OBJECT);
@@ -97,6 +146,12 @@ class User extends AbstractModel
         return $users;
     }
 
+    /**
+     * Get user by ID
+     *
+     * @param  int $id
+     * @return void
+     */
     public function getById($id)
     {
         $user = Table\Users::findById((int)$id);
@@ -114,6 +169,13 @@ class User extends AbstractModel
         }
     }
 
+    /**
+     * Save new user
+     *
+     * @param  array  $fields
+     * @param  string $title
+     * @return void
+     */
     public function save(array $fields, $title)
     {
         $user = new Table\Users([
@@ -134,6 +196,13 @@ class User extends AbstractModel
         }
     }
 
+    /**
+     * Update an existing user
+     *
+     * @param  array               $fields
+     * @param  \Pop\Session\Session $sess
+     * @return void
+     */
     public function update(array $fields, $title, \Pop\Session\Session $sess = null)
     {
         $user = Table\Users::findById((int)$fields['id']);
@@ -166,6 +235,13 @@ class User extends AbstractModel
         }
     }
 
+    /**
+     * Process users
+     *
+     * @param  array  $post
+     * @param  string $title
+     * @return void
+     */
     public function process(array $post, $title)
     {
         if (isset($post['process_users'])) {
@@ -192,6 +268,14 @@ class User extends AbstractModel
         }
     }
 
+    /**
+     * Login a user
+     *
+     * @param  mixed                $user
+     * @param  \Pop\Session\Session $sess
+     * @param  array                $config
+     * @return void
+     */
     public function login($user, $sess, $config)
     {
         $user->failed_attempts = 0;
@@ -229,12 +313,24 @@ class User extends AbstractModel
         ], \ArrayObject::ARRAY_AS_PROPS);
     }
 
+    /**
+     * Record a failed login attempt
+     *
+     * @param  mixed $user
+     * @return void
+     */
     public function failed($user)
     {
         $user->failed_attempts++;
         $user->save();
     }
 
+    /**
+     * Logout a user
+     *
+     * @param  \Pop\Session\Session $sess
+     * @return void
+     */
     public function logout($sess)
     {
         $user = Table\Users::findById($sess->user->id);
@@ -256,6 +352,13 @@ class User extends AbstractModel
         unset($sess->user);
     }
 
+    /**
+     * Verify a user
+     *
+     * @param  int    $id
+     * @param  string $hash
+     * @return boolean
+     */
     public function verify($id, $hash)
     {
         $result = false;
@@ -271,6 +374,13 @@ class User extends AbstractModel
         return $result;
     }
 
+    /**
+     * Send a user a forgot password reminder
+     *
+     * @param  array  $fields
+     * @param  string $title
+     * @return void
+     */
     public function forgot(array $fields, $title)
     {
         $user = Table\Users::findBy(['email' => $fields['email']]);
@@ -281,6 +391,15 @@ class User extends AbstractModel
         }
     }
 
+    /**
+     * Determine if list of users has pages
+     *
+     * @param  int    $limit
+     * @param  int    $roleId
+     * @param  string $username
+     * @param  array  $deniedRoles
+     * @return boolean
+     */
     public function hasPages($limit, $roleId = null, $username = null, array $deniedRoles = [])
     {
         $params = [];
@@ -310,7 +429,15 @@ class User extends AbstractModel
             return (Table\Users::findAll(null, Table\Users::ROW_AS_ARRAY)->count() > $limit);
         }
     }
-
+    
+    /**
+     * Get count of users
+     *
+     * @param  int    $roleId
+     * @param  string $username
+     * @param  array  $deniedRoles
+     * @return int
+     */
     public function getCount($roleId = null, $username = null, array $deniedRoles = [])
     {
         $params = [];

@@ -1,12 +1,42 @@
 <?php
+/**
+ * Pop Web Bootstrap Application Framework (http://www.popphp.org/)
+ *
+ * @link       https://github.com/popphp/pop-bootstrap
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.popphp.org/license     New BSD License
+ */
 
+/**
+ * @namespace
+ */
 namespace App\Model;
 
 use App\Table;
 
+/**
+ * Session model class
+ *
+ * @category   Pop_Bootstrap
+ * @package    Pop_Bootstrap
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.popphp.org/license     New BSD License
+ * @version    1.0
+ */
 class Session extends AbstractModel
 {
 
+    /**
+     * Get user sessions
+     *
+     * @param  string $username
+     * @param  int    $limit
+     * @param  int    $page
+     * @param  string $sort
+     * @return array
+     */
     public function getAll($username = null, $limit = null, $page = null, $sort = null)
     {
         $sql = Table\UserSessions::sql();
@@ -43,6 +73,15 @@ class Session extends AbstractModel
             Table\UserSessions::query((string)$sql, Table\UserSessions::ROW_AS_OBJECT)->rows();
     }
 
+    /**
+     * Get user logins
+     *
+     * @param  string $username
+     * @param  int    $limit
+     * @param  int    $page
+     * @param  string $sort
+     * @return array
+     */
     public function getLogins($username = null, $limit = null, $page = null, $sort = null)
     {
         $sql = Table\UserLogins::sql();
@@ -79,11 +118,23 @@ class Session extends AbstractModel
             Table\UserLogins::query((string)$sql, Table\UserLogins::ROW_AS_OBJECT)->rows();
     }
 
+    /**
+     * Get all users
+     *
+     * @return array
+     */
     public function getAllUsers()
     {
         return Table\Users::findAll(null, Table\Users::ROW_AS_OBJECT)->rows();
     }
 
+    /**
+     * Validate user session
+     *
+     * @param  mixed $user
+     * @param  array $config
+     * @return boolean
+     */
     public function validate($user, $config)
     {
         $result = true;
@@ -100,6 +151,14 @@ class Session extends AbstractModel
         return $result;
     }
 
+    /**
+     * Login a user
+     *
+     * @param  int    $uid
+     * @param  string $ip
+     * @param  string $ua
+     * @return void
+     */
     public function login($uid, $ip = '', $ua = '')
     {
         $login = new Table\UserLogins([
@@ -113,6 +172,15 @@ class Session extends AbstractModel
         $this->data = array_merge($this->data, $login->getColumns());
     }
 
+    /**
+     * Start a user session
+     *
+     * @param  int    $uid
+     * @param  int    $sid
+     * @param  string $ip
+     * @param  string $ua
+     * @return void
+     */
     public function start($uid, $sid, $ip = '', $ua = '')
     {
         $sess = new Table\UserSessions([
@@ -127,6 +195,14 @@ class Session extends AbstractModel
         $this->data = array_merge($this->data, $sess->getColumns());
     }
 
+    /**
+     * Clear a user session
+     *
+     * @param  int $id
+     * @param  int $uid
+     * @param  int $sid
+     * @return void
+     */
     public function clear($id, $uid, $sid)
     {
         $sess = Table\UserSessions::findBy([
@@ -140,6 +216,12 @@ class Session extends AbstractModel
         }
     }
 
+    /**
+     * Remove sessions
+     *
+     * @param  array $rm
+     * @return void
+     */
     public function remove(array $rm)
     {
         foreach ($rm as $id) {
@@ -150,6 +232,13 @@ class Session extends AbstractModel
         }
     }
 
+    /**
+     * Clear user sessions
+     *
+     * @param  int $sessId
+     * @param  int $uid
+     * @return void
+     */
     public function clearSessions($sessId, $uid = null)
     {
         $sql    = Table\UserSessions::getSql();
@@ -168,6 +257,12 @@ class Session extends AbstractModel
         Table\UserSessions::execute((string)$sql, $params);
     }
 
+    /**
+     * Remove logins
+     *
+     * @param  array $rm
+     * @return void
+     */
     public function removeLogins(array $rm)
     {
         foreach ($rm as $id) {
@@ -178,6 +273,12 @@ class Session extends AbstractModel
         }
     }
 
+    /**
+     * Clear user logins
+     *
+     * @param  int $uid
+     * @return void
+     */
     public function clearLogins($uid = null)
     {
         if (null !== $uid) {
@@ -188,6 +289,13 @@ class Session extends AbstractModel
         }
     }
 
+    /**
+     * Determine if list of user sessions has pages
+     *
+     * @param  int    $limit
+     * @param  string $username
+     * @return boolean
+     */
     public function hasPages($limit, $username = null)
     {
         if (null !== $username) {
@@ -206,7 +314,13 @@ class Session extends AbstractModel
             return (Table\UserSessions::findAll(null, Table\UserSessions::ROW_AS_ARRAY)->count() > $limit);
         }
     }
-
+    
+    /**
+     * Get count of user sessions
+     *
+     * @param  string $username
+     * @return int
+     */
     public function getCount($username = null)
     {
         if (null !== $username) {$sql = Table\UserSessions::sql();
@@ -224,6 +338,13 @@ class Session extends AbstractModel
         }
     }
 
+    /**
+     * Determine if list of user logins has pages
+     *
+     * @param  int    $limit
+     * @param  string $username
+     * @return boolean
+     */
     public function hasLoginPages($limit, $username = null)
     {
         if (null !== $username) {
@@ -243,6 +364,12 @@ class Session extends AbstractModel
         }
     }
 
+    /**
+     * Get count of user logins
+     *
+     * @param  string $username
+     * @return int
+     */
     public function getLoginCount($username = null)
     {
         if (null !== $username) {$sql = Table\UserLogins::sql();

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Pop Web Bootstrap Application Framework resources
+ */
 return [
     'users' => [
         'index',

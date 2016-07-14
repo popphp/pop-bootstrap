@@ -1,5 +1,16 @@
 <?php
+/**
+ * Pop Web Bootstrap Application Framework (http://www.popphp.org/)
+ *
+ * @link       https://github.com/popphp/pop-bootstrap
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.popphp.org/license     New BSD License
+ */
 
+/**
+ * @namespace
+ */
 namespace App\Controller;
 
 use Pop\Application;
@@ -8,6 +19,16 @@ use Pop\Http\Response;
 use Pop\Service\Locator;
 use Pop\View\View;
 
+/**
+ * Abstract controller class
+ *
+ * @category   Pop_Bootstrap
+ * @package    Pop_Bootstrap
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.popphp.org/license     New BSD License
+ * @version    1.0
+ */
 class AbstractController extends \Pop\Controller\AbstractController
 {
 
@@ -170,6 +191,7 @@ class AbstractController extends \Pop\Controller\AbstractController
     public function send($code = 200, array $headers = null, $body = null)
     {
         $this->response->setCode($code);
+        $this->application->trigger('app.send.pre', ['controller' => $this]);
 
         if (null !== $body) {
             $this->response->setBody($body);
@@ -177,6 +199,7 @@ class AbstractController extends \Pop\Controller\AbstractController
             $this->response->setBody($this->view->render());
         }
 
+        $this->application->trigger('app.send.post', ['controller' => $this]);
         $this->response->send($code, $headers);
     }
 

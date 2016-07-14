@@ -1,5 +1,16 @@
 <?php
+/**
+ * Pop Web Bootstrap Application Framework (http://www.popphp.org/)
+ *
+ * @link       https://github.com/popphp/pop-bootstrap
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.popphp.org/license     New BSD License
+ */
 
+/**
+ * @namespace
+ */
 namespace App\Controller\Users;
 
 use App\Controller\AbstractController;
@@ -7,9 +18,24 @@ use App\Form;
 use App\Model;
 use Pop\Paginator\Paginator;
 
+/**
+ * Users controller class
+ *
+ * @category   Pop_Bootstrap
+ * @package    Pop_Bootstrap
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.popphp.org/license     New BSD License
+ * @version    1.0
+ */
 class IndexController extends AbstractController
 {
 
+    /**
+     * Index action method
+     *
+     * @return void
+     */
     public function index($rid = null)
     {
         if ((null === $rid) || ($this->services['acl']->isAllowed($this->sess->user->role, 'users-of-role-' . $rid, 'index'))) {
@@ -51,6 +77,11 @@ class IndexController extends AbstractController
         }
     }
 
+    /**
+     * Add action method
+     *
+     * @return void
+     */
     public function add($rid = null)
     {
         $this->prepareView('users/add.phtml');
@@ -91,7 +122,12 @@ class IndexController extends AbstractController
 
         $this->send();
     }
-
+    
+    /**
+     * Edit action method
+     *
+     * @return void
+     */
     public function edit($id)
     {
         $user = new Model\User();
@@ -148,10 +184,13 @@ class IndexController extends AbstractController
         } else {
             $this->redirect('/users');
         }
-
-
     }
 
+    /**
+     * Process action method
+     *
+     * @return void
+     */
     public function process()
     {
         if ($this->request->isPost()) {

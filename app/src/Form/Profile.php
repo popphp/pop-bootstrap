@@ -1,14 +1,45 @@
 <?php
+/**
+ * Pop Web Bootstrap Application Framework (http://www.popphp.org/)
+ *
+ * @link       https://github.com/popphp/pop-bootstrap
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.popphp.org/license     New BSD License
+ */
 
+/**
+ * @namespace
+ */
 namespace App\Form;
 
 use App\Table;
 use Pop\Form\Form;
 use Pop\Validator;
 
+/**
+ * Profile form class
+ *
+ * @category   Pop_Bootstrap
+ * @package    Pop_Bootstrap
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.popphp.org/license     New BSD License
+ * @version    1.0
+ */
 class Profile extends Form
 {
 
+    /**
+     * Constructor
+     *
+     * Instantiate the form object
+     *
+     * @param  array  $fields
+     * @param  string $action
+     * @param  string $method
+     * @return Profile
+     */
     public function __construct(array $fields, $action = null, $method = 'post')
     {
         parent::__construct($fields, $action, $method);
@@ -16,6 +47,12 @@ class Profile extends Form
         $this->setIndent('    ');
     }
 
+    /**
+     * Set the field values
+     *
+     * @param  array $values
+     * @return Profile
+     */
     public function setFieldValues(array $values = null)
     {
         parent::setFieldValues($values);

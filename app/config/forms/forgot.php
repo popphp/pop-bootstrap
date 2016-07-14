@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Pop Web Bootstrap Application Framework forgot form configuration
+ */
 return [
     [
         'email' => [

@@ -1,14 +1,40 @@
 <?php
+/**
+ * Pop Web Bootstrap Application Framework (http://www.popphp.org/)
+ *
+ * @link       https://github.com/popphp/pop-bootstrap
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.popphp.org/license     New BSD License
+ */
 
+/**
+ * @namespace
+ */
 namespace App\Controller;
 
 use App\Form;
 use App\Model;
 use Pop\Auth;
 
+/**
+ * Index controller class
+ *
+ * @category   Pop_Bootstrap
+ * @package    Pop_Bootstrap
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.popphp.org/license     New BSD License
+ * @version    1.0
+ */
 class IndexController extends AbstractController
 {
 
+    /**
+     * Index action method
+     *
+     * @return void
+     */
     public function index()
     {
         $this->prepareView('index.phtml');
@@ -21,6 +47,11 @@ class IndexController extends AbstractController
         $this->send();
     }
 
+    /**
+     * Side nav example action method
+     *
+     * @return void
+     */
     public function side()
     {
         $this->prepareView('index.phtml');
@@ -35,6 +66,11 @@ class IndexController extends AbstractController
         $this->send();
     }
 
+    /**
+     * Profile action method
+     *
+     * @return void
+     */
     public function profile()
     {
         $this->prepareView('profile.phtml');
@@ -67,6 +103,11 @@ class IndexController extends AbstractController
         $this->send();
     }
 
+    /**
+     * Login action method
+     *
+     * @return void
+     */
     public function login()
     {
         $this->prepareView('login.phtml');
@@ -100,6 +141,11 @@ class IndexController extends AbstractController
         $this->send();
     }
 
+    /**
+     * Logout action method
+     *
+     * @return void
+     */
     public function logout()
     {
         if (isset($this->sess->user)) {
@@ -114,6 +160,11 @@ class IndexController extends AbstractController
         $this->redirect('/login');
     }
 
+    /**
+     * Forgot action method
+     *
+     * @return void
+     */
     public function forgot()
     {
         $this->prepareView('forgot.phtml');
@@ -141,6 +192,11 @@ class IndexController extends AbstractController
         $this->send();
     }
 
+    /**
+     * Verify action method
+     *
+     * @return void
+     */
     public function verify($id, $hash)
     {
         $this->prepareView('verify.phtml');

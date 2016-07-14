@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Pop Web Bootstrap Application Framework main nav configuration
+ */
 return [
     'users' => [
         'name' => 'Users',

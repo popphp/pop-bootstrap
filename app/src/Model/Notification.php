@@ -1,13 +1,41 @@
 <?php
+/**
+ * Pop Web Bootstrap Application Framework (http://www.popphp.org/)
+ *
+ * @link       https://github.com/popphp/pop-bootstrap
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.popphp.org/license     New BSD License
+ */
 
+/**
+ * @namespace
+ */
 namespace App\Model;
 
 use Pop\Crypt\Bcrypt;
 use Pop\Mail\Mail;
 
+/**
+ * Notification model class
+ *
+ * @category   Pop_Bootstrap
+ * @package    Pop_Bootstrap
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.popphp.org/license     New BSD License
+ * @version    1.0
+ */
 class Notification extends AbstractModel
 {
 
+    /**
+     * Send user verification notification
+     *
+     * @param  mixed  $user
+     * @param  string $title
+     * @return void
+     */
     public function sendVerification($user, $title)
     {
         $host    = $_SERVER['HTTP_HOST'];
@@ -33,6 +61,13 @@ class Notification extends AbstractModel
         $mail->send();
     }
 
+    /**
+     * Send user approval notification
+     *
+     * @param  mixed  $user
+     * @param  string $title
+     * @return void
+     */
     public function sendApproval($user, $title)
     {
         $host   = $_SERVER['HTTP_HOST'];
@@ -56,6 +91,13 @@ class Notification extends AbstractModel
         $mail->send();
     }
 
+    /**
+     * Send user password reset notification
+     *
+     * @param  mixed  $user
+     * @param  string $title
+     * @return void
+     */
     public function sendReset($user, $title)
     {
         $host           = $_SERVER['HTTP_HOST'];
@@ -82,7 +124,13 @@ class Notification extends AbstractModel
         $mail->send();
     }
 
-    protected function random()
+    /**
+     * Create random alphanumeric string
+     *
+     * @param  int $length
+     * @return string
+     */
+    protected function random($length = 8)
     {
         $chars = [
             0 => str_split('abcdefghjkmnpqrstuvwxyz'),
@@ -91,7 +139,7 @@ class Notification extends AbstractModel
         $indices = [0, 1];
         $str     = '';
 
-        for ($i = 0; $i < 8; $i++) {
+        for ($i = 0; $i < (int)$length; $i++) {
             $index = $indices[rand(0, (count($indices) - 1))];
             $subIndex = rand(0, (count($chars[$index]) - 1));
             $str .= $chars[$index][$subIndex];

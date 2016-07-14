@@ -1,12 +1,41 @@
 <?php
+/**
+ * Pop Web Bootstrap Application Framework (http://www.popphp.org/)
+ *
+ * @link       https://github.com/popphp/pop-bootstrap
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.popphp.org/license     New BSD License
+ */
 
+/**
+ * @namespace
+ */
 namespace App\Model;
 
 use App\Table;
 
+/**
+ * Role model class
+ *
+ * @category   Pop_Bootstrap
+ * @package    Pop_Bootstrap
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.popphp.org/license     New BSD License
+ * @version    1.0
+ */
 class Role extends AbstractModel
 {
 
+    /**
+     * Get all user roles
+     *
+     * @param  int    $limit
+     * @param  int    $page
+     * @param  string $sort
+     * @return array
+     */
     public function getAll($limit = null, $page = null, $sort = null)
     {
         $order   = $this->getSortOrder($sort, $page);
@@ -23,6 +52,12 @@ class Role extends AbstractModel
         return Table\Roles::findAll($options, Table\Roles::ROW_AS_OBJECT)->rows();
     }
 
+    /**
+     * Get user role by ID
+     *
+     * @param  int $id
+     * @return void
+     */
     public function getById($id)
     {
         $role = Table\Roles::findById((int)$id);
@@ -33,6 +68,12 @@ class Role extends AbstractModel
         }
     }
 
+    /**
+     * Save new user role
+     *
+     * @param  array $post
+     * @return void
+     */
     public function save(array $post)
     {
         $role = new Table\Roles([
@@ -45,6 +86,13 @@ class Role extends AbstractModel
         $this->data = array_merge($this->data, $role->getColumns());
     }
 
+    /**
+     * Update an existing user role
+     *
+     * @param  array                $post
+     * @param  \Pop\Session\Session $sess
+     * @return void
+     */
     public function update(array $post, $sess = null)
     {
         $role = Table\Roles::findById((int)$post['id']);
@@ -62,6 +110,12 @@ class Role extends AbstractModel
         }
     }
 
+    /**
+     * Remove user role(s)
+     *
+     * @param  array $post
+     * @return void
+     */
     public function remove(array $post)
     {
         if (isset($post['rm_roles'])) {
@@ -74,16 +128,33 @@ class Role extends AbstractModel
         }
     }
 
+    /**
+     * Determine if list of user roles has pages
+     *
+     * @param  int $limit
+     * @return boolean
+     */
     public function hasPages($limit)
     {
         return (Table\Roles::findAll(null, Table\Roles::ROW_AS_ARRAY)->count() > $limit);
     }
 
+    /**
+     * Get count of user roles
+     *
+     * @return int
+     */
     public function getCount()
     {
         return Table\Roles::findAll(null, Table\Roles::ROW_AS_ARRAY)->count();
     }
 
+    /**
+     * Get permissions from $_POST data
+     *
+     * @param  array $post
+     * @return mixed
+     */
     protected function getPermissions(array $post)
     {
         $permissions = [

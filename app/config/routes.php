@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Pop Web Bootstrap Application Framework routes
+ */
 return [
     '/' => [
         'controller' => 'App\Controller\IndexController',
