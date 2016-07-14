@@ -5,6 +5,10 @@ return [
         'controller' => 'App\Controller\IndexController',
         'action'     => 'index'
     ],
+    '/side' => [
+        'controller' => 'App\Controller\IndexController',
+        'action'     => 'side'
+    ],
     '/login' => [
         'controller' => 'App\Controller\IndexController',
         'action'     => 'login'

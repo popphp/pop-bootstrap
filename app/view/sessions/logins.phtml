@@ -1,10 +1,9 @@
 <?php include __DIR__ . '/../header.phtml'; ?>
     <div class="col-md-12">
-    <form id="asset-search-form" action="/sessions/logins" method="get">
-        <div><input class="btn btn-default input-sm" tabindex="2" type="submit" id="submit" value="Search" /></div>
-        <div><input class="form-control input-sm" tabindex="1" type="text" name="search_username" id="search_username" value="<?=((null !== $searchUsername) ? $searchUsername : null); ?>" placeholder="Username" size="25" /></div>
-    </form>
-    <div class="container-fluid">
+        <form id="asset-search-form" action="/sessions/logins" method="get">
+            <div><input class="btn btn-default input-sm" tabindex="2" type="submit" id="submit" value="Search" /></div>
+            <div><input class="form-control input-sm" tabindex="1" type="text" name="search_username" id="search_username" value="<?=((null !== $searchUsername) ? $searchUsername : null); ?>" placeholder="Username" size="25" /></div>
+        </form>
         <h1 class="sessions-header"><?=$title; ?></h1>
 <?php if (null !== $pages): ?>
         <div class="page-links"><?=$pages; ?></div>
@@ -59,7 +58,6 @@
 <?php else: ?>
         <p>There are currently no logins.</p>
 <?php endif; ?>
-    </div>
     </div>
 
 <?php include __DIR__ . '/../footer.phtml'; ?>

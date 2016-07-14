@@ -21,6 +21,20 @@ class IndexController extends AbstractController
         $this->send();
     }
 
+    public function side()
+    {
+        $this->prepareView('index.phtml');
+
+        $this->view->sideNav   = $this->services['nav.side'];
+        $this->view->title     = 'Dashboard';
+        $this->view->dbVersion = $this->services['database']->version();
+        $this->view->database  = (strtolower($this->application->config()['database']['adapter']) == 'pdo') ?
+            $this->application->config()['database']['type'] . ' (pdo)' :
+            $this->view->database = $this->application->config()['database']['adapter'];
+
+        $this->send();
+    }
+
     public function profile()
     {
         $this->prepareView('profile.phtml');

@@ -1,9 +1,5 @@
 <?php
 
-if (!defined('APP_VERSION')) {
-    define('APP_VERSION', '');
-}
-
 if (!defined('DB_PREFIX')) {
     define('DB_PREFIX', '');
 }
@@ -26,12 +22,32 @@ return [
         'nav.pop' => [
             'call'   => 'Pop\Nav\Nav',
             'params' => [
-                'tree' => include 'nav.php',
+                'tree' => include 'nav/main.php',
                 'config' => [
                     'top'     => [
                         'id'    => 'pop-nav',
                         'node'  => 'ul',
                         'class' => 'nav navbar-nav'
+                    ],
+                    'parent' => [
+                        'node' => 'ul'
+                    ],
+                    'child'  => [
+                        'node' => 'li'
+                    ],
+                    'indent' => '    '
+                ]
+            ]
+        ],
+        'nav.side' => [
+            'call'   => 'Pop\Nav\Nav',
+            'params' => [
+                'tree' => include 'nav/side.php',
+                'config' => [
+                    'top'     => [
+                        'id'    => 'pop-side-nav',
+                        'node'  => 'ul',
+                        'class' => 'nav nav-sidebar'
                     ],
                     'parent' => [
                         'node' => 'ul'

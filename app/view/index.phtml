@@ -1,6 +1,5 @@
 <?php include __DIR__ . '/header.phtml'; ?>
 
-    <div class="container-fluid">
         <div class="col-md-12">
             <h1 class="dashboard-header"><?=$title; ?></h1>
         </div>
@@ -122,6 +121,13 @@
                             <a class="normal-link" href="https://www.mozilla.org/en-US/firefox/new/" target="_blank">Mozilla Firefox</a>
                             or at least Internet Explorer 10+ as your browser.
                         </p>
+                        <p class="welcome">
+<?php if (!isset($sideNav)): ?>
+                            <a href="/side">Click here</a> to view a layout with side navigation.
+<?php else: ?>
+                            <a href="/">Click here</a> to view a layout without side navigation.
+<?php endif; ?>
+                        </p>
                     </td>
                 </tr>
                 </tbody>
@@ -135,7 +141,7 @@
                 <tbody>
                 <tr>
                     <td><strong>Version:</strong></td>
-                    <td><?=APP_VERSION; ?></td>
+                    <td>1.0</td>
                 </tr>
                 <tr>
                     <td><strong>Browser:</strong></td>
@@ -173,6 +179,5 @@
                 </tbody>
             </table>
         </div>
-    </div>
 
 <?php include __DIR__ . '/footer.phtml'; ?>

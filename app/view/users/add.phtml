@@ -1,6 +1,5 @@
 <?php include __DIR__ . '/../header.phtml'; ?>
 
-<div class="container-fluid">
     <div class="col-md-12">
     <h1 class="users-header"><?=$title; ?><?php if (isset($roleId) && isset($roles) && isset($roles[$roleId])): ?> : <?=$roles[$roleId]; ?><?php endif; ?></h1>
     <nav id="sub-nav">
@@ -23,6 +22,5 @@
     </form>
 <?php endif; ?>
     </div>
-</div>
 
 <?php include __DIR__ . '/../footer.phtml'; ?>

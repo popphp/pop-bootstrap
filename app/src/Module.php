@@ -69,7 +69,7 @@ class Module extends \Pop\Module\Module
              ->on('app.dispatch.pre', 'App\Event\Session::check', 1001)
              ->on('app.dispatch.pre', 'App\Event\Acl::check', 1000);
 
-        $this->addRoles();
+        $this->initNav();
 
         return $this;
     }
@@ -133,8 +133,11 @@ class Module extends \Pop\Module\Module
             }
         }
 
-        // Set the acl in the main nav object
+        // Set the acl in the nav objects
         $this->application->getService('nav.pop')->setAcl($this->application->getService('acl'));
+        if ($this->application->services()->isAvailable('nav.side')) {
+            $this->application->getService('nav.side')->setAcl($this->application->getService('acl'));
+        }
 
         return $this;
     }
@@ -144,7 +147,7 @@ class Module extends \Pop\Module\Module
      *
      * @return void
      */
-    public function addRoles()
+    public function initNav()
     {
         $params = $this->application->services()->getParams('nav.pop');
         $roles  = Table\Roles::findAll();
