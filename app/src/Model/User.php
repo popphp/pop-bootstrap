@@ -341,6 +341,7 @@ class User extends AbstractModel
         $cookie = Cookie::getInstance(['path' => '/']);
         $cookie->delete('pop_session_timeout');
         $cookie->delete('pop_timeout_warning');
+        $cookie->delete('pop_current_width');
 
         if (isset($user->id)) {
             $user->last_login = date('Y-m-d H:i:s');

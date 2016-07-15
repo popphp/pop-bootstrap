@@ -21,7 +21,9 @@
                     <th><a href="/sessions?sort=role_name<?=(($queryString != '') ? '&' . $queryString : '');?>">Role</a></th>
                     <th><a href="/sessions?sort=start<?=(($queryString != '') ? '&' . $queryString : '');?>">Start</a></th>
                     <th>IP</th>
+<?php if ($windowWidth >= 768): ?>
                     <th>User-Agent</th>
+<?php endif; ?>
                     <th class="col-md-1 text-center"><?php if ($acl->isAllowed($user->role, 'sessions', 'remove')): ?><input type="checkbox" name="check_all" id="checkAll" data-name="rm_sessions" value="" /><?php else: ?>&nbsp;<?php endif; ?></th>
                 </tr>
                 </thead>
@@ -42,9 +44,11 @@
                     <td class="text-center"><?=$session->id; ?></td>
                     <td><?=$session->username; ?></td>
                     <td><?=$session->role_name; ?></td>
-                    <td><?=date('M j Y H:i:s', $session->start); ?> [ <?=$ago; ?> ]</td>
+                    <td><?=($windowWidth >= 768) ? date('M j Y H:i:s', $session->start) . ' [ ' . $ago . ' ]' : date('m/d/y H:i', $session->start); ?></td>
                     <td><?=$session->ip; ?></td>
+<?php if ($windowWidth >= 768): ?>
                     <td><?=$session->ua; ?></td>
+<?php endif; ?>
                     <td class="text-center"><?php if (($user->sess_id != $session->id) && ($acl->isAllowed($user->role, 'sessions', 'remove'))): ?><input type="checkbox" name="rm_sessions[]" value="<?=$session->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
                 </tr>
 <?php endforeach; ?>

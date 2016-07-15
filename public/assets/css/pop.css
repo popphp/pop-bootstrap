@@ -43,7 +43,7 @@ input[type=checkbox] {
 #login-container {
     margin: 160px auto 0 auto;
     padding: 40px;
-    width: 370px;
+    max-width: 370px;
     background-color: #fff;
     box-shadow: 0 0 10px 6px #e2e2e2;
     border-radius: 6px;
@@ -468,6 +468,7 @@ input[type=checkbox] {
 #asset-search-form > div > input[type=text] {
     float: right;
     display: block;
+    height: 30px;
 }
 
 #asset-search-form > div > input[type=submit] {
@@ -732,6 +733,46 @@ input[type=checkbox] {
 .data-form > dl:nth-child(2) > dd, .data-form > dl:nth-child(3) > dd,
 .data-form > dl:nth-child(4) > dd, .data-form > dl:nth-child(5) > dd {
     height: 60px;
+}
+
+.data-form select, select.pop-select {
+    margin: 0;
+    padding: 4px 28px 4px 2px;
+    font-family: "Source Sans Pro", sans-serif;
+    border: solid 1px #ccc;
+    background-color: #fff;
+    min-width: 60px;
+    border-radius: 4px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+    background-image: url(../img/arrow-down-gray.svg);
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 18px 7px;
+    box-sizing: border-box;
+    color: #555;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+
+.data-form select::-ms-expand, select.pop-select::ms-expand {
+    display: none;
+}
+
+.data-form option, select.pop-select option {
+    padding: 2px 4px 2px 4px;
+}
+
+.data-form select:focus, select.pop-select:focus {
+    border: solid 1px #66afe9;
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}
+
+.form-control {
+    height: 40px;
 }
 
 .btn-default {

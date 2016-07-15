@@ -122,16 +122,19 @@
                             or at least Internet Explorer 10+ as your browser.
                         </p>
                         <p class="welcome">
+                            Below are some links to some example side navigation layouts:
+                        </p>
+                        <ul>
 <?php if (!isset($fluidNav)): ?>
-                            <a href="/side">Click here</a> to view a layout with fluid side navigation.<br />
+                            <li><a href="/side">Fluid Side Nav</a></li>
 <?php endif; ?>
 <?php if (!isset($staticNav)): ?>
-                            <a href="/static">Click here</a> to view a layout with static side navigation.<br />
+                            <li><a href="/static">Static Side Nav</a></li>
 <?php endif; ?>
 <?php if (isset($fluidNav) || isset($staticNav)): ?>
-                            <a href="/">Click here</a> to view a layout without any side navigation.
+                            <li><a href="/">No Side Nav</a></li>
 <?php endif; ?>
-                        </p>
+                        </ul>
                     </td>
                 </tr>
                 </tbody>

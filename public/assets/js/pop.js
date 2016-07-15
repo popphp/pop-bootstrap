@@ -232,6 +232,8 @@ pop = {
 };
 
 $(document).ready(function(){
+    pop.cookie.save('pop_current_width', window.innerWidth, {path :'/'});
+
     if ($('#saved').data('saved') == 1) {
         $('#saved').fadeIn({complete : function(){
             $('#saved').delay(2000).fadeOut();

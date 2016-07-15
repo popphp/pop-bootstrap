@@ -12,7 +12,7 @@
     <form id="role-select-form" action="/users/add" method="get">
         <div><h3>Select Role</h3></div>
         <div>
-            <select name="role_id" id="role_id" data-user="add">
+            <select name="role_id" id="role_id" data-user="add" class="pop-select">
                 <option value="0">----</option>
 <?php foreach ($roles as $role): ?>
                 <option value="<?=$role->id; ?>"><?=$role->name; ?></option>
