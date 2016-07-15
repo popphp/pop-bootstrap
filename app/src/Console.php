@@ -83,7 +83,7 @@ class Console extends \Pop\Module\Module
         $this->application->on('app.route.pre', function(){
             if (isset($_SERVER['argv'][1])) {
                 echo PHP_EOL . '    App Console' . PHP_EOL;
-                echo '    =============' . PHP_EOL . PHP_EOL;
+                echo '    ===========' . PHP_EOL . PHP_EOL;
             }
         }, 1000);
         $this->application->on('app.dispatch.post', function(){

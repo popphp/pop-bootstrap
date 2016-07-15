@@ -54,6 +54,10 @@ class HelpController extends ConsoleController
         $this->console->append('./app ' . $this->console->colorize('roles', $yellow) . ' ' . $this->console->colorize('edit', $green) . "\t\tEdit a role");
         $this->console->append('./app ' . $this->console->colorize('roles', $yellow) . ' ' . $this->console->colorize('remove', $green) . "\t\tRemove a role");
 
+        $this->console->append();
+        $this->console->append('./app ' . $this->console->colorize('sessions', $yellow) . "\t\tList sessions");
+        $this->console->append('./app ' . $this->console->colorize('sessions', $yellow) . ' ' . $this->console->colorize('remove', $green) . "\tRemove a session");
+
         $this->console->send();
     }
 

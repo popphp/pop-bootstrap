@@ -62,8 +62,8 @@ web applications. This includes:
 Console Access
 ==============
 
-The application comes with a simple console interface to assist with
-user and role management from the CLI as well. The following commands
+The application comes with a simple console interface to assist
+with user management from the CLI as well. The following commands
 are available:
 
 ```console
@@ -80,4 +80,7 @@ $ ./app roles               List roles
 $ ./app roles add           Add a role
 $ ./app roles edit          Edit a role
 $ ./app roles remove        Remove a role
+    
+$ ./app sessions            List sessions
+$ ./app sessions remove     Remove a session
 ```
