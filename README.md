@@ -58,3 +58,26 @@ web applications. This includes:
 - User Roles
 - User Sessions
 - User Management
+
+Console Access
+==============
+
+The application comes with a simple console interface to assist with
+user and role management from the CLI as well. The following commands
+are available:
+
+```console
+$ ./app help                Show this help screen
+    
+$ ./app users               List users
+$ ./app users add           Add a user
+$ ./app users password      Change a user password
+$ ./app users activate      Activate a user
+$ ./app users deactivate    Deactivate a user
+$ ./app users remove        Remove a user
+    
+$ ./app roles               List roles
+$ ./app roles add           Add a role
+$ ./app roles edit          Edit a role
+$ ./app roles remove        Remove a role
+```

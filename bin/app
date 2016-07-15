@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# Pop Web Bootstrap Application Framework Linux/Unix CLI Bash Script
+#
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd -P )"
+CYG_PATH="$( which cygpath 2> /dev/null )"
+
+if [ "$CYG_PATH" != "" ]; then
+    SCRIPT_PATH="$( cygpath -w $SCRIPT_DIR )\\app.php $@"
+    SCRIPT_PATH=${SCRIPT_PATH//\\/\/}
+else
+    SCRIPT_PATH="$SCRIPT_DIR/app.php $@"
+fi
+
+php $SCRIPT_PATH
