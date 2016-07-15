@@ -20,7 +20,9 @@
                     <th><a href="/sessions?sort=username<?=(($queryString != '') ? '&' . $queryString : '');?>">Username</a></th>
                     <th><a href="/sessions?sort=role_name<?=(($queryString != '') ? '&' . $queryString : '');?>">Role</a></th>
                     <th><a href="/sessions?sort=start<?=(($queryString != '') ? '&' . $queryString : '');?>">Start</a></th>
+<?php if ($windowWidth >= 480): ?>
                     <th>IP</th>
+<?php endif; ?>
 <?php if ($windowWidth >= 768): ?>
                     <th>User-Agent</th>
 <?php endif; ?>
@@ -45,7 +47,9 @@
                     <td><?=$session->username; ?></td>
                     <td><?=$session->role_name; ?></td>
                     <td><?=($windowWidth >= 768) ? date('M j Y H:i:s', $session->start) . ' [ ' . $ago . ' ]' : date('m/d/y H:i', $session->start); ?></td>
+<?php if ($windowWidth >= 480): ?>
                     <td><?=$session->ip; ?></td>
+<?php endif; ?>
 <?php if ($windowWidth >= 768): ?>
                     <td><?=$session->ua; ?></td>
 <?php endif; ?>

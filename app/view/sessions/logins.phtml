@@ -20,7 +20,9 @@
                     <th><a href="/sessions/logins?sort=username<?=(($queryString != '') ? '&' . $queryString : '');?>">Username</a></th>
                     <th><a href="/sessions/logins?sort=role_name<?=(($queryString != '') ? '&' . $queryString : '');?>">Role</a></th>
                     <th><a href="/sessions/logins?sort=timestamp<?=(($queryString != '') ? '&' . $queryString : '');?>">Timestamp</a></th>
+<?php if ($windowWidth >= 480): ?>
                     <th>IP</th>
+<?php endif; ?>
 <?php if ($windowWidth >= 768): ?>
                     <th>User-Agent</th>
 <?php endif; ?>
@@ -34,7 +36,9 @@
                     <td><?=$login->username; ?></td>
                     <td><?=$login->role_name; ?></td>
                     <td><?=($windowWidth >= 768) ? date('M j Y H:i:s', strtotime($login->timestamp)) : date('m/d/y H:i', strtotime($login->timestamp)); ?></td>
+<?php if ($windowWidth >= 480): ?>
                     <td><?=$login->ip; ?></td>
+<?php endif; ?>
 <?php if ($windowWidth >= 768): ?>
                     <td><?=$login->ua; ?></td>
 <?php endif; ?>
