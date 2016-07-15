@@ -613,6 +613,7 @@ input[type=checkbox] {
 
 #failed_attempts {
     width: 35px;
+    height: 30px;
     text-align: center;
 }
 
@@ -843,6 +844,9 @@ div.page-links > a:hover {
 }
 
 .radio-span {
+    position: relative;
+    top: -4px;
+    font-size: 0.9em;
     margin: 0 8px 5px 0;
     padding: 0 8px 5px 0;
     display: inline-block;
@@ -1097,20 +1101,37 @@ li.nav-arrow:hover {
 }
 
 @media (max-width: 990px) {
+    #login-container {
+        margin: 100px auto 0 auto;
+    }
+
+    #asset-search-form {
+        margin: 15px 0 0 0;
+    }
+
     .user-header {
         display: none;
+    }
+
+    .data-form > dl:first-child {
+        width: 150px;
+    }
+
+    .data-form > dl:nth-child(2), .data-form > dl:nth-child(3),
+    .data-form > dl:nth-child(4), .data-form > dl:nth-child(5) {
+        width: calc(100% - 190px);
     }
 }
 
 @media (max-width: 750px) {
+    #login-container {
+        margin: 60px auto 0 auto;
+    }
+
     #profile-form {
         margin: 0 auto;
         padding: 0;
         width: 80%;
-    }
-
-    div.navbar-collapse {
-        max-height: none !important;
     }
 
     #pop-nav > li > ul {
@@ -1174,6 +1195,32 @@ li.nav-arrow:hover {
         color: #fff;
         text-decoration: none;
         background: transparent;
+    }
+
+    .data-form > dl:first-child {
+        width: 120px;
+    }
+
+    .data-form > dl:nth-child(2), .data-form > dl:nth-child(3),
+    .data-form > dl:nth-child(4), .data-form > dl:nth-child(5) {
+        width: calc(100% - 140px);
+    }
+
+    div.navbar-collapse {
+        max-height: none !important;
+    }
+
+    .radio-span {
+        position: relative;
+        top: -4px;
+        font-size: 0.825em;
+        margin: 0 4px 5px 0;
+        padding: 0 4px 5px 0;
+        display: inline-block;
+    }
+
+    .users-header, .sessions-header {
+        clear: right;
     }
 }
 
