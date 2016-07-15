@@ -262,6 +262,13 @@ $(document).ready(function(){
         }
     }
 
+    if ($('#browser-size')[0] != undefined) {
+        $('#browser-size')[0].innerHTML = window.innerWidth + ' x ' + window.innerHeight;
+        $( window ).resize(function(){
+            $('#browser-size')[0].innerHTML = window.innerWidth + ' x ' + window.innerHeight;
+        });
+    }
+
     if ($('#checkAll')[0] != undefined) {
         $('#checkAll').click(function(){
             var checkName  = $('#checkAll').data('name');
