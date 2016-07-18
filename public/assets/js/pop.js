@@ -99,6 +99,8 @@ $(document).ready(function(){
     var session = jax.cookie.load('pop_session');
     if (session != '') {
         jax.cookie.save('pop_current_width', window.innerWidth, {path: '/'});
+    } else {
+        jax.cookie.remove('pop_current_width');
     }
 
     if ($('#saved').data('saved') == 1) {
