@@ -96,7 +96,10 @@ pop = {
 };
 
 $(document).ready(function(){
-    jax.cookie.save('pop_current_width', window.innerWidth, {path : '/'});
+    var session = jax.cookie.load('pop_session');
+    if (session != '') {
+        jax.cookie.save('pop_current_width', window.innerWidth, {path: '/'});
+    }
 
     if ($('#saved').data('saved') == 1) {
         $('#saved').fadeIn({complete : function(){

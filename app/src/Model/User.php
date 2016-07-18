@@ -289,8 +289,10 @@ class User extends AbstractModel
         $session->login($user->id, $ip, $ua);
         $session->start($user->id, $sess->getId(), $ip, $ua);
 
+        $cookie = Cookie::getInstance(['path' => '/']);
+        $cookie->set('pop_session', 1);
+        
         if ((int)$config['session_timeout'] > 0) {
-            $cookie = Cookie::getInstance(['path' => '/']);
             $cookie->delete('pop_session_timeout');
             $cookie->set('pop_session_timeout', (int)$config['session_timeout'] * 60);
             if ((int)$config['timeout_warning'] > 0) {
@@ -337,8 +339,9 @@ class User extends AbstractModel
 
         $session = new Session();
         $session->clear($sess->user->sess_id, $sess->user->id, $sess->getId());
-
+        
         $cookie = Cookie::getInstance(['path' => '/']);
+        $cookie->delete('pop_session');
         $cookie->delete('pop_session_timeout');
         $cookie->delete('pop_timeout_warning');
         $cookie->delete('pop_current_width');
