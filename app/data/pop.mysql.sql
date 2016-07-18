@@ -61,7 +61,7 @@ INSERT INTO `[{prefix}]users` (`id`, `role_id`, `username`, `password`, `active`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `[{prefix}]user_sessions`
+-- Table structure for table `user_sessions`
 --
 
 CREATE TABLE `[{prefix}]user_sessions` (

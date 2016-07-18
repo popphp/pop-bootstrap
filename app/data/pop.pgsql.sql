@@ -72,7 +72,7 @@ INSERT INTO "[{prefix}]users" ("role_id", "username", "password", "active", "ver
 -- --------------------------------------------------------
 
 --
--- Table structure for table "[{prefix}]user_sessions"
+-- Table structure for table "user_sessions"
 --
 
 CREATE SEQUENCE user_session_id_seq START 3001;
