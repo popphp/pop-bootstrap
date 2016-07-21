@@ -217,9 +217,15 @@ class User extends AbstractModel
             $user->email           = (isset($fields['email']) ? $fields['email'] : $user->email);
             $user->active          = (isset($fields['active']) ? (int)$fields['active'] : $user->active);
             $user->verified        = (isset($fields['verified']) ? (int)$fields['verified'] : $user->verified);
+            $user->total_logins    = (isset($fields['clear_logins']) ? 0 : $user->total_logins);
             $user->failed_attempts = (isset($fields['failed_attempts']) ? (int)$fields['failed_attempts'] : $user->failed_attempts);
 
             $user->save();
+
+            if (isset($fields['clear_logins'])) {
+                $session = new Session();
+                $session->clearLogins($user->id);
+            }
 
             if ((null !== $sess) && ($sess->user->id == $user->id)) {
                 $sess->user->username = $user->username;
@@ -291,7 +297,7 @@ class User extends AbstractModel
 
         $cookie = Cookie::getInstance(['path' => '/']);
         $cookie->set('pop_session', 1);
-        
+
         if ((int)$config['session_timeout'] > 0) {
             $cookie->delete('pop_session_timeout');
             $cookie->set('pop_session_timeout', (int)$config['session_timeout'] * 60);
@@ -339,7 +345,7 @@ class User extends AbstractModel
 
         $session = new Session();
         $session->clear($sess->user->sess_id, $sess->user->id, $sess->getId());
-        
+
         $cookie = Cookie::getInstance(['path' => '/']);
         $cookie->delete('pop_session');
         $cookie->delete('pop_session_timeout');
@@ -433,7 +439,7 @@ class User extends AbstractModel
             return (Table\Users::findAll(null, Table\Users::ROW_AS_ARRAY)->count() > $limit);
         }
     }
-    
+
     /**
      * Get count of users
      *

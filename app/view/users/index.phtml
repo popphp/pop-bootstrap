@@ -29,6 +29,7 @@
                     <th>Active</th>
                     <th>Verified</th>
 <?php endif; ?>
+                    <th>Logins</th>
                     <th class="text-center"><?php if ($acl->isAllowed($user->role, 'users', 'edit')): ?>Edit<?php else: ?>&nbsp;<?php endif; ?></th>
                     <th class="col-md-1 text-center"><?php if ($acl->isAllowed($user->role, 'users', 'process')): ?><input type="checkbox" name="check_all" id="checkAll" data-name="process_users" value="" /><?php else: ?>&nbsp;<?php endif; ?></th>
                 </tr>
@@ -43,6 +44,7 @@
                     <td><?=$u->email; ?></td>
                     <td><?=($u->active) ? 'Yes' : 'No'; ?></td>
                     <td><?=($u->verified) ? 'Yes' : 'No'; ?></td>
+                    <td><?=(int)$u->total_logins; ?></td>
 <?php endif; ?>
 <?php if (null !== $u->role_id): ?>
                     <td><?php if (($acl->isAllowed($user->role, 'users', 'edit') && ($acl->isAllowed($user->role, 'users-of-role-' . $u->role_id, 'edit')))): ?><a class="edit-link" href="/users/edit/<?=$u->id; ?>">Edit</a><?php else: ?>&nbsp;<?php endif; ?></td>

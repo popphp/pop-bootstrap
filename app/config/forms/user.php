@@ -29,6 +29,13 @@ return [
             ],
             'marked' => 0
         ],
+        'clear_logins'   => [
+            'type'  => 'checkbox',
+            'label' => 'Clear Logins?',
+            'value' => [
+                1 => ''
+            ]
+        ],
         'failed_attempts'   => [
             'type'  => 'text',
             'label' => 'Failed Attempts',

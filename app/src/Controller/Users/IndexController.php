@@ -95,7 +95,8 @@ class IndexController extends AbstractController
             $fields = $this->application->config()['forms']['App\Form\User'];
             $fields[1]['password1']['required'] = true;
             $fields[1]['password2']['required'] = true;
-            $fields[0]['role_id']['value']      = $rid;
+            $fields[0]['role_id']['value']      = $rid;= $rid;
+            unset($fields[0]['clear_logins']);
             unset($fields[0]['failed_attempts']);
 
             $this->view->form = new Form\User($fields);
@@ -122,7 +123,7 @@ class IndexController extends AbstractController
 
         $this->send();
     }
-    
+
     /**
      * Edit action method
      *
@@ -152,12 +153,13 @@ class IndexController extends AbstractController
             $fields = $this->application->config()['forms']['App\Form\User'];
 
             $fields[1]['username']['attributes']['onkeyup'] = 'pop.changeTitle(this.value);';
-            $fields[1]['password1']['required'] = false;
-            $fields[1]['password2']['required'] = false;
-            $fields[0]['role_id']['type']       = 'select';
-            $fields[0]['role_id']['label']      = 'Role';
-            $fields[0]['role_id']['value']      = $roleValues;
-            $fields[0]['role_id']['marked']     = $user->role_id;
+            $fields[1]['password1']['required']    = false;
+            $fields[1]['password2']['required']    = false;
+            $fields[0]['clear_logins']['value'][1] = $user->total_logins . ' Login' . (($user->total_logins == 1) ? '' : 's');
+            $fields[0]['role_id']['type']          = 'select';
+            $fields[0]['role_id']['label']         = 'Role';
+            $fields[0]['role_id']['value']         = $roleValues;
+            $fields[0]['role_id']['marked']        = $user->role_id;
 
             $this->view->form = new Form\User($fields);
             $this->view->form->addFilter('strip_tags', null, 'textarea')
