@@ -53,6 +53,7 @@ class User extends AbstractModel
             'email'        => DB_PREFIX . 'users.email',
             'active'       => DB_PREFIX . 'users.active',
             'verified'     => DB_PREFIX . 'users.verified',
+            'total_logins' => DB_PREFIX . 'users.total_logins',
             'role_id'      => DB_PREFIX . 'roles.id',
             'role_name'    => DB_PREFIX . 'roles.name'
         ])->join(DB_PREFIX . 'roles', [DB_PREFIX . 'users.role_id' => DB_PREFIX . 'roles.id']);

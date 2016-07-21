@@ -95,7 +95,7 @@ class IndexController extends AbstractController
             $fields = $this->application->config()['forms']['App\Form\User'];
             $fields[1]['password1']['required'] = true;
             $fields[1]['password2']['required'] = true;
-            $fields[0]['role_id']['value']      = $rid;= $rid;
+            $fields[0]['role_id']['value']      = $rid;
             unset($fields[0]['clear_logins']);
             unset($fields[0]['failed_attempts']);
 
