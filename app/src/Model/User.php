@@ -85,17 +85,17 @@ class User extends AbstractModel
             if ($roleId == 0) {
                 $sql->select()->where(DB_PREFIX . 'users.role_id IS NULL');
                 $rows = (count($params) > 0) ?
-                    Table\Users::execute((string)$sql, $params, Table\Users::ROW_AS_OBJECT)->rows() :
-                    Table\Users::query((string)$sql, Table\Users::ROW_AS_OBJECT)->rows();
+                    Table\Users::execute((string)$sql, $params)->rows() :
+                    Table\Users::query((string)$sql)->rows();
             } else {
                 $sql->select()->where(DB_PREFIX . 'users.role_id = :role_id');
                 $params['role_id'] = $roleId;
-                $rows = Table\Users::execute((string)$sql, $params, Table\Users::ROW_AS_OBJECT)->rows();
+                $rows = Table\Users::execute((string)$sql, $params)->rows();
             }
         } else {
             $rows = (count($params) > 0) ?
-                Table\Users::execute((string)$sql, $params, Table\Users::ROW_AS_OBJECT)->rows() :
-                Table\Users::query((string)$sql, Table\Users::ROW_AS_OBJECT)->rows();
+                Table\Users::execute((string)$sql, $params)->rows() :
+                Table\Users::query((string)$sql)->rows();
         }
 
         return $rows;
@@ -108,7 +108,7 @@ class User extends AbstractModel
      */
     public function getRoles()
     {
-        $roles    = Table\Roles::findAll(null, Table\Roles::ROW_AS_OBJECT)->rows();
+        $roles    = Table\Roles::findAll()->rows();
         $rolesAry = [];
 
         foreach ($roles as $role) {
@@ -127,7 +127,7 @@ class User extends AbstractModel
      */
     public function getByRoleId($rid)
     {
-        return Table\Users::findBy(['role_id' => (int)$rid], null, Table\Roles::ROW_AS_OBJECT)->rows();
+        return Table\Users::findBy(['role_id' => (int)$rid])->rows();
     }
 
     /**
@@ -138,10 +138,10 @@ class User extends AbstractModel
      */
     public function getByRole($name)
     {
-        $role  = Table\Roles::findBy(['name' => $name], null, Table\Roles::ROW_AS_OBJECT);
+        $role  = Table\Roles::findBy(['name' => $name]);
         $users = [];
         if (isset($role->id)) {
-            $users = Table\Users::findBy(['role_id' => $role->id], null, Table\Roles::ROW_AS_OBJECT)->rows();
+            $users = Table\Users::findBy(['role_id' => $role->id])->rows();
         }
 
         return $users;

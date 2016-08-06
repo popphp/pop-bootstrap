@@ -69,8 +69,8 @@ class Session extends AbstractModel
         }
 
         return (count($params) > 0) ?
-            Table\UserSessions::execute((string)$sql, $params, Table\UserSessions::ROW_AS_OBJECT)->rows() :
-            Table\UserSessions::query((string)$sql, Table\UserSessions::ROW_AS_OBJECT)->rows();
+            Table\UserSessions::execute((string)$sql, $params)->rows() :
+            Table\UserSessions::query((string)$sql)->rows();
     }
 
     /**
@@ -114,8 +114,8 @@ class Session extends AbstractModel
         }
 
         return (count($params) > 0) ?
-            Table\UserLogins::execute((string)$sql, $params, Table\UserLogins::ROW_AS_OBJECT)->rows() :
-            Table\UserLogins::query((string)$sql, Table\UserLogins::ROW_AS_OBJECT)->rows();
+            Table\UserLogins::execute((string)$sql, $params)->rows() :
+            Table\UserLogins::query((string)$sql)->rows();
     }
 
     /**
@@ -125,7 +125,7 @@ class Session extends AbstractModel
      */
     public function getAllUsers()
     {
-        return Table\Users::findAll(null, Table\Users::ROW_AS_OBJECT)->rows();
+        return Table\Users::findAll()->rows();
     }
 
     /**
@@ -209,7 +209,7 @@ class Session extends AbstractModel
             'id'         => $id,
             'user_id'    => $uid,
             'session_id' => $sid
-        ]);
+        ], null, Table\UserSessions::ROW_AS_RESULT);
 
         if (isset($sess->id)) {
             $sess->delete();

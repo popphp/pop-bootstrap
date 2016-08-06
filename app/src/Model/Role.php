@@ -49,7 +49,7 @@ class Role extends AbstractModel
             $options['limit']  = $limit;
         }
 
-        return Table\Roles::findAll($options, Table\Roles::ROW_AS_OBJECT)->rows();
+        return Table\Roles::findAll($options)->rows();
     }
 
     /**
