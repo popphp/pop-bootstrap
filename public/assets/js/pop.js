@@ -188,6 +188,7 @@ $(document).ready(function(){
         }
         $('#permission-add-link').click(function(){
             pop.addResource();
+            return false;
         });
     }
 
