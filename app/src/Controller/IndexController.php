@@ -112,7 +112,12 @@ class IndexController extends AbstractController
                      ->filter();
 
                 $user = new Model\User();
-                $user->update($this->view->form->getFields(), $this->sess);
+                $user->update(
+                    $this->view->form->getFields(),
+                    $this->application->config()['application_title'],
+                    $this->application->services()->get('mailer'),
+                    $this->sess
+                );
                 $this->view->id = $user->id;
                 $this->sess->setRequestValue('saved', true);
                 $this->redirect('/profile');
@@ -202,7 +207,11 @@ class IndexController extends AbstractController
                      ->filter();
 
                 $user = new Model\User();
-                $user->forgot($this->view->form->getFields(), $this->application->config()['application_title']);
+                $user->forgot(
+                    $this->view->form->getFields(),
+                    $this->application->config()['application_title'],
+                    $this->application->services()->get('mailer')
+                );
                 $this->view->id      = $user->id;
                 $this->view->success = true;
             }
@@ -214,6 +223,8 @@ class IndexController extends AbstractController
     /**
      * Verify action method
      *
+     * @param  int    $id
+     * @param  string $hash
      * @return void
      */
     public function verify($id, $hash)

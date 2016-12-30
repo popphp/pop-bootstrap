@@ -110,7 +110,11 @@ class IndexController extends AbstractController
                          ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
                          ->filter();
                     $user = new Model\User();
-                    $user->save($this->view->form->getFields(), $this->application->config()['application_title']);
+                    $user->save(
+                        $this->view->form->getFields(),
+                        $this->application->config()['application_title'],
+                        $this->application->services()->get('mailer')
+                    );
 
                     $this->view->id = $user->id;
                     $this->sess->setRequestValue('saved', true);
@@ -175,7 +179,12 @@ class IndexController extends AbstractController
                         ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
                         ->filter();
                     $user = new Model\User();
-                    $user->update($this->view->form->getFields(), $this->application->config()['application_title'], $this->sess);
+                    $user->update(
+                        $this->view->form->getFields(),
+                        $this->application->config()['application_title'],
+                        $this->application->services()->get('mailer'),
+                        $this->sess
+                    );
 
                     $this->view->id = $user->id;
                     $this->sess->setRequestValue('saved', true);
@@ -197,7 +206,7 @@ class IndexController extends AbstractController
     {
         if ($this->request->isPost()) {
             $user = new Model\User();
-            $user->process($this->request->getPost(), $this->application->config()['application_title']);
+            $user->process($this->request->getPost(), $this->application->config()['application_title'], $this->application->services()->get('mailer'));
         }
 
         if ((null !== $this->request->getPost('user_process_action')) && ($this->request->getPost('user_process_action') == -1)) {

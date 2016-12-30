@@ -16,7 +16,7 @@ namespace App\Model;
 use App\Table;
 use Pop\Cookie\Cookie;
 use Pop\Crypt\Bcrypt;
-use Pop\Db\Sql;
+use Pop\Mail\Mailer;
 
 /**
  * User model class
@@ -175,9 +175,10 @@ class User extends AbstractModel
      *
      * @param  array  $fields
      * @param  string $title
+     * @param  Mailer $mailer
      * @return void
      */
-    public function save(array $fields, $title)
+    public function save(array $fields, $title, Mailer $mailer)
     {
         $user = new Table\Users([
             'role_id'    => $fields['role_id'],
@@ -193,18 +194,20 @@ class User extends AbstractModel
 
         if ((!$user->verified) && !empty($user->email)) {
             $notify = new Notification();
-            $notify->sendVerification($user, $title);
+            $notify->sendVerification($user, $title, $mailer);
         }
     }
 
     /**
      * Update an existing user
      *
-     * @param  array               $fields
+     * @param  array                $fields
+     * @param  string               $title
+     * @param  Mailer               $mailer
      * @param  \Pop\Session\Session $sess
      * @return void
      */
-    public function update(array $fields, $title, \Pop\Session\Session $sess = null)
+    public function update(array $fields, $title, Mailer $mailer, \Pop\Session\Session $sess = null)
     {
         $user = Table\Users::findById((int)$fields['id']);
         if (isset($user->id)) {
@@ -237,7 +240,7 @@ class User extends AbstractModel
 
             if ((((null === $oldRoleId) && (null !== $user->role_id)) || ((!($oldActive) && ($user->active)))) && !empty($user->email)) {
                 $notify = new Notification();
-                $notify->sendApproval($user, $title);
+                $notify->sendApproval($user, $title, $mailer);
             }
         }
     }
@@ -247,9 +250,10 @@ class User extends AbstractModel
      *
      * @param  array  $post
      * @param  string $title
+     * @param  Mailer $mailer
      * @return void
      */
-    public function process(array $post, $title)
+    public function process(array $post, $title, Mailer $mailer)
     {
         if (isset($post['process_users'])) {
             foreach ($post['process_users'] as $id) {
@@ -260,7 +264,7 @@ class User extends AbstractModel
                             $user->active = 1;
                             $user->save();
                             $notify = new Notification();
-                            $notify->sendApproval($user, $title);
+                            $notify->sendApproval($user, $title, $mailer);
                             break;
                         case 0:
                             $user->active = 0;
@@ -390,15 +394,16 @@ class User extends AbstractModel
      *
      * @param  array  $fields
      * @param  string $title
+     * @param  Mailer $mailer
      * @return void
      */
-    public function forgot(array $fields, $title)
+    public function forgot(array $fields, $title, Mailer $mailer)
     {
         $user = Table\Users::findBy(['email' => $fields['email']]);
         if (isset($user->id)) {
             $this->data['id'] = $user->id;
             $notify = new Notification();
-            $notify->sendReset($user, $title);
+            $notify->sendReset($user, $title, $mailer);
         }
     }
 

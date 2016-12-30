@@ -30,6 +30,11 @@ return [
     'services'  => [
         'session' => 'Pop\Session\Session::getInstance',
         'acl'     => 'Pop\Acl\Acl',
+        'mailer'  => [
+            'call' => function() {
+                return new \Pop\Mail\Mailer(new \Pop\Mail\Transport\Sendmail());
+            }
+        ],
         'nav.top' => [
             'call'   => 'Pop\Nav\Nav',
             'params' => [
