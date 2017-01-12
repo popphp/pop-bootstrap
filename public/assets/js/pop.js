@@ -59,9 +59,10 @@ pop = {
 
     timeoutWarning : function(){
         if ($('#session-timeout')[0] == undefined) {
+            var warning = jax.cookie.load('pop_timeout_warning');
             $('body').append(
                 '<div id="session-timeout">' +
-                '<h4 id="countdown">30</h4>Your session is about to expire.<br /><span>' +
+                '<h4 id="countdown">' + warning + '</h4>Your session is about to expire.<br /><span>' +
                 '<a href="#" onclick="pop.sessionContinue(); return false;">Continue</a>? ' +
                 '[No, <a href="/logout">Logout</a>]</span>' +
                 '</div>'
