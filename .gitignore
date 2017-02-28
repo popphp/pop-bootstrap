@@ -1,4 +1,5 @@
-/app/config/application.php
+/app/config/app.cli.php
+/app/config/app.web.php
 /logs
 composer.lock
 vendor

@@ -1,6 +1,6 @@
 <?php
 /**
- * Pop Web Bootstrap Application Framework routes
+ * Web Routes
  */
 return [
     '/' => [

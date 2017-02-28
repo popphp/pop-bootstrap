@@ -16,7 +16,7 @@ if (!defined('DB_PREFIX')) {
 }
 
 return [
-    'routes'    => include 'routes.php',
+    'routes'    => include 'routes/web.php',
     'resources' => include 'resources.php',
     'forms'     => include 'forms.php',
     'database'  => [
@@ -96,7 +96,6 @@ return [
         ]
     ],
     'application_title' => 'My Application',
-    'force_ssl'         => false,
     'pagination'        => 25,
     'multiple_sessions' => true,
     'login_attempts'    => 0,

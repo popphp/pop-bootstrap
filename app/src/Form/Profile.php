@@ -20,12 +20,12 @@ use Pop\Validator;
 /**
  * Profile form class
  *
- * @category   Pop_Bootstrap
- * @package    Pop_Bootstrap
+ * @category   Pop\Bootstrap
+ * @package    Pop\Bootstrap
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.0
+ * @version    3.0.0
  */
 class Profile extends Form
 {
@@ -38,7 +38,6 @@ class Profile extends Form
      * @param  array  $fields
      * @param  string $action
      * @param  string $method
-     * @return Profile
      */
     public function __construct(array $fields, $action = null, $method = 'post')
     {
@@ -63,7 +62,7 @@ class Profile extends Form
             if (null !== $this->username) {
                 $user = Table\Users::findBy(['username' => $this->username]);
                 if (isset($user->id) && ($this->id != $user->id)) {
-                    $this->getElement('username')
+                    $this->getField('username')
                          ->addValidator(new Validator\NotEqual($this->username, 'That username is not allowed.'));
                 }
             }
@@ -71,13 +70,13 @@ class Profile extends Form
             // Check for dupe email
             $email = Table\Users::findBy(['email' => $this->email]);
             if (isset($email->id) && ($this->id != $email->id)) {
-                $this->getElement('email')
+                $this->getField('email')
                      ->addValidator(new Validator\NotEqual($this->email, 'That email is not allowed.'));
             }
 
             // Check password matches
             if (!empty($this->password1)) {
-                $this->getElement('password2')
+                $this->getField('password2')
                      ->setRequired(true)
                      ->addValidator(new Validator\Equal($this->password1, 'The passwords do not match.'));
             }

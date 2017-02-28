@@ -16,17 +16,17 @@ namespace App\Controller\Users;
 use App\Controller\AbstractController;
 use App\Form;
 use App\Model;
-use Pop\Paginator\Paginator;
+use Pop\Paginator\Form as Paginator;
 
 /**
  * Users controller class
  *
- * @category   Pop_Bootstrap
- * @package    Pop_Bootstrap
+ * @category   Pop\Bootstrap
+ * @package    Pop\Bootstrap
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.0
+ * @version    3.0.0
  */
 class IndexController extends AbstractController
 {
@@ -54,7 +54,6 @@ class IndexController extends AbstractController
             if ($user->hasPages($this->application->config()['pagination'], $rid, $searchUsername, $deniedRoles)) {
                 $limit = $this->application->config()['pagination'];
                 $pages = new Paginator($user->getCount($rid, $searchUsername, $deniedRoles), $limit);
-                $pages->useInput(true);
             } else {
                 $limit = null;
                 $pages = null;
@@ -99,7 +98,7 @@ class IndexController extends AbstractController
             unset($fields[0]['clear_logins']);
             unset($fields[0]['failed_attempts']);
 
-            $this->view->form = new Form\User($fields);
+            $this->view->form = Form\User::createFromFieldsetConfig($fields);
             if ($this->request->isPost()) {
                 $this->view->form->addFilter('strip_tags')
                      ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
@@ -165,7 +164,7 @@ class IndexController extends AbstractController
             $fields[0]['role_id']['value']         = $roleValues;
             $fields[0]['role_id']['marked']        = $user->role_id;
 
-            $this->view->form = new Form\User($fields);
+            $this->view->form = Form\User::createFromFieldsetConfig($fields);
             $this->view->form->addFilter('strip_tags', null, 'textarea')
                  ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
                  ->setFieldValues($user->toArray());

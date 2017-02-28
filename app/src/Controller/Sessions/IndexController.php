@@ -16,17 +16,17 @@ namespace App\Controller\Sessions;
 use App\Controller\AbstractController;
 use App\Form;
 use App\Model;
-use Pop\Paginator\Paginator;
+use Pop\Paginator\Form as Paginator;
 
 /**
  * Sessions controller class
  *
- * @category   Pop_Bootstrap
- * @package    Pop_Bootstrap
+ * @category   Pop\Bootstrap
+ * @package    Pop\Bootstrap
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.0
+ * @version    3.0.0
  */
 class IndexController extends AbstractController
 {
@@ -45,7 +45,6 @@ class IndexController extends AbstractController
         if ($session->hasPages($this->application->config()['pagination'], $searchUsername)) {
             $limit = $this->application->config()['pagination'];
             $pages = new Paginator($session->getCount($searchUsername), $limit);
-            $pages->useInput(true);
         } else {
             $limit = null;
             $pages = null;
@@ -92,7 +91,6 @@ class IndexController extends AbstractController
             if ($session->hasLoginPages($this->application->config()['pagination'], $searchUsername)) {
                 $limit = $this->application->config()['pagination'];
                 $pages = new Paginator($session->getLoginCount($searchUsername), $limit);
-                $pages->useInput(true);
             } else {
                 $limit = null;
                 $pages = null;

@@ -20,12 +20,12 @@ use Pop\Auth;
 /**
  * Index controller class
  *
- * @category   Pop_Bootstrap
- * @package    Pop_Bootstrap
+ * @category   Pop\Bootstrap
+ * @package    Pop\Bootstrap
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.0
+ * @version    3.0.0
  */
 class IndexController extends AbstractController
 {
@@ -43,7 +43,7 @@ class IndexController extends AbstractController
         $this->view->database  = (strtolower($this->application->config()['database']['adapter']) == 'pdo') ?
             $this->application->config()['database']['type'] . ' (pdo)' :
             $this->view->database = $this->application->config()['database']['adapter'];
-        
+
         $this->send();
     }
 
@@ -98,7 +98,7 @@ class IndexController extends AbstractController
         $user = new Model\User();
         $user->getById($this->sess->user->id);
 
-        $this->view->form = new Form\Profile($this->application->config()['forms']['App\Form\Profile']);
+        $this->view->form = Form\Profile::createFromFieldsetConfig($this->application->config()['forms']['App\Form\Profile']);
         $this->view->form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
              ->setFieldValues($user->toArray());
 
@@ -136,10 +136,10 @@ class IndexController extends AbstractController
     {
         $this->prepareView('login.phtml');
         $this->view->title = 'Please Login';
-        $this->view->form  = new Form\Login($this->application->config()['forms']['App\Form\Login']);
+        $this->view->form  = Form\Login::createFromFieldsetConfig($this->application->config()['forms']['App\Form\Login']);
 
         if ($this->request->isPost()) {
-            $auth = new Auth\Auth(new Auth\Adapter\Table('App\Table\Users', Auth\Auth::ENCRYPT_BCRYPT));
+            $auth = new Auth\Table('App\Table\Users');
 
             $this->view->form->addFilter('strip_tags')
                  ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
@@ -148,12 +148,12 @@ class IndexController extends AbstractController
             $user    = new Model\User();
             $session = new Model\Session();
 
-            if ($this->view->form->isValid() && ($session->validate($auth->adapter()->getUser(), $this->application->config()))) {
-                $user->login($auth->adapter()->getUser(), $this->sess, $this->application->config());
+            if ($this->view->form->isValid() && ($session->validate($auth->getUser(), $this->application->config()))) {
+                $user->login($auth->getUser(), $this->sess, $this->application->config());
                 $this->redirect('/');
             } else {
-                if ((null !== $auth->adapter()->getUser()) && (null !== $auth->adapter()->getUser()->id)) {
-                    $user->failed($auth->adapter()->getUser());
+                if ((null !== $auth->getUser()) && (null !== $auth->getUser()->id)) {
+                    $user->failed($auth->getUser());
                     if ($this->view->form->isValid()) {
                         $this->sess->setRequestValue('failed', true);
                         $this->redirect('/login');
@@ -194,7 +194,7 @@ class IndexController extends AbstractController
         $this->prepareView('forgot.phtml');
         $this->view->title   = 'Password Reset';
         $this->view->success = false;
-        $this->view->form    = new Form\Forgot($this->application->config()['forms']['App\Form\Forgot']);
+        $this->view->form    = Form\Forgot::createFromFieldsetConfig($this->application->config()['forms']['App\Form\Forgot']);
 
         if ($this->request->isPost()) {
             $this->view->form->addFilter('strip_tags')

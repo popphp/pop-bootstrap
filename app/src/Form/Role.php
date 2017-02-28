@@ -20,12 +20,12 @@ use Pop\Validator;
 /**
  * Role form class
  *
- * @category   Pop_Bootstrap
- * @package    Pop_Bootstrap
+ * @category   Pop\Bootstrap
+ * @package    Pop\Bootstrap
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.0
+ * @version    3.0.0
  */
 class Role extends Form
 {
@@ -38,7 +38,6 @@ class Role extends Form
      * @param  array  $fields
      * @param  string $action
      * @param  string $method
-     * @return Role
      */
     public function __construct(array $fields = null, $action = null, $method = 'post')
     {
@@ -52,7 +51,7 @@ class Role extends Form
      * Set the field values
      *
      * @param  array $values
-     * @return User
+     * @return Role
      */
     public function setFieldValues(array $values = null)
     {
@@ -61,7 +60,7 @@ class Role extends Form
         if (($_POST) && (null !== $this->name)) {
             $role = Table\Roles::findBy(['name' => $this->name]);
             if (isset($role->id) && ($this->id != $role->id)) {
-                $this->getElement('name')
+                $this->getField('name')
                      ->addValidator(new Validator\NotEqual($this->name, 'That role already exists.'));
             }
         }

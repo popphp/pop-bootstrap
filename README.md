@@ -3,8 +3,8 @@ Pop Bootstrap
 
 Release Information
 -------------------
-Version 1.0.5  
-December 30, 2016
+Version 3.0.0  
+March 1, 2017
 
 Overview
 --------
@@ -15,7 +15,7 @@ using the Bootstrap and Font Awesome frameworks.
 Requirements
 ------------
 
-* Minimum of PHP 5.4.0 and PHP 7.0 is supported as well
+* Minimum of PHP 5.6.0
 * Apache 2+, IIS 7+, or any web server with URL rewrite support
 * Supported Databases:
     - MySQL 5.0+

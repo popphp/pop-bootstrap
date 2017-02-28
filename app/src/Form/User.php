@@ -21,12 +21,12 @@ use Pop\Validator;
 /**
  * User form class
  *
- * @category   Pop_Bootstrap
- * @package    Pop_Bootstrap
+ * @category   Pop\Bootstrap
+ * @package    Pop\Bootstrap
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.0
+ * @version    3.0.0
  */
 class User extends Form
 {
@@ -39,7 +39,6 @@ class User extends Form
      * @param  array  $fields
      * @param  string $action
      * @param  string $method
-     * @return User
      */
     public function __construct(array $fields, $action = null, $method = 'post')
     {
@@ -66,7 +65,7 @@ class User extends Form
             if (null !== $this->username) {
                 $user = Table\Users::findBy(['username' => $this->username]);
                 if (isset($user->id) && ($this->id != $user->id)) {
-                    $this->getElement('username')
+                    $this->getField('username')
                          ->addValidator(new Validator\NotEqual($this->username, 'That username already exists.'));
                 }
             }
@@ -74,7 +73,7 @@ class User extends Form
             if (null !== $this->email) {
                 $email = Table\Users::findBy(['email' => $this->email]);
                 if (isset($email->id) && ($this->id != $email->id)) {
-                    $this->getElement('email')
+                    $this->getField('email')
                          ->addValidator(new Validator\NotEqual($this->email, 'That email already exists.'));
                 }
             }
@@ -82,13 +81,13 @@ class User extends Form
             // If existing user
             if ((int)$_POST['id'] > 0) {
                 if (!empty($this->password1)) {
-                    $this->getElement('password2')
+                    $this->getField('password2')
                          ->setRequired(true)
                          ->addValidator(new Validator\Equal($this->password1, 'The passwords do not match.'));
                 }
             // Else, if new user, check email and password matches
             } else {
-                $this->getElement('password2')
+                $this->getField('password2')
                      ->setRequired(true)
                      ->addValidator(new Validator\Equal($this->password1, 'The passwords do not match.'));
             }

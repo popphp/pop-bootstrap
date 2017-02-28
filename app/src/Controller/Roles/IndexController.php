@@ -16,17 +16,17 @@ namespace App\Controller\Roles;
 use App\Controller\AbstractController;
 use App\Form;
 use App\Model;
-use Pop\Paginator\Paginator;
+use Pop\Paginator\Form as Paginator;
 
 /**
  * Roles controller class
  *
- * @category   Pop_Bootstrap
- * @package    Pop_Bootstrap
+ * @category   Pop\Bootstrap
+ * @package    Pop\Bootstrap
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.0
+ * @version    3.0.0
  */
 class IndexController extends AbstractController
 {
@@ -43,7 +43,6 @@ class IndexController extends AbstractController
         if ($role->hasPages($this->application->config()['pagination'])) {
             $limit = $this->application->config()['pagination'];
             $pages = new Paginator($role->getCount(), $limit);
-            $pages->useInput(true);
         } else {
             $limit = null;
             $pages = null;
@@ -92,7 +91,7 @@ class IndexController extends AbstractController
         $fields[0]['role_parent_id']['value']  = $parents;
         $fields[2]['resource_1']['value'] = $resources;
 
-        $this->view->form = new Form\Role($fields);
+        $this->view->form = Form\Role::createFromFieldsetConfig($fields);
 
         if ($this->request->isPost()) {
             $this->view->form->addFilter('strip_tags')
@@ -109,7 +108,7 @@ class IndexController extends AbstractController
 
         $this->send();
     }
-    
+
     /**
      * Edit action method
      *
@@ -155,7 +154,7 @@ class IndexController extends AbstractController
         $fields[1]['name']['attributes']['onkeyup'] = 'pop.changeTitle(this.value);';
         $fields[2]['resource_1']['value']           = $resources;
 
-        $this->view->form = new Form\Role($fields);
+        $this->view->form = Form\Role::createFromFieldsetConfig($fields);
         $this->view->form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
              ->setFieldValues($role->toArray());
 
@@ -225,7 +224,7 @@ class IndexController extends AbstractController
         $this->response->setBody(json_encode($json, JSON_PRETTY_PRINT));
         $this->send(200, ['Content-Type' => 'application/json']);
     }
-    
+
     /**
      * Remove action method
      *
