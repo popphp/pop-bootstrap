@@ -46,7 +46,7 @@ class Composer
 
         chmod(__DIR__ . '/../../data', 0777);
 
-        if (!file_exists(__DIR__ . '/../../app/config/application.php')) {
+        if (!file_exists(__DIR__ . '/../../app/config/app.web.php')) {
             $console->write();
             $console->write($console->colorize(
                 'A configuration file was not detected.', Console::BOLD_YELLOW
@@ -144,8 +144,8 @@ class Composer
 
                 // Install database
                 $sql = (stripos($dbInterface, 'pdo') !== false) ?
-                    __DIR__ . '/../data/pop.' . strtolower($dbType) . '.sql' :
-                    __DIR__ . '/../data/pop.' . strtolower($dbInterface) . '.sql';
+                    __DIR__ . '/../data/app.' . strtolower($dbType) . '.sql' :
+                    __DIR__ . '/../data/app.' . strtolower($dbInterface) . '.sql';
 
                 if ($dbPrefix == '') {
                     $dbPrefix = 'pop_';
