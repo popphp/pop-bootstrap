@@ -36,6 +36,12 @@ class Module extends \Pop\Module\Module
 {
 
     /**
+     * Module name
+     * @var string
+     */
+    protected $name = 'app';
+
+    /**
      * Register module
      *
      * @param  Application $application
