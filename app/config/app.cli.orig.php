@@ -21,5 +21,12 @@ return [
         'password' => '',
         'host'     => '',
         'type'     => ''
+    ],
+    'services'  => [
+        'mailer'  => [
+            'call' => function() {
+                return new \Pop\Mail\Mailer(new \Pop\Mail\Transport\Sendmail());
+            }
+        ]
     ]
 ];
