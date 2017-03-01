@@ -55,21 +55,21 @@ input[type=checkbox] {
     text-align: center;
 }
 
-#login-form, #login-form > dl {
+#login-form, #login-form > fieldset > dl {
     margin: 0;
     padding: 0;
 }
 
-#login-form > dl > dt, #login-form > dl > dd {
+#login-form > fieldset > dl > dt, #login-form > fieldset > dl > dd {
     margin: 0;
     padding: 0;
 }
 
-#login-form > dl > dd {
+#login-form > fieldset > dl > dd {
     height: 60px;
 }
 
-#profile-form > dl > dd {
+#profile-form > fieldset > dl > dd {
     height: 50px;
 }
 

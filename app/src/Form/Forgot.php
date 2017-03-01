@@ -39,12 +39,12 @@ class Forgot extends Form
      * @param  string $action
      * @param  string $method
      */
-    public function __construct(array $fields, $action = null, $method = 'post')
+    public function __construct(array $fields = null, $action = null, $method = 'post')
     {
         parent::__construct($fields, $action, $method);
         $this->setAttribute('id', 'login-form');
         $this->setAttribute('class', 'form-signin');
-        $this->setIndent('    ');
+        $this->setIndent('        ');
     }
 
     /**
@@ -58,7 +58,7 @@ class Forgot extends Form
         parent::setFieldValues($values);
 
         if (($_POST) && (null !== $this->email)) {
-            $user = Table\Users::findBy(['email' => $this->email]);
+            $user  = Table\Users::findOne(['email' => $this->email]);
             if (!isset($user->id)) {
                 $this->getField('email')
                      ->addValidator(new Validator\NotEqual($this->email, 'That email does not exist.'));

@@ -40,12 +40,12 @@ class Login extends Form
      * @param  string $action
      * @param  string $method
      */
-    public function __construct(array $fields, $action = null, $method = 'post')
+    public function __construct(array $fields = null, $action = null, $method = 'post')
     {
         parent::__construct($fields, $action, $method);
         $this->setAttribute('id', 'login-form');
         $this->setAttribute('class', 'form-signin');
-        $this->setIndent('    ');
+        $this->setIndent('        ');
     }
 
     /**

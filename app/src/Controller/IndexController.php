@@ -203,8 +203,7 @@ class IndexController extends AbstractController
 
             if ($this->view->form->isValid()) {
                 $this->view->form->clearFilters()
-                     ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
-                     ->filter();
+                     ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8']);
 
                 $user = new Model\User();
                 $user->forgot(

@@ -399,7 +399,7 @@ class User extends AbstractModel
      */
     public function forgot(array $fields, $title, Mailer $mailer)
     {
-        $user = Table\Users::findBy(['email' => $fields['email']]);
+        $user = Table\Users::findOne(['email' => $fields['email']]);
         if (isset($user->id)) {
             $this->data['id'] = $user->id;
             $notify = new Notification();
