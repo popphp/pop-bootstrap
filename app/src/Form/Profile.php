@@ -76,6 +76,9 @@ class Profile extends Form
 
             // Check password matches
             if (!empty($this->password1)) {
+                $this->getField('password1')
+                     ->addValidator(new \Pop\Validator\LengthGte(6));
+
                 $this->getField('password2')
                      ->setRequired(true)
                      ->addValidator(new Validator\Equal($this->password1, 'The passwords do not match.'));

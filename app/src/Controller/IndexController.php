@@ -58,7 +58,7 @@ class IndexController extends AbstractController
 
         $this->view->fluidNav  = $this->services['nav.fluid'];
         $this->view->title     = 'Dashboard';
-        $this->view->dbVersion = $this->services['database']->version();
+        $this->view->dbVersion = $this->services['database']->getVersion();
         $this->view->database  = (strtolower($this->application->config()['database']['adapter']) == 'pdo') ?
             $this->application->config()['database']['type'] . ' (pdo)' :
             $this->view->database = $this->application->config()['database']['adapter'];
@@ -77,7 +77,7 @@ class IndexController extends AbstractController
 
         $this->view->staticNav = $this->services['nav.static'];
         $this->view->title     = 'Dashboard';
-        $this->view->dbVersion = $this->services['database']->version();
+        $this->view->dbVersion = $this->services['database']->getVersion();
         $this->view->database  = (strtolower($this->application->config()['database']['adapter']) == 'pdo') ?
             $this->application->config()['database']['type'] . ' (pdo)' :
             $this->view->database = $this->application->config()['database']['adapter'];
@@ -109,11 +109,11 @@ class IndexController extends AbstractController
             if ($this->view->form->isValid()) {
                 $this->view->form->clearFilters()
                      ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
-                     ->filter();
+                     ->filterValues();
 
                 $user = new Model\User();
                 $user->update(
-                    $this->view->form->getFields(),
+                    $this->view->form,
                     $this->application->config()['application_title'],
                     $this->application->services()->get('mailer'),
                     $this->sess
@@ -203,7 +203,8 @@ class IndexController extends AbstractController
 
             if ($this->view->form->isValid()) {
                 $this->view->form->clearFilters()
-                     ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8']);
+                     ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
+                     ->filterValues();
 
                 $user = new Model\User();
                 $user->forgot(

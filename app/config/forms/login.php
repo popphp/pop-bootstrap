@@ -7,7 +7,6 @@ return [
         'username' => [
             'type'       => 'text',
             'required'   => 'true',
-            'validators' => new \Pop\Validator\NotEmpty(),
             'attributes' => [
                 'placeholder' => 'Username',
                 'class'       => 'form-control'
@@ -16,7 +15,6 @@ return [
         'password' => [
             'type'       => 'password',
             'required'   => 'true',
-            'validators' => new \Pop\Validator\NotEmpty(),
             'attributes' => [
                 'placeholder' => 'Password',
                 'class'       => 'form-control'

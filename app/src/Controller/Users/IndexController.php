@@ -34,6 +34,7 @@ class IndexController extends AbstractController
     /**
      * Index action method
      *
+     * @param  int $rid
      * @return void
      */
     public function index($rid = null)
@@ -107,7 +108,7 @@ class IndexController extends AbstractController
                 if ($this->view->form->isValid()) {
                     $this->view->form->clearFilters()
                          ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
-                         ->filter();
+                         ->filterValues();
                     $user = new Model\User();
                     $user->save(
                         $this->view->form->getFields(),
@@ -176,7 +177,7 @@ class IndexController extends AbstractController
                 if ($this->view->form->isValid()) {
                     $this->view->form->clearFilters()
                         ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
-                        ->filter();
+                        ->filterValues();
                     $user = new Model\User();
                     $user->update(
                         $this->view->form->getFields(),

@@ -34,7 +34,7 @@ class Role extends AbstractModel
      * @param  int    $limit
      * @param  int    $page
      * @param  string $sort
-     * @return array
+     * @return \Pop\Db\Record\Collection
      */
     public function getAll($limit = null, $page = null, $sort = null)
     {
@@ -49,7 +49,7 @@ class Role extends AbstractModel
             $options['limit']  = $limit;
         }
 
-        return Table\Roles::findAll($options)->rows();
+        return Table\Roles::findAll($options);
     }
 
     /**

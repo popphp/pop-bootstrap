@@ -35,21 +35,22 @@ class Session extends AbstractModel
      * @param  int    $limit
      * @param  int    $page
      * @param  string $sort
-     * @return array
+     * @return \Pop\Db\Record\Collection
      */
     public function getAll($username = null, $limit = null, $page = null, $sort = null)
     {
         $sql = Table\UserSessions::sql();
 
         $sql->select([
-            'id'           => DB_PREFIX . 'user_sessions.id',
-            'ip'           => DB_PREFIX . 'user_sessions.ip',
-            'ua'           => DB_PREFIX . 'user_sessions.ua',
-            'start'        => DB_PREFIX . 'user_sessions.start',
-            'username'     => DB_PREFIX . 'users.username',
-            'role_name'    => DB_PREFIX . 'roles.name'
-        ])->join(DB_PREFIX . 'users', [DB_PREFIX . 'users.id' => DB_PREFIX . 'user_sessions.user_id'])
-          ->join(DB_PREFIX . 'roles', [DB_PREFIX . 'users.role_id' => DB_PREFIX . 'roles.id']);
+            'id'           => 'user_sessions.id',
+            'ip'           => 'user_sessions.ip',
+            'ua'           => 'user_sessions.ua',
+            'start'        => 'user_sessions.start',
+            'username'     => 'users.username',
+            'role_name'    => 'roles.name'
+        ])->from(Table\UserSessions::table())
+          ->leftJoin('users', ['users.id' => 'user_sessions.user_id'])
+          ->leftJoin('roles', ['users.role_id' => 'roles.id']);
 
         if (null !== $limit) {
             $page = ((null !== $page) && ((int)$page > 1)) ?
@@ -69,8 +70,8 @@ class Session extends AbstractModel
         }
 
         return (count($params) > 0) ?
-            Table\UserSessions::execute((string)$sql, $params)->rows() :
-            Table\UserSessions::query((string)$sql)->rows();
+            Table\UserSessions::execute((string)$sql, $params) :
+            Table\UserSessions::query((string)$sql);
     }
 
     /**
@@ -80,21 +81,22 @@ class Session extends AbstractModel
      * @param  int    $limit
      * @param  int    $page
      * @param  string $sort
-     * @return array
+     * @return \Pop\Db\Record\Collection
      */
     public function getLogins($username = null, $limit = null, $page = null, $sort = null)
     {
         $sql = Table\UserLogins::sql();
 
         $sql->select([
-            'id'           => DB_PREFIX . 'user_logins.id',
-            'ip'           => DB_PREFIX . 'user_logins.ip',
-            'ua'           => DB_PREFIX . 'user_logins.ua',
-            'timestamp'    => DB_PREFIX . 'user_logins.timestamp',
-            'username'     => DB_PREFIX . 'users.username',
-            'role_name'    => DB_PREFIX . 'roles.name'
-        ])->join(DB_PREFIX . 'users', [DB_PREFIX . 'users.id' => DB_PREFIX . 'user_logins.user_id'])
-            ->join(DB_PREFIX . 'roles', [DB_PREFIX . 'users.role_id' => DB_PREFIX . 'roles.id']);
+            'id'           => 'user_logins.id',
+            'ip'           => 'user_logins.ip',
+            'ua'           => 'user_logins.ua',
+            'timestamp'    => 'user_logins.timestamp',
+            'username'     => 'users.username',
+            'role_name'    => 'roles.name'
+        ])->from(Table\UserLogins::table())
+          ->leftJoin('users', ['users.id' => 'user_logins.user_id'])
+          ->leftJoin('roles', ['users.role_id' => 'roles.id']);
 
         if (null !== $limit) {
             $page = ((null !== $page) && ((int)$page > 1)) ?
@@ -114,18 +116,18 @@ class Session extends AbstractModel
         }
 
         return (count($params) > 0) ?
-            Table\UserLogins::execute((string)$sql, $params)->rows() :
-            Table\UserLogins::query((string)$sql)->rows();
+            Table\UserLogins::execute((string)$sql, $params) :
+            Table\UserLogins::query((string)$sql);
     }
 
     /**
      * Get all users
      *
-     * @return array
+     * @return \Pop\Db\Record\Collection
      */
     public function getAllUsers()
     {
-        return Table\Users::findAll()->rows();
+        return Table\Users::findAll();
     }
 
     /**
@@ -205,7 +207,7 @@ class Session extends AbstractModel
      */
     public function clear($id, $uid, $sid)
     {
-        $sess = Table\UserSessions::findBy([
+        $sess = Table\UserSessions::findOne([
             'id'         => $id,
             'user_id'    => $uid,
             'session_id' => $sid
@@ -245,12 +247,12 @@ class Session extends AbstractModel
         $params = ['id' => $sessId];
 
         if (null !== $uid) {
-            $sql->delete()
+            $sql->delete(Table\UserSessions::table())
                 ->where('id != :id')
                 ->where('user_id = :user_id');
             $params['user_id'] = (int)$uid;
         } else {
-            $sql->delete()
+            $sql->delete(Table\UserSessions::table())
                 ->where('id != :id');
         }
 
@@ -285,7 +287,7 @@ class Session extends AbstractModel
             $logins = new Table\UserLogins();
             $logins->delete(['user_id' => (int)$uid]);
         } else {
-            Table\UserLogins::query('TRUNCATE TABLE ' . DB_PREFIX . 'user_logins');
+            Table\UserLogins::query('TRUNCATE TABLE ' . 'user_logins');
         }
     }
 
@@ -302,9 +304,10 @@ class Session extends AbstractModel
             $sql = Table\UserSessions::sql();
 
             $sql->select([
-                'id'           => DB_PREFIX . 'user_sessions.id',
-                'username'     => DB_PREFIX . 'users.username',
-            ])->join(DB_PREFIX . 'users', [DB_PREFIX . 'users.id' => DB_PREFIX . 'user_sessions.user_id']);
+                'id'           => 'user_sessions.id',
+                'username'     => 'users.username',
+            ])->from(Table\UserSessions::table())
+              ->leftJoin('users', ['users.id' => 'user_sessions.user_id']);
 
             $sql->select()->where('username LIKE :username');
             $params = ['username' => $username . '%'];
@@ -323,11 +326,13 @@ class Session extends AbstractModel
      */
     public function getCount($username = null)
     {
-        if (null !== $username) {$sql = Table\UserSessions::sql();
+        if (null !== $username) {
+            $sql = Table\UserSessions::sql();
             $sql->select([
-                'id'           => DB_PREFIX . 'user_sessions.id',
-                'username'     => DB_PREFIX . 'users.username',
-            ])->join(DB_PREFIX . 'users', [DB_PREFIX . 'users.id' => DB_PREFIX . 'user_sessions.user_id']);
+                'id'           => 'user_sessions.id',
+                'username'     => 'users.username',
+            ])->from(Table\UserSessions::table())
+              ->leftJoin('users', ['users.id' => 'user_sessions.user_id']);
 
             $sql->select()->where('username LIKE :username');
             $params = ['username' => $username . '%'];
@@ -351,9 +356,10 @@ class Session extends AbstractModel
             $sql = Table\UserLogins::sql();
 
             $sql->select([
-                'id'           => DB_PREFIX . 'user_logins.id',
-                'username'     => DB_PREFIX . 'users.username',
-            ])->join(DB_PREFIX . 'users', [DB_PREFIX . 'users.id' => DB_PREFIX . 'user_logins.user_id']);
+                'id'           => 'user_logins.id',
+                'username'     => 'users.username',
+            ])->from(Table\UserLogins::table())
+              ->leftJoin('users', ['users.id' => 'user_logins.user_id']);
 
             $sql->select()->where('username LIKE :username');
             $params = ['username' => $username . '%'];
@@ -372,11 +378,13 @@ class Session extends AbstractModel
      */
     public function getLoginCount($username = null)
     {
-        if (null !== $username) {$sql = Table\UserLogins::sql();
+        if (null !== $username) {
+            $sql = Table\UserLogins::sql();
             $sql->select([
-                'id'           => DB_PREFIX . 'user_logins.id',
-                'username'     => DB_PREFIX . 'users.username',
-            ])->join(DB_PREFIX . 'users', [DB_PREFIX . 'users.id' => DB_PREFIX . 'user_logins.user_id']);
+                'id'           => 'user_logins.id',
+                'username'     => 'users.username',
+            ])->from(Table\UserLogins::table())
+              ->leftJoin('users', ['users.id' => 'user_logins.user_id']);
 
             $sql->select()->where('username LIKE :username');
             $params = ['username' => $username . '%'];

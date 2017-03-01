@@ -11,10 +11,6 @@
 /**
  * Pop Web Bootstrap Application Framework Configuration File
  */
-if (!defined('DB_PREFIX')) {
-    define('DB_PREFIX', '');
-}
-
 return [
     'routes'    => include 'routes/web.php',
     'resources' => include 'resources.php',

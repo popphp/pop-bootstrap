@@ -15,7 +15,6 @@ namespace App\Model;
 
 use App\Table;
 use Pop\Cookie\Cookie;
-use Pop\Crypt\Bcrypt;
 use Pop\Mail\Mailer;
 
 /**
@@ -40,23 +39,24 @@ class User extends AbstractModel
      * @param  int    $limit
      * @param  int    $page
      * @param  string $sort
-     * @return array
+     * @return \Pop\Db\Record\Collection
      */
     public function getAll($roleId = null, $username = null, array $deniedRoles = null, $limit = null, $page = null, $sort = null)
     {
         $sql = Table\Users::sql();
 
         $sql->select([
-            'id'           => DB_PREFIX . 'users.id',
-            'user_role_id' => DB_PREFIX . 'users.role_id',
-            'username'     => DB_PREFIX . 'users.username',
-            'email'        => DB_PREFIX . 'users.email',
-            'active'       => DB_PREFIX . 'users.active',
-            'verified'     => DB_PREFIX . 'users.verified',
-            'total_logins' => DB_PREFIX . 'users.total_logins',
-            'role_id'      => DB_PREFIX . 'roles.id',
-            'role_name'    => DB_PREFIX . 'roles.name'
-        ])->join(DB_PREFIX . 'roles', [DB_PREFIX . 'users.role_id' => DB_PREFIX . 'roles.id']);
+            'id'           => 'users.id',
+            'user_role_id' => 'users.role_id',
+            'username'     => 'users.username',
+            'email'        => 'users.email',
+            'active'       => 'users.active',
+            'verified'     => 'users.verified',
+            'total_logins' => 'users.total_logins',
+            'role_id'      => 'roles.id',
+            'role_name'    => 'roles.name'
+        ])->from(Table\Users::table())
+          ->leftJoin('roles', ['users.role_id' => 'roles.id']);
 
         if (null !== $limit) {
             $page = ((null !== $page) && ((int)$page > 1)) ?
@@ -83,19 +83,19 @@ class User extends AbstractModel
 
         if (null !== $roleId) {
             if ($roleId == 0) {
-                $sql->select()->where(DB_PREFIX . 'users.role_id IS NULL');
+                $sql->select()->where('users.role_id IS NULL');
                 $rows = (count($params) > 0) ?
-                    Table\Users::execute((string)$sql, $params)->rows() :
-                    Table\Users::query((string)$sql)->rows();
+                    Table\Users::execute((string)$sql, $params) :
+                    Table\Users::query((string)$sql);
             } else {
-                $sql->select()->where(DB_PREFIX . 'users.role_id = :role_id');
+                $sql->select()->where('users.role_id = :role_id');
                 $params['role_id'] = $roleId;
-                $rows = Table\Users::execute((string)$sql, $params)->rows();
+                $rows = Table\Users::execute((string)$sql, $params);
             }
         } else {
             $rows = (count($params) > 0) ?
-                Table\Users::execute((string)$sql, $params)->rows() :
-                Table\Users::query((string)$sql)->rows();
+                Table\Users::execute((string)$sql, $params) :
+                Table\Users::query((string)$sql);
         }
 
         return $rows;
@@ -108,7 +108,7 @@ class User extends AbstractModel
      */
     public function getRoles()
     {
-        $roles    = Table\Roles::findAll()->rows();
+        $roles    = Table\Roles::findAll();
         $rolesAry = [];
 
         foreach ($roles as $role) {
@@ -123,25 +123,25 @@ class User extends AbstractModel
      * Get users by role ID
      *
      * @param  int $rid
-     * @return array
+     * @return mixed
      */
     public function getByRoleId($rid)
     {
-        return Table\Users::findBy(['role_id' => (int)$rid])->rows();
+        return Table\Users::findBy(['role_id' => (int)$rid]);
     }
 
     /**
      * Get users by role name
      *
      * @param  string $name
-     * @return array
+     * @return \Pop\Db\Record\Collection
      */
     public function getByRole($name)
     {
         $role  = Table\Roles::findBy(['name' => $name]);
         $users = [];
         if (isset($role->id)) {
-            $users = Table\Users::findBy(['role_id' => $role->id])->rows();
+            $users = Table\Users::findBy(['role_id' => $role->id]);
         }
 
         return $users;
@@ -173,20 +173,20 @@ class User extends AbstractModel
     /**
      * Save new user
      *
-     * @param  array  $fields
+     * @param  mixed  $form
      * @param  string $title
      * @param  Mailer $mailer
      * @return void
      */
-    public function save(array $fields, $title, Mailer $mailer)
+    public function save($form, $title, Mailer $mailer)
     {
         $user = new Table\Users([
-            'role_id'    => $fields['role_id'],
-            'username'   => $fields['username'],
-            'password'   => (new Bcrypt())->create($fields['password1']),
-            'email'      => (isset($fields['email']) ? $fields['email'] : null),
-            'active'     => (int)$fields['active'],
-            'verified'   => (int)$fields['verified']
+            'role_id'    => $form['role_id'],
+            'username'   => $form['username'],
+            'password'   => password_hash($form['password1'], PASSWORD_BCRYPT),
+            'email'      => (isset($form['email']) ? $form['email'] : null),
+            'active'     => (int)$form['active'],
+            'verified'   => (int)$form['verified']
         ]);
         $user->save();
 
@@ -201,32 +201,32 @@ class User extends AbstractModel
     /**
      * Update an existing user
      *
-     * @param  array                $fields
+     * @param  mixed                $form
      * @param  string               $title
      * @param  Mailer               $mailer
      * @param  \Pop\Session\Session $sess
      * @return void
      */
-    public function update(array $fields, $title, Mailer $mailer, \Pop\Session\Session $sess = null)
+    public function update($form, $title, Mailer $mailer, \Pop\Session\Session $sess = null)
     {
-        $user = Table\Users::findById((int)$fields['id']);
+        $user = Table\Users::findById((int)$form['id']);
         if (isset($user->id)) {
             $oldRoleId = $user->role_id;
             $oldActive = $user->active;
 
-            $user->role_id         = (isset($fields['role_id']) ? $fields['role_id'] : $user->role_id);
-            $user->username        = $fields['username'];
-            $user->password        = (!empty($fields['password1'])) ?
-                (new Bcrypt())->create($fields['password1']) : $user->password;
-            $user->email           = (isset($fields['email']) ? $fields['email'] : $user->email);
-            $user->active          = (isset($fields['active']) ? (int)$fields['active'] : $user->active);
-            $user->verified        = (isset($fields['verified']) ? (int)$fields['verified'] : $user->verified);
-            $user->total_logins    = (isset($fields['clear_logins']) ? 0 : $user->total_logins);
-            $user->failed_attempts = (isset($fields['failed_attempts']) ? (int)$fields['failed_attempts'] : $user->failed_attempts);
+            $user->role_id         = (isset($form['role_id']) ? $form['role_id'] : $user->role_id);
+            $user->username        = $form['username'];
+            $user->password        = (!empty($form['password1'])) ?
+                password_hash($form['password1'], PASSWORD_BCRYPT) : $user->password;
+            $user->email           = (isset($form['email']) ? $form['email'] : $user->email);
+            $user->active          = (isset($form['active']) ? (int)$form['active'] : $user->active);
+            $user->verified        = (isset($form['verified']) ? (int)$form['verified'] : $user->verified);
+            $user->total_logins    = (isset($form['clear_logins']) ? 0 : $user->total_logins);
+            $user->failed_attempts = (isset($form['failed_attempts']) ? (int)$form['failed_attempts'] : $user->failed_attempts);
 
             $user->save();
 
-            if (isset($fields['clear_logins'])) {
+            if (isset($form['clear_logins'])) {
                 $session = new Session();
                 $session->clearLogins($user->id);
             }
@@ -420,7 +420,7 @@ class User extends AbstractModel
     {
         $params = [];
         $sql    = Table\Users::sql();
-        $sql->select();
+        $sql->select()->from(Table\Users::table());
 
         if (null !== $username) {
             $sql->select()->where('username LIKE :username');
@@ -458,7 +458,7 @@ class User extends AbstractModel
     {
         $params = [];
         $sql    = Table\Users::sql();
-        $sql->select();
+        $sql->select()->from(Table\Users::table());
 
         if (null !== $username) {
             $sql->select()->where('username LIKE :username');
