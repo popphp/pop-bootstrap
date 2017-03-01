@@ -190,7 +190,7 @@ class User extends AbstractModel
         ]);
         $user->save();
 
-        $this->data = array_merge($this->data, $user->getColumns());
+        $this->data = array_merge($this->data, $user->toArray());
 
         if ((!$user->verified) && !empty($user->email)) {
             $notify = new Notification();
@@ -236,7 +236,7 @@ class User extends AbstractModel
                 $sess->user->email    = $user->email;
             }
 
-            $this->data = array_merge($this->data, $user->getColumns());
+            $this->data = array_merge($this->data, $user->toArray());
 
             if ((((null === $oldRoleId) && (null !== $user->role_id)) || ((!($oldActive) && ($user->active)))) && !empty($user->email)) {
                 $notify = new Notification();
@@ -440,9 +440,9 @@ class User extends AbstractModel
         }
 
         if (count($params) > 0) {
-            return (Table\Users::execute((string)$sql, $params, Table\Users::ROW_AS_ARRAY)->count() > $limit);
+            return (Table\Users::execute((string)$sql, $params, Table\Users::AS_ARRAY)->count() > $limit);
         } else {
-            return (Table\Users::findAll(null, Table\Users::ROW_AS_ARRAY)->count() > $limit);
+            return (Table\Users::findAll(null, Table\Users::AS_ARRAY)->count() > $limit);
         }
     }
 
@@ -478,9 +478,9 @@ class User extends AbstractModel
         }
 
         if (count($params) > 0) {
-            return Table\Users::execute((string)$sql, $params, Table\Users::ROW_AS_ARRAY)->count();
+            return Table\Users::execute((string)$sql, $params, Table\Users::AS_ARRAY)->count();
         } else {
-            return Table\Users::findAll(null, Table\Users::ROW_AS_ARRAY)->count();
+            return Table\Users::findAll(null, Table\Users::AS_ARRAY)->count();
         }
     }
 

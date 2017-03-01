@@ -169,7 +169,7 @@ class Session extends AbstractModel
         ]);
         $login->save();
 
-        $this->data = array_merge($this->data, $login->getColumns());
+        $this->data = array_merge($this->data, $login->toArray());
     }
 
     /**
@@ -192,7 +192,7 @@ class Session extends AbstractModel
         ]);
         $sess->save();
 
-        $this->data = array_merge($this->data, $sess->getColumns());
+        $this->data = array_merge($this->data, $sess->toArray());
     }
 
     /**
@@ -209,7 +209,7 @@ class Session extends AbstractModel
             'id'         => $id,
             'user_id'    => $uid,
             'session_id' => $sid
-        ], null, Table\UserSessions::ROW_AS_RESULT);
+        ]);
 
         if (isset($sess->id)) {
             $sess->delete();
@@ -309,9 +309,9 @@ class Session extends AbstractModel
             $sql->select()->where('username LIKE :username');
             $params = ['username' => $username . '%'];
 
-            return (Table\UserSessions::execute((string)$sql, $params, Table\UserSessions::ROW_AS_ARRAY)->count() > $limit);
+            return (Table\UserSessions::execute((string)$sql, $params, Table\UserSessions::AS_ARRAY)->count() > $limit);
         } else {
-            return (Table\UserSessions::findAll(null, Table\UserSessions::ROW_AS_ARRAY)->count() > $limit);
+            return (Table\UserSessions::findAll(null, Table\UserSessions::AS_ARRAY)->count() > $limit);
         }
     }
 
@@ -332,9 +332,9 @@ class Session extends AbstractModel
             $sql->select()->where('username LIKE :username');
             $params = ['username' => $username . '%'];
 
-            return Table\UserSessions::execute((string)$sql, $params, Table\UserSessions::ROW_AS_ARRAY)->count();
+            return Table\UserSessions::execute((string)$sql, $params, Table\UserSessions::AS_ARRAY)->count();
         } else {
-            return Table\UserSessions::findAll(null, Table\UserSessions::ROW_AS_ARRAY)->count();
+            return Table\UserSessions::findAll(null, Table\UserSessions::AS_ARRAY)->count();
         }
     }
 
@@ -358,9 +358,9 @@ class Session extends AbstractModel
             $sql->select()->where('username LIKE :username');
             $params = ['username' => $username . '%'];
 
-            return (Table\UserLogins::execute((string)$sql, $params, Table\UserLogins::ROW_AS_ARRAY)->count() > $limit);
+            return (Table\UserLogins::execute((string)$sql, $params, Table\UserLogins::AS_ARRAY)->count() > $limit);
         } else {
-            return (Table\UserLogins::findAll(null, Table\UserLogins::ROW_AS_ARRAY)->count() > $limit);
+            return (Table\UserLogins::findAll(null, Table\UserLogins::AS_ARRAY)->count() > $limit);
         }
     }
 
@@ -381,9 +381,9 @@ class Session extends AbstractModel
             $sql->select()->where('username LIKE :username');
             $params = ['username' => $username . '%'];
 
-            return Table\UserLogins::execute((string)$sql, $params, Table\UserLogins::ROW_AS_ARRAY)->count();
+            return Table\UserLogins::execute((string)$sql, $params, Table\UserLogins::AS_ARRAY)->count();
         } else {
-            return Table\UserLogins::findAll(null, Table\UserLogins::ROW_AS_ARRAY)->count();
+            return Table\UserLogins::findAll(null, Table\UserLogins::AS_ARRAY)->count();
         }
     }
 

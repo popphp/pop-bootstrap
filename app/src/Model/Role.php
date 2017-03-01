@@ -62,7 +62,7 @@ class Role extends AbstractModel
     {
         $role = Table\Roles::findById((int)$id);
         if (isset($role->id)) {
-            $data = $role->getColumns();
+            $data = $role->toArray();
             $data['role_parent_id'] = $data['parent_id'];
             $this->data = array_merge($this->data, $data);
         }
@@ -83,7 +83,7 @@ class Role extends AbstractModel
         ]);
         $role->save();
 
-        $this->data = array_merge($this->data, $role->getColumns());
+        $this->data = array_merge($this->data, $role->toArray());
     }
 
     /**
@@ -102,7 +102,7 @@ class Role extends AbstractModel
             $role->permissions       = serialize($this->getPermissions($post));
             $role->save();
 
-            $this->data = array_merge($this->data, $role->getColumns());
+            $this->data = array_merge($this->data, $role->toArray());
 
             if ((null !== $sess) && isset($sess->user) && ($sess->user->role_id == $role->id)) {
                 $sess->user->role = $role->name;
@@ -136,7 +136,7 @@ class Role extends AbstractModel
      */
     public function hasPages($limit)
     {
-        return (Table\Roles::findAll(null, Table\Roles::ROW_AS_ARRAY)->count() > $limit);
+        return (Table\Roles::findAll(null, Table\Roles::AS_ARRAY)->count() > $limit);
     }
 
     /**
@@ -146,7 +146,7 @@ class Role extends AbstractModel
      */
     public function getCount()
     {
-        return Table\Roles::findAll(null, Table\Roles::ROW_AS_ARRAY)->count();
+        return Table\Roles::findAll(null, Table\Roles::AS_ARRAY)->count();
     }
 
     /**

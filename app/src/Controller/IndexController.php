@@ -39,7 +39,7 @@ class IndexController extends AbstractController
     {
         $this->prepareView('index.phtml');
         $this->view->title     = 'Dashboard';
-        $this->view->dbVersion = $this->services['database']->version();
+        $this->view->dbVersion = $this->services['database']->getVersion();
         $this->view->database  = (strtolower($this->application->config()['database']['adapter']) == 'pdo') ?
             $this->application->config()['database']['type'] . ' (pdo)' :
             $this->view->database = $this->application->config()['database']['adapter'];
