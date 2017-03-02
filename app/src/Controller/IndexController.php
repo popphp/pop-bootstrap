@@ -208,7 +208,7 @@ class IndexController extends AbstractController
 
                 $user = new Model\User();
                 $user->forgot(
-                    $this->view->form->getFields(),
+                    $this->view->form,
                     $this->application->config()['application_title'],
                     $this->application->services()->get('mailer')
                 );

@@ -392,14 +392,14 @@ class User extends AbstractModel
     /**
      * Send a user a forgot password reminder
      *
-     * @param  array  $fields
+     * @param  mixed  $form
      * @param  string $title
      * @param  Mailer $mailer
      * @return void
      */
-    public function forgot(array $fields, $title, Mailer $mailer)
+    public function forgot($form, $title, Mailer $mailer)
     {
-        $user = Table\Users::findOne(['email' => $fields['email']]);
+        $user = Table\Users::findOne(['email' => $form['email']]);
         if (isset($user->id)) {
             $this->data['id'] = $user->id;
             $notify = new Notification();

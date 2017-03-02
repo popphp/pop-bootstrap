@@ -43,7 +43,7 @@ class Acl
 
         if (isset($sess->user) && isset($sess->user->role) && ($acl->hasRole($sess->user->role))) {
             // Get routes with slash options
-            $route  = $application->router()->getRouteMatch()->getRoute();
+            $route  = $application->router()->getRouteMatch()->getOriginalRoute();
             $routes = $application->router()->getRouteMatch()->getRoutes();
             if (isset($routes[$route]) && isset($routes[$route]['acl']) &&
                 isset($routes[$route]['acl']['resource'])) {

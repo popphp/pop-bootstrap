@@ -119,7 +119,11 @@ class UsersController extends ConsoleController
         ];
 
         $user = new Model\User();
-        $user->save($fields, $this->application->config()['application_title']);
+        $user->save(
+            $fields,
+            $this->application->config()['application_title'],
+            $this->application->services()->get('mailer')
+        );
 
         $this->console->write();
         $this->console->write($this->console->colorize('User Added!', Console::BOLD_GREEN));
@@ -161,11 +165,14 @@ class UsersController extends ConsoleController
         }
 
         $user = new Model\User();
-        $user->update([
-            'id'        => $userId,
-            'role_id'   => $roleId,
-            'password1' => $password
-        ], $this->application->config()['application_title']);
+        $user->update(
+            [
+                'id'        => $userId,
+                'role_id'   => $roleId,
+                'password1' => $password
+            ],
+            $this->application->config()['application_title'],
+            $this->application->services()->get('mailer'));
 
         $this->console->write();
         $this->console->write($this->console->colorize('User Password Updated!', Console::BOLD_GREEN));
@@ -202,7 +209,11 @@ class UsersController extends ConsoleController
         }
 
         $user = new Model\User();
-        $user->process(['process_users' => [$userId], 'user_process_action' => 1], $this->application->config()['application_title']);
+        $user->process(
+            ['process_users' => [$userId], 'user_process_action' => 1],
+            $this->application->config()['application_title'],
+            $this->application->services()->get('mailer')
+        );
 
         $this->console->write();
         $this->console->write($this->console->colorize('User Activated!', Console::BOLD_GREEN));
@@ -239,7 +250,11 @@ class UsersController extends ConsoleController
         }
 
         $user = new Model\User();
-        $user->process(['process_users' => [$userId], 'user_process_action' => 0], $this->application->config()['application_title']);
+        $user->process(
+            ['process_users' => [$userId], 'user_process_action' => 0],
+            $this->application->config()['application_title'],
+            $this->application->services()->get('mailer')
+        );
 
         $this->console->write();
         $this->console->write($this->console->colorize('User Deactivated!', Console::BOLD_YELLOW));
@@ -276,7 +291,11 @@ class UsersController extends ConsoleController
         }
 
         $user = new Model\User();
-        $user->process(['process_users' => [$userId], 'user_process_action' => -1], $this->application->config()['application_title']);
+        $user->process(
+            ['process_users' => [$userId], 'user_process_action' => -1],
+            $this->application->config()['application_title'],
+            $this->application->services()->get('mailer')
+        );
 
         $this->console->write();
         $this->console->write($this->console->colorize('User Removed!', Console::BOLD_RED));

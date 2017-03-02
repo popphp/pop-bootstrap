@@ -13,7 +13,6 @@
  */
 namespace App\Model;
 
-use Pop\Crypt\Bcrypt;
 use Pop\Mail\Mailer;
 use Pop\Mail\Message;
 
@@ -114,7 +113,7 @@ class Notification extends AbstractModel
         $host           = $_SERVER['HTTP_HOST'];
         $domain         = str_replace('www.', '', $host);
         $newPassword    = $this->random();
-        $user->password = (new Bcrypt())->create($newPassword);
+        $user->password = password_hash($newPassword, PASSWORD_BCRYPT);
         $user->save();
 
         $body = file_get_contents(__DIR__ . '/../../view/mail/forgot.txt');

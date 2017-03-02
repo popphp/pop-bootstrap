@@ -28,5 +28,6 @@ return [
                 return new \Pop\Mail\Mailer(new \Pop\Mail\Transport\Sendmail());
             }
         ]
-    ]
+    ],
+    'application_title' => 'My Application'
 ];
