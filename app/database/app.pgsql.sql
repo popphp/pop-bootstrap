@@ -52,8 +52,8 @@ CREATE TABLE IF NOT EXISTS "users" (
   "last_login" timestamp,
   "last_ip" varchar(255),
   "last_ua" varchar(255),
-  "total_logins" integer,
-  "failed_attempts" integer,
+  "total_logins" integer DEFAULT '0',
+  "failed_attempts" integer DEFAULT '0',
   PRIMARY KEY ("id"),
   CONSTRAINT "fk_user_role" FOREIGN KEY ("role_id") REFERENCES "roles" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 ) ;

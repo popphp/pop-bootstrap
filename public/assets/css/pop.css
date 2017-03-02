@@ -874,9 +874,20 @@ div.page-links > a:hover {
     overflow: hidden;
     width: 19px;
     height: 21px;
-    background-image: url(../img/edit.svg);
-    text-indent: -1000px;
-    background-size: 19px 21px;
+}
+
+.edit-link:hover {
+    text-decoration: none;
+}
+
+.edit-link:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    font-size: 1.3em;
+    content: "\f040";
+    margin: 0;
+    padding: 0 8px 0 0;
+    color: #b4b5b4;
 }
 
 .copy-link {
@@ -886,9 +897,20 @@ div.page-links > a:hover {
     overflow: hidden;
     width: 19px;
     height: 21px;
-    background-image: url(../img/copy.svg);
-    text-indent: -1000px;
-    background-size: 19px 21px;
+}
+
+.copy-link:hover {
+    text-decoration: none;
+}
+
+.copy-link:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    font-size: 1.3em;
+    content: "\f0c5";
+    margin: 0;
+    padding: 0 8px 0 0;
+    color: #b4b5b4;
 }
 
 .download-link {
@@ -898,9 +920,20 @@ div.page-links > a:hover {
     overflow: hidden;
     width: 19px;
     height: 21px;
-    background-image: url(../img/download.svg);
-    text-indent: -1000px;
-    background-size: 19px 21px;
+}
+
+.download-link:hover {
+    text-decoration: none;
+}
+
+.download-link:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    font-size: 1.3em;
+    content: "\f019";
+    margin: 0;
+    padding: 0 8px 0 0;
+    color: #b4b5b4;
 }
 
 .view-link {
@@ -910,21 +943,43 @@ div.page-links > a:hover {
     overflow: hidden;
     width: 19px;
     height: 21px;
-    background-image: url(../img/view.svg);
-    text-indent: -1000px;
-    background-size: 19px 21px;
 }
 
-.zoom-link {
+.view-link:hover {
+    text-decoration: none;
+}
+
+.view-link:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    font-size: 1.3em;
+    content: "\f14c";
+    margin: 0;
+    padding: 0 8px 0 0;
+    color: #b4b5b4;
+}
+
+.search-link {
     margin: 0 auto;
     padding: 0;
     display: block;
     overflow: hidden;
     width: 19px;
     height: 21px;
-    background-image: url(../img/zoom.svg);
-    text-indent: -1000px;
-    background-size: 19px 21px;
+}
+
+.search-link:hover {
+    text-decoration: none;
+}
+
+.search-link:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    font-size: 1.3em;
+    content: "\f002";
+    margin: 0;
+    padding: 0 8px 0 0;
+    color: #b4b5b4;
 }
 
 .required {

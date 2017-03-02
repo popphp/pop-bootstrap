@@ -59,7 +59,7 @@ return [
             'permission' => 'edit'
         ]
     ],
-    '/users/process' => [
+    '/users/process[/]' => [
         'controller' => 'App\Controller\Users\IndexController',
         'action'     => 'process',
         'acl'        => [

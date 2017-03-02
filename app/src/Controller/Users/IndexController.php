@@ -94,9 +94,10 @@ class IndexController extends AbstractController
             $this->view->title .= ' : ' . $role->name;
 
             $fields = $this->application->config()['forms']['App\Form\User'];
-            $fields[1]['password1']['required'] = true;
-            $fields[1]['password2']['required'] = true;
-            $fields[0]['role_id']['value']      = $rid;
+            $fields[1]['password1']['required']   = true;
+            $fields[1]['password1']['validators'] = new \Pop\Validator\LengthGte(6);
+            $fields[1]['password2']['required']   = true;
+            $fields[0]['role_id']['value']        = $rid;
             unset($fields[0]['clear_logins']);
             unset($fields[0]['failed_attempts']);
 
@@ -112,7 +113,7 @@ class IndexController extends AbstractController
                          ->filterValues();
                     $user = new Model\User();
                     $user->save(
-                        $this->view->form->getFields(),
+                        $this->view->form,
                         $this->application->config()['application_title'],
                         $this->application->services()->get('mailer')
                     );
@@ -182,7 +183,7 @@ class IndexController extends AbstractController
                         ->filterValues();
                     $user = new Model\User();
                     $user->update(
-                        $this->view->form->getFields(),
+                        $this->view->form,
                         $this->application->config()['application_title'],
                         $this->application->services()->get('mailer'),
                         $this->sess
