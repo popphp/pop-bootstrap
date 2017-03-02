@@ -142,7 +142,7 @@ class Session extends AbstractModel
         $result = true;
 
         // Check for multiple sessions
-        if ((!$config['multiple_sessions']) && isset(Table\UserSessions::findBy(['user_id' => $user->id])->id)) {
+        if ((!$config['multiple_sessions']) && isset(Table\UserSessions::findOne(['user_id' => $user->id])->id)) {
             $result = false;
         }
         // Check for too many failed attempts

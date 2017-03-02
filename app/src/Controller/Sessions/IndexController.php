@@ -14,7 +14,6 @@
 namespace App\Controller\Sessions;
 
 use App\Controller\AbstractController;
-use App\Form;
 use App\Model;
 use Pop\Paginator\Form as Paginator;
 

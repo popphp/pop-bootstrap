@@ -58,7 +58,7 @@ class Role extends Form
         parent::setFieldValues($values);
 
         if (($_POST) && (null !== $this->name)) {
-            $role = Table\Roles::findBy(['name' => $this->name]);
+            $role = Table\Roles::findOne(['name' => $this->name]);
             if (isset($role->id) && ($this->id != $role->id)) {
                 $this->getField('name')
                      ->addValidator(new Validator\NotEqual($this->name, 'That role already exists.'));

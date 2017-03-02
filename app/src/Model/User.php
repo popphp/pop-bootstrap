@@ -123,7 +123,7 @@ class User extends AbstractModel
      * Get users by role ID
      *
      * @param  int $rid
-     * @return mixed
+     * @return \Pop\Db\Record\Collection
      */
     public function getByRoleId($rid)
     {

@@ -13,7 +13,6 @@
  */
 namespace App\Form;
 
-use App\Table;
 use Pop\Auth\Table as Auth;
 use Pop\Form\Form;
 use Pop\Validator;

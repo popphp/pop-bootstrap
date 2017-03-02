@@ -23,7 +23,7 @@ namespace App\Model;
  * @license    http://www.popphp.org/license     New BSD License
  * @version    3.0.0
  */
-abstract class AbstractModel implements \ArrayAccess
+abstract class AbstractModel implements \ArrayAccess, \IteratorAggregate
 {
 
     /**
@@ -38,11 +38,20 @@ abstract class AbstractModel implements \ArrayAccess
      * Instantiate a model object
      *
      * @param  array $data
-     * @return AbstractModel
      */
     public function __construct(array $data = [])
     {
         $this->data = $data;
+    }
+
+    /**
+     * Method to iterate over the data
+     *
+     * @return \ArrayIterator
+     */
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->data);
     }
 
     /**

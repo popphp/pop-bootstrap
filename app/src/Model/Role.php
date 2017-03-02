@@ -77,9 +77,9 @@ class Role extends AbstractModel
     public function save(array $post)
     {
         $role = new Table\Roles([
-            'parent_id'         => ($post['role_parent_id'] != '----') ? (int)$post['role_parent_id'] : null,
-            'name'              => html_entity_decode($post['name'], ENT_QUOTES, 'UTF-8'),
-            'permissions'       => serialize($this->getPermissions($post))
+            'parent_id'   => ($post['role_parent_id'] != '----') ? (int)$post['role_parent_id'] : null,
+            'name'        => html_entity_decode($post['name'], ENT_QUOTES, 'UTF-8'),
+            'permissions' => serialize($this->getPermissions($post))
         ]);
         $role->save();
 
@@ -97,9 +97,9 @@ class Role extends AbstractModel
     {
         $role = Table\Roles::findById((int)$post['id']);
         if (isset($role->id)) {
-            $role->parent_id         = ($post['role_parent_id'] != '----') ? (int)$post['role_parent_id'] : null;
-            $role->name              = html_entity_decode($post['name'], ENT_QUOTES, 'UTF-8');
-            $role->permissions       = serialize($this->getPermissions($post));
+            $role->parent_id   = ($post['role_parent_id'] != '----') ? (int)$post['role_parent_id'] : null;
+            $role->name        = html_entity_decode($post['name'], ENT_QUOTES, 'UTF-8');
+            $role->permissions = serialize($this->getPermissions($post));
             $role->save();
 
             $this->data = array_merge($this->data, $role->toArray());

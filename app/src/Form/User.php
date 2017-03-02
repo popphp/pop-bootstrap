@@ -15,7 +15,6 @@ namespace App\Form;
 
 use App\Table;
 use Pop\Form\Form;
-use Pop\Form\Element;
 use Pop\Validator;
 
 /**
@@ -63,7 +62,7 @@ class User extends Form
             $user  = null;
             $email = null;
             if (null !== $this->username) {
-                $user = Table\Users::findBy(['username' => $this->username]);
+                $user = Table\Users::findOne(['username' => $this->username]);
                 if (isset($user->id) && ($this->id != $user->id)) {
                     $this->getField('username')
                          ->addValidator(new Validator\NotEqual($this->username, 'That username already exists.'));
@@ -71,7 +70,7 @@ class User extends Form
             }
 
             if (null !== $this->email) {
-                $email = Table\Users::findBy(['email' => $this->email]);
+                $email = Table\Users::findOne(['email' => $this->email]);
                 if (isset($email->id) && ($this->id != $email->id)) {
                     $this->getField('email')
                          ->addValidator(new Validator\NotEqual($this->email, 'That email already exists.'));

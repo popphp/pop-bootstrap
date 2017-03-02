@@ -68,7 +68,7 @@ class UsersController extends ConsoleController
         $role->getById($roleId);
 
         $this->console->write();
-        $dupeUser = Table\Users::findBy(['username' => $username]);
+        $dupeUser = Table\Users::findOne(['username' => $username]);
 
         while (($username == '') || isset($dupeUser->id)) {
             if (isset($dupeUser->id)) {
@@ -91,7 +91,7 @@ class UsersController extends ConsoleController
                     }
                 }
             }
-            $dupeUser = Table\Users::findBy(['username' => $username]);
+            $dupeUser = Table\Users::findOne(['username' => $username]);
         }
 
         $password = '';

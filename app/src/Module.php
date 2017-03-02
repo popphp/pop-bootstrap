@@ -328,6 +328,4 @@ class Module extends \Pop\Module\Module
         exit(127);
     }
 
-
-
 }

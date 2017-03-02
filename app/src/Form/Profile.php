@@ -60,7 +60,7 @@ class Profile extends Form
             // Check for dupe username
             $user = null;
             if (null !== $this->username) {
-                $user = Table\Users::findBy(['username' => $this->username]);
+                $user = Table\Users::findOne(['username' => $this->username]);
                 if (isset($user->id) && ($this->id != $user->id)) {
                     $this->getField('username')
                          ->addValidator(new Validator\NotEqual($this->username, 'That username is not allowed.'));
@@ -68,7 +68,7 @@ class Profile extends Form
             }
 
             // Check for dupe email
-            $email = Table\Users::findBy(['email' => $this->email]);
+            $email = Table\Users::findOne(['email' => $this->email]);
             if (isset($email->id) && ($this->id != $email->id)) {
                 $this->getField('email')
                      ->addValidator(new Validator\NotEqual($this->email, 'That email is not allowed.'));
