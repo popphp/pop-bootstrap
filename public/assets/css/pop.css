@@ -435,17 +435,17 @@ input[type=checkbox] {
     text-decoration: none;
 }
 
-#role-form-field-group-3 {
+#role-form-fieldset-3 > dl {
     padding-top: 20px;
     border-top: solid 1px #dcdcdc;
 }
 
-#role-form-field-group-3 > dd {
+#role-form-fieldset-3 > dl > dd {
     width: 200px;
     display: inline-block;
 }
 
-#role-form-field-group-3 > dd > select {
+#role-form-fieldset-3 > dl > dd > select {
     margin: 0 5px 5px 0;
     width: 180px;
     display: block;
@@ -700,7 +700,12 @@ input[type=checkbox] {
     border-top: solid 1px #dcdcdc;
 }
 
-.data-form > dl:first-child {
+.data-form > fieldset {
+    margin: 0;
+    padding: 0;
+}
+
+.data-form > fieldset:first-child {
     margin: 0 0 20px 20px;
     padding: 0 0 40px 20px;
     width: 220px;
@@ -709,7 +714,12 @@ input[type=checkbox] {
     float: right;
 }
 
-.data-form > dl:first-child > dt {
+.data-form > fieldset:first-child > dl {
+    margin: 0;
+    padding: 0;
+}
+
+.data-form > fieldset:first-child > dl > dt {
     margin-top: 5px;
     margin-bottom: 5px;
     padding-top: 5px;
@@ -717,14 +727,14 @@ input[type=checkbox] {
     border-bottom: dotted 1px #ccc;
 }
 
-.data-form > dl:not(:first-child) {
+.data-form > fieldset:not(:first-child) {
     margin: 0;
     padding: 0;
     width: calc(100% - 260px);
     float: left;
 }
 
-.data-form > dl:not(:first-child) > dd {
+.data-form > fieldset:not(:first-child) > dl {
     padding-bottom: 20px;
 }
 

@@ -80,6 +80,7 @@ class IndexController extends AbstractController
     /**
      * Add action method
      *
+     * @param  int $rid
      * @return void
      */
     public function add($rid = null)
@@ -131,6 +132,7 @@ class IndexController extends AbstractController
     /**
      * Edit action method
      *
+     * @param  int $id
      * @return void
      */
     public function edit($id)
@@ -159,11 +161,11 @@ class IndexController extends AbstractController
             $fields[1]['username']['attributes']['onkeyup'] = 'pop.changeTitle(this.value);';
             $fields[1]['password1']['required']    = false;
             $fields[1]['password2']['required']    = false;
-            $fields[0]['clear_logins']['value'][1] = $user->total_logins . ' Login' . (($user->total_logins == 1) ? '' : 's');
+            $fields[0]['clear_logins']['label']    = $user->total_logins . ' Login' . (($user->total_logins == 1) ? '' : 's');
             $fields[0]['role_id']['type']          = 'select';
             $fields[0]['role_id']['label']         = 'Role';
-            $fields[0]['role_id']['value']         = $roleValues;
-            $fields[0]['role_id']['marked']        = $user->role_id;
+            $fields[0]['role_id']['values']        = $roleValues;
+            $fields[0]['role_id']['selected']      = $user->role_id;
 
             $this->view->form = Form\User::createFromFieldsetConfig($fields);
             $this->view->form->addFilter('strip_tags', null, 'textarea')

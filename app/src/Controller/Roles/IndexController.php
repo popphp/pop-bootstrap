@@ -88,8 +88,8 @@ class IndexController extends AbstractController
             }
         }
 
-        $fields[0]['role_parent_id']['value']  = $parents;
-        $fields[2]['resource_1']['value'] = $resources;
+        $fields[0]['role_parent_id']['values'] = $parents;
+        $fields[2]['resource_1']['values']     = $resources;
 
         $this->view->form = Form\Role::createFromFieldsetConfig($fields);
 
@@ -150,9 +150,9 @@ class IndexController extends AbstractController
             }
         }
 
-        $fields[0]['role_parent_id']['value']       = $parents;
+        $fields[0]['role_parent_id']['values']      = $parents;
         $fields[1]['name']['attributes']['onkeyup'] = 'pop.changeTitle(this.value);';
-        $fields[2]['resource_1']['value']           = $resources;
+        $fields[2]['resource_1']['values']          = $resources;
 
         $this->view->form = Form\Role::createFromFieldsetConfig($fields);
         $this->view->form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])

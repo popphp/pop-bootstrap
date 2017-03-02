@@ -107,12 +107,12 @@ class Module extends \Pop\Module\Module
             Record::setDb($this->application->getService('database'));
         }
 
-        if (isset($this->config['forms'])) {
-            $this->application->mergeConfig(['forms' => $this->config['forms']]);
+        if (isset($this->application->config['forms'])) {
+            $this->application->mergeConfig(['forms' => $this->application->config['forms']]);
         }
 
-        if (isset($this->config['resources'])) {
-            $this->application->mergeConfig(['resources' => $this->config['resources']]);
+        if (isset($this->application->config['resources'])) {
+            $this->application->mergeConfig(['resources' => $this->application->config['resources']]);
         }
 
         $this->application->on('app.dispatch.pre', 'App\Event\Session::check', 1001)
