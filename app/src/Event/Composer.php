@@ -100,7 +100,7 @@ class Composer
                         chmod(__DIR__ . '/../../../data/.htapp.sqlite', 0777);
                     }
                     $dbName     = __DIR__ . '/../../../data/.htapp.sqlite';
-                    $realDbName = "__DIR__ . '/../../../data/.htapp.sqlite'";
+                    $realDbName = "__DIR__ . '/../../data/.htapp.sqlite'";
                     $console->write();
                 } else {
                     $dbCheck = 1;

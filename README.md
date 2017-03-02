@@ -4,7 +4,7 @@ Pop Bootstrap
 Release Information
 -------------------
 Version 3.0.0  
-March 1, 2017
+March 2, 2017
 
 Overview
 --------
