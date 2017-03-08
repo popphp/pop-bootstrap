@@ -27,10 +27,8 @@ pop = {
             if (vals.resource != null) {
                 $('#' + resourceId).val(vals.resource);
             }
-            if (vals.action != null) {
-                var actId = actionId.substring(actionId.lastIndexOf('_') + 1);
-                pop.changeAction(actId, vals.action);
-            }
+            var actId = actionId.substring(actionId.lastIndexOf('_') + 1);
+            pop.changeAction(actId, vals.action);
             if (vals.permission != null) {
                 if (vals.permission == 'allow') {
                     $('#' + permissionId).val(1);
@@ -209,7 +207,6 @@ $(document).ready(function(){
                 json.shift();
                 if (json.length > 0) {
                     for (var i = 0; i < json.length; i++) {
-                        console.log(json[i]);
                         pop.addResource(json[i]);
                     }
                 }
