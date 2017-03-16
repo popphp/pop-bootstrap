@@ -61,7 +61,7 @@ class User extends Form
             // Check for dupe username and email
             $user  = null;
             $email = null;
-            if (null !== $this->username) {
+            if (!empty($this->username)) {
                 $user = Table\Users::findOne(['username' => $this->username]);
                 if (isset($user->id) && ($this->id != $user->id)) {
                     $this->getField('username')
@@ -69,7 +69,7 @@ class User extends Form
                 }
             }
 
-            if (null !== $this->email) {
+            if (!empty($this->email)) {
                 $email = Table\Users::findOne(['email' => $this->email]);
                 if (isset($email->id) && ($this->id != $email->id)) {
                     $this->getField('email')
