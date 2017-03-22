@@ -138,7 +138,7 @@ class User extends AbstractModel
      */
     public function getByRole($name)
     {
-        $role  = Table\Roles::findBy(['name' => $name]);
+        $role  = Table\Roles::findOne(['name' => $name]);
         $users = [];
         if (isset($role->id)) {
             $users = Table\Users::findBy(['role_id' => $role->id]);
