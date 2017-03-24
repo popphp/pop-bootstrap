@@ -440,6 +440,10 @@ input[type=checkbox] {
     text-decoration: none;
 }
 
+#user-form-fieldset-2 > dl > dd {
+    padding-bottom: 20px;
+}
+
 #role-form-fieldset-3 > dl {
     padding-top: 20px;
     border-top: solid 1px #dcdcdc;
