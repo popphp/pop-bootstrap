@@ -104,7 +104,7 @@ class IndexController extends AbstractController
             $this->view->form = Form\User::createFromFieldsetConfig($fields);
             if ($this->request->isPost()) {
                 $this->view->form->addFilter('strip_tags')
-                     ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+                     ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8', false])
                      ->setFieldValues($this->request->getPost());
 
                 if ($this->view->form->isValid()) {
@@ -170,7 +170,7 @@ class IndexController extends AbstractController
 
             $this->view->form = Form\User::createFromFieldsetConfig($fields);
             $this->view->form->addFilter('strip_tags', null, 'textarea')
-                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8', false])
                  ->setFieldValues($user->toArray());
 
             if ($this->request->isPost()) {
