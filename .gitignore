@@ -1,5 +1,6 @@
-/app/config/app.cli.php
-/app/config/app.web.php
+/app/config/database/mysql.php
+/app/config/database/pgsql.php
+/app/config/database/sqlite.php
 /logs
 composer.lock
 vendor

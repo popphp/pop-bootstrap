@@ -3,8 +3,8 @@ Pop Bootstrap
 
 Release Information
 -------------------
-Version 3.0.0  
-March 2, 2017
+Version 4.0.0  
+TBD
 
 Overview
 --------
@@ -15,7 +15,7 @@ using the Bootstrap and Font Awesome frameworks.
 Requirements
 ------------
 
-* Minimum of PHP 5.6.0
+* Minimum of PHP 7.0.0
 * Apache 2+, IIS 7+, or any web server with URL rewrite support
 * Supported Databases:
     - MySQL 5.0+
@@ -49,17 +49,6 @@ to a login screen. The default credentials are:
 * Username: `admin`
 * Password: `password`
 
-Features
---------
-
-This skeleton application provides a basic set of features common to
-web applications. This includes:
-
-- User Login
-- User Roles
-- User Sessions
-- User Management
-
 Console Access
 --------------
 
@@ -76,12 +65,4 @@ $ ./app users password      Change a user password
 $ ./app users activate      Activate a user
 $ ./app users deactivate    Deactivate a user
 $ ./app users remove        Remove a user
-    
-$ ./app roles               List roles
-$ ./app roles add           Add a role
-$ ./app roles edit          Edit a role
-$ ./app roles remove        Remove a role
-    
-$ ./app sessions            List sessions
-$ ./app sessions remove     Remove a session
 ```

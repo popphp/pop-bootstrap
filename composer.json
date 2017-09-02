@@ -1,6 +1,6 @@
 {
     "name": "popphp/pop-bootstrap",
-    "description": "A skeleton application for the Pop Web Application Framework, using Bootstrap and Font Awesome frameworks.",
+    "description": "A skeleton application for the Pop Web Application Framework, using Bootstrap Material Icons and Font Awesome frameworks.",
     "license": "New BSD",
     "authors": [
         {
@@ -10,8 +10,8 @@
         }
     ],
     "require": {
-        "php": ">=5.6.0",
-        "popphp/popphp-framework": ">=3.5.0"
+        "php": ">=7.0.0",
+        "popphp/popphp-framework": ">=3.6.0"
     },
     "autoload" : {
         "psr-4": {
@@ -20,7 +20,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "3.0.x-dev"
+            "dev-master": "4.0.x-dev"
         }
     },
     "scripts": {
