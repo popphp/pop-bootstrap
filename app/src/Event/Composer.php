@@ -68,7 +68,7 @@ class Composer
                     $dbAdapters['mysql'] = 'Mysql';
                 }
                 if (in_array('mysql', $pdoDrivers)) {
-                    $dbAdapters['pdo_mysql'] = 'PDO\Mysql';
+                    $dbAdapters['pdo_mysql'] = 'PDO Mysql';
                 }
 
                 $adapters  = array_keys($dbAdapters);
@@ -87,9 +87,8 @@ class Composer
 
                 // If PDO
                 if (strpos($adapters[$adapter - 1], 'pdo') !== false) {
-                    $dsn         = 'mysql';
                     $dbInterface = 'Pdo';
-                    $dbType = str_replace('pdo_', '', strtolower($adapters[$adapter - 1]));
+                    $dbType      = str_replace('pdo_', '', strtolower($adapters[$adapter - 1]));
                 } else {
                     $dbInterface = ucfirst(strtolower($adapters[$adapter - 1]));
                     $dbType      = null;
@@ -130,7 +129,7 @@ class Composer
                     $console->write();
                 }
 
-                Db::install(__DIR__ . '/../../database/app.mysql.php', $dbInterface, [
+                Db::install(__DIR__ . '/../../database/app.mysql.sql', $dbInterface, [
                     'database' => $dbName,
                     'username' => $dbUser,
                     'password' => $dbPass,
@@ -161,7 +160,11 @@ class Composer
                 file_put_contents(__DIR__ . '/../../../app/config/database/mysql.php', $dbConfig);
 
                 $console->write($console->colorize('Application configuration completed.', Console::BOLD_GREEN));
+                $console->write();
             }
+        } else {
+            $console->write($console->colorize('Application already configuration. Nothing to do.', Console::BOLD_GREEN));
+            $console->write();
         }
     }
 
