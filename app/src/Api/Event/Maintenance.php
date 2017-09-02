@@ -36,7 +36,7 @@ class Maintenance
      */
     public static function check(Application $application)
     {
-        if (($application->config['maintenance']) && ($application->modules['pab-api']->isApi())) {
+        if (($application->config['maintenance']) && ($application->modules['pop-bootstrap']->isApi())) {
             $application->router()->getController()->error(503);
         }
     }

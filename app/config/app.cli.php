@@ -1,6 +1,6 @@
 <?php
 /**
- * PABs API CLI Configuration File
+ * Pop Boostrap CLI Configuration File
  */
 
 return [

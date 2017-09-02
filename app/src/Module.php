@@ -34,16 +34,16 @@ class Module extends \Pop\Module\Module
 {
 
     /**
-     * PABs version
+     * Application version
      * @var string
      */
-    const VERSION = '6.0.0-alpha';
+    const VERSION = '4.0.0';
 
     /**
      * Module name
      * @var string
      */
-    protected $name = 'pab-api';
+    protected $name = 'pop-bootstrap';
 
     /**
      * Register module
@@ -56,7 +56,6 @@ class Module extends \Pop\Module\Module
         parent::register($application);
 
         $this->initDb($this->application->config()['database']);
-        $this->initMail();
 
         if ($this->application->router()->isCli()) {
             $this->registerCli();
@@ -84,8 +83,7 @@ class Module extends \Pop\Module\Module
             );
         }
 
-        $this->application->on('app.dispatch.pre', 'App\Logs\Event\Logger::log')
-             ->on('app.dispatch.pre', 'App\Api\Event\Options::check')
+        $this->application->on('app.dispatch.pre', 'App\Api\Event\Options::check')
              ->on('app.dispatch.pre', 'App\Api\Event\Auth::check')
              ->on('app.dispatch.pre', 'App\Api\Event\Maintenance::check')
              ->on('app.dispatch.pre', 'App\Web\Event\Session::check')
@@ -195,10 +193,10 @@ class Module extends \Pop\Module\Module
             $string  = "    \x1b[1;37m\x1b[41m    " . str_repeat(' ', strlen($message)) . "    \x1b[0m" . PHP_EOL;
             $string .= "    \x1b[1;37m\x1b[41m    " . $message . "    \x1b[0m" . PHP_EOL;
             $string .= "    \x1b[1;37m\x1b[41m    " . str_repeat(' ', strlen($message)) . "    \x1b[0m" . PHP_EOL . PHP_EOL;
-            $string .= "    Try \x1b[1;33m./pabs help\x1b[0m for help" . PHP_EOL . PHP_EOL;
+            $string .= "    Try \x1b[1;33m./app help\x1b[0m for help" . PHP_EOL . PHP_EOL;
         } else {
             $string = $message . PHP_EOL . PHP_EOL;
-            $string .= '    Try \'./pabs help\' for help' . PHP_EOL . PHP_EOL;
+            $string .= '    Try \'./app help\' for help' . PHP_EOL . PHP_EOL;
         }
 
         echo $string;
@@ -244,50 +242,6 @@ class Module extends \Pop\Module\Module
                 Record::setDb($this->application->getService('database'));
             }
         }
-    }
-
-    /**
-     * Initialize mail services
-     *
-     * @return void
-     */
-    protected function initMail()
-    {
-        $this->application->services()->set('mailer_transport', [
-            'call'   => 'Pop\Mail\Transport\Smtp',
-            'params' => [
-                'host' => $this->application->config()['mail']['smtp']['host'],
-                'port' => $this->application->config()['mail']['smtp']['port']
-            ]
-        ]);
-
-        $this->application->services()->set('mailer', [
-            'call' => function($application) {
-                $transport = $application->services()->get('mailer_transport');
-                $transport->setUsername($application->config()['mail']['smtp']['username'])
-                          ->setPassword($application->config()['mail']['smtp']['password']);
-                $mailer = new \Pop\Mail\Mailer($transport);
-
-                return $mailer;
-            },
-            'params' => [$this->application]
-        ]);
-
-        $this->application->services()->set('imap', [
-            'call' => function($application) {
-                $imap = new \Pop\Mail\Client\Imap(
-                    $application->config()['mail']['imap']['host'], $application->config()['mail']['imap']['port']
-                );
-
-                $imap->setUsername($application->config()['mail']['imap']['username'])
-                     ->setPassword($application->config()['mail']['imap']['password'])
-                     ->setFolder($application->config()['mail']['imap']['folder'])
-                     ->open('/ssl');
-
-                return $imap;
-            },
-            'params' => [$this->application]
-        ]);
     }
 
 }

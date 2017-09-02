@@ -14,8 +14,6 @@
 namespace App\Web\Controller;
 
 use App\Auth;
-use App\Users;
-use App\Captcha;
 use App\Web\Form;
 
 /**
@@ -71,9 +69,7 @@ class IndexController extends AbstractController
             $result   = $authUser->authenticate($username, $password, $this->application->config['auth_attempts']);
 
             if ($result == 1) {
-                $user = new Users\Model\User();
-                $user->login(
-                    $authUser->id,
+                $authUser->login(
                     $this->application->services['session'],
                     $this->application->services['cookie'],
                     $this->application->config()['token_expires']
@@ -97,8 +93,8 @@ class IndexController extends AbstractController
      */
     public function logout()
     {
-        $user = new Users\Model\User();
-        $user->logout(
+        $authUser = new Auth\Model\AuthUser();
+        $authUser->logout(
             $this->application->services['session'],
             $this->application->services['cookie'],
             $this->request->getQuery('revoke')

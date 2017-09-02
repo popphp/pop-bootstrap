@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <!-- Header //-->
 <html>
@@ -8,15 +9,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title><?=$title; ?></title>
+    <title><?=$code; ?> <?=$message; ?></title>
 
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,300italic,400italic,700,700italic,900,900italic" />
 
 </head>
 <body>
-<h1><?=$title; ?></h1>
-<p>Logged in as: <?=$username; ?></p>
-<p><a href="/logout?revoke=1">Logout</a></p>
+<h1><?=$code; ?> <?=$message; ?></h1>
 </body>
 
 </html>

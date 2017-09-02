@@ -80,7 +80,7 @@ class ConsoleController extends \Pop\Controller\AbstractController
      */
     public function help()
     {
-        $command = $this->console->colorize("./pabs", Console::BOLD_CYAN) . ' ' .
+        $command = $this->console->colorize("./app", Console::BOLD_CYAN) . ' ' .
             $this->console->colorize("help", Console::BOLD_YELLOW) ;
         $this->console->append($command . "\t\t\t Show the help screen");
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * PABs API HTTP Configuration File
+ * Pop Boostrap HTTP Configuration File
  */
 
 return [

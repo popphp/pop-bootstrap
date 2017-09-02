@@ -46,7 +46,7 @@ class Session
      */
     public static function check(Application $application)
     {
-        if ($application->modules['pab-api']->isWeb()) {
+        if ($application->modules['pop-bootstrap']->isWeb()) {
             $acceptHeader = $application->router()->getController()->request()->getHeader('Accept');
             if (stripos($acceptHeader, 'text/html') === false) {
                 $controller = new \App\Api\Controller\IndexController(

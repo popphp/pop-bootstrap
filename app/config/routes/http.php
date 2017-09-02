@@ -5,7 +5,7 @@ return array_merge(
     include 'http/web.php',
     [
     '*' => [
-        'controller' => 'Pab\Controller\IndexController',
+        'controller' => 'App\Controller\IndexController',
         'action'     => 'error'
     ]
 ]);

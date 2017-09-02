@@ -15,6 +15,9 @@ namespace App\Auth\Model;
 
 use App\Model\AbstractModel;
 use App\Auth\Table;
+use Pop\Cookie\Cookie;
+use Pop\Session\Session;
+
 /**
  * Auth model class
  *
@@ -59,6 +62,42 @@ class AuthUser extends AbstractModel
         }
 
         return $result;
+    }
+
+    /**
+     * Log in user to web session
+     *
+     * @param  Session $session
+     * @param  Cookie  $cookie
+     * @param  int     $expires
+     * @return void
+     */
+    public function login(Session $session, Cookie $cookie, $expires)
+    {
+        $token    = new AuthToken();
+        $userData = $token->getToken($this->id, $expires);
+
+        $cookie->set('user', json_encode($userData));
+        $session->user = new \ArrayObject($userData, \ArrayObject::ARRAY_AS_PROPS);
+    }
+
+    /**
+     * Log out user from web session
+     *
+     * @param  Session $session
+     * @param  Cookie  $cookie
+     * @param  int     $revoke
+     * @return void
+     */
+    public function logout(Session $session, Cookie $cookie, $revoke = null)
+    {
+        if ((int)$revoke == 1) {
+            $token = new AuthToken();
+            $token->revoke($session->user->token);
+        }
+
+        $cookie->delete('user');
+        $session->kill();
     }
 
 }

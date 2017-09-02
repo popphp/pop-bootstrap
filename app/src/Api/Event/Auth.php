@@ -49,7 +49,7 @@ class Auth
      */
     public static function check(Application $application)
     {
-        if ($application->modules['pab-api']->isApi()) {
+        if ($application->modules['pop-bootstrap']->isApi()) {
             $token     = new Model\AuthToken();
             $authToken = $application->router()->getController()->request()->getHeader('Authorization');
             $action    = $application->router()->getRouteMatch()->getAction();

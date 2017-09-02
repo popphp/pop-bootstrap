@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <!-- Header //-->
 <html>
@@ -13,10 +14,12 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,300italic,400italic,700,700italic,900,900italic" />
 
 </head>
+
 <body>
-<h1><?=$title; ?></h1>
-<p>Logged in as: <?=$username; ?></p>
-<p><a href="/logout?revoke=1">Logout</a></p>
+<?php if (isset($error)): ?>
+<h3 class="error"><?=$error; ?></h3>
+<?php endif; ?>
+<?=$form; ?>
 </body>
 
 </html>

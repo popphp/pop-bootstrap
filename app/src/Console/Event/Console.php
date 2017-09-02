@@ -33,7 +33,7 @@ class Console
      */
     public static function header()
     {
-        $consoleTitle = 'PABs Console (v' . \App\Module::VERSION . ')';
+        $consoleTitle = 'Pop Console (v' . \App\Module::VERSION . ')';
         echo PHP_EOL . '    ' . $consoleTitle . PHP_EOL;
         echo '    ' . str_repeat('=', strlen($consoleTitle)) . PHP_EOL . PHP_EOL;
     }
