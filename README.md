@@ -17,10 +17,7 @@ Requirements
 
 * Minimum of PHP 7.0.0
 * Apache 2+, IIS 7+, or any web server with URL rewrite support
-* Supported Databases:
-    - MySQL 5.0+
-    - PostgreSQL 9.0+
-    - SQLite 3+
+* MySQL 5.0+
 
 Installation
 ------------
