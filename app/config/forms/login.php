@@ -7,7 +7,7 @@ return [
             'required'   => true,
             'attributes' => [
                 'placeholder' => 'Username',
-                'class'       => 'form-control'
+                'class'       => 'form-control login-field'
             ]
         ],
         'password' => [
@@ -15,7 +15,7 @@ return [
             'required'   => true,
             'attributes' => [
                 'placeholder' => 'Password',
-                'class'       => 'form-control'
+                'class'       => 'form-control login-field'
             ]
         ]
     ],

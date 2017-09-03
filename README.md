@@ -50,16 +50,9 @@ Console Access
 --------------
 
 The application comes with a simple console interface to assist
-with user management from the CLI as well. The following commands
-are available:
+with application management from the CLI as well. You can build
+upon this to add console-level features and functionality
 
 ```console
 $ ./app help                Show this help screen
-    
-$ ./app users               List users
-$ ./app users add           Add a user
-$ ./app users password      Change a user password
-$ ./app users activate      Activate a user
-$ ./app users deactivate    Deactivate a user
-$ ./app users remove        Remove a user
 ```

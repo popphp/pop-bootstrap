@@ -26,14 +26,4 @@ namespace App\Api\Controller;
 class IndexController extends AbstractController
 {
 
-    /**
-     * Version action method
-     *
-     * @return void
-     */
-    public function version()
-    {
-        $this->send(200, ['version' => \App\Module::VERSION]);
-    }
-
 }

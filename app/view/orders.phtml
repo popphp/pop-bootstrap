@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Maintenance</title>
+    <title><?=$title; ?></title>
 
     <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,300italic,400italic,700,700italic,900,900italic" />
@@ -17,8 +17,7 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/pop.css" />
 
 </head>
-<body class="main">
-<?php if (isset($username)): ?>
+<body class="main main-side-nav">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top top-nav">
         <a class="home" href="/">Pop Bootstrap</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,20 +63,51 @@
                 <li><a href="#" title="Admin"><i class="material-icons icon-sm">verified_user</i><span>Admin</span></a></li>
             </ul>
         </div>
-    </nav>
-<?php endif; ?>
-<div class="container-fluid">
-    <div class="col-md-12 main-dashboard">
-        <h1>The application is currently down for maintenance. It will be back up shortly.</h1>
+    </nav><div class="clearfix"></div>
+    <div id="sidebar-nav" class="sidebar-nav">
+        <ul class="side-nav">
+            <li><a href="#" title="Overview" class="nav-on"><i class="material-icons">web</i><span>Overview</span></a></li>
+            <li><a href="#" title="Contacts"><i class="material-icons">perm_contact_calendar</i><span class="nav-top-pad">Contacts</a></li>
+            <li><a href="#" title="Documents"><i class="material-icons">insert_drive_file</i><span class="nav-top-pad">Documents</span></a></li>
+        </ul>
+        <h5>Order<span> Data</span></h5>
+        <ul class="side-nav">
+            <li><a href="#" title="Judgments"><i class="fa fa-gavel fa-3x"></i><span>Judgments</span></a></li>
+            <li><a href="#" title="Requirements"><i class="material-icons">error_outline</i><span>Requirements</span></a></li>
+            <li><a href="#" title="Restrictions"><i class="material-icons">block</i><span>Restrictions</span></a></li>
+            <li>
+                <a href="#" title="Other"><i class="material-icons">arrow_forward</i><span>Other</span></a>
+                <ul>
+                    <li><a href="#">Deeds</a></li>
+                    <li><a href="#">Foreclosures</a></li>
+                    <li><a href="#">Terms</a></li>
+                </ul>
+            </li>
+            <li><a href="#" title="Taxes"><i class="material-icons">local_atm</i><span>Taxes</span></a></li>
+            <li><a href="#" title="Legal"><i class="material-icons">format_align_left</i><span>Legal Description</span></a></li>
+        </ul>
+        <h5><span>Order </span>Info</h5>
+        <ul class="side-nav">
+            <li><a href="#" title="Status"><i class="material-icons">schedule</i><span>Status</span></a></li>
+            <li><a href="#" title="Expenses"><i class="material-icons">monetization_on</i><span>Expenses</span></a></li>
+        </ul>
+        <a href="#" id="sub-nav-toggle" class="sub-nav-toggle-left"></a>
     </div>
-</div>
-<footer class="footer">
-    <div class="text-muted">Pop Boostrap. <a href="http://www.popphp.org/" target="_blank">Pop PHP Framework</a>.</div>
-</footer>
-<script src="/assets/js/jquery-3.2.1.min.js"></script>
-<script src="/assets/js/popper.min.js"></script>
-<script src="/assets/js/bootstrap.min.js"></script>
-<script src="/assets/js/pop.js"></script>
+    <div id="main-content" class="main-content">
+        <h2>12345678 <span>[P-9876]</span></h2>
+        <ul class="nav nav-tabs overview-nav">
+            <li class="nav-item"><a href="#" title="Client" class="nav-link active"><i class="material-icons">person</i><span>Client</span></a></li>
+            <li class="nav-item"><a href="#" title="Assignment" class="nav-link"><i class="material-icons">assignment_ind</i><span>Assignment</span></a></li>
+            <li class="nav-item"><a href="#" title="Notes" class="nav-link"><i class="material-icons">speaker_notes</i><span>Notes</span></a></li>
+        </ul>
+    </div>
+    <footer class="footer footer-side">
+        <div class="text-muted">Pop Boostrap. <a href="http://www.popphp.org/" target="_blank">Pop PHP Framework</a>.</div>
+    </footer>
+    <script src="/assets/js/jquery-3.2.1.min.js"></script>
+    <script src="/assets/js/popper.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/pop.js"></script>
 </body>
 
 </html>

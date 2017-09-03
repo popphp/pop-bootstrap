@@ -1,12 +1,6 @@
 <?php
 
 return [
-    'options,get' => [
-        '/api/version[/]' => [
-            'controller' => 'App\Api\Controller\IndexController',
-            'action'     => 'version'
-        ]
-    ],
     'options,post' => [
         '/api/auth[/]' => [
             'controller' => 'App\Api\Auth\Controller\AuthController',

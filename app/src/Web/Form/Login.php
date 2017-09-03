@@ -28,4 +28,20 @@ use Pop\Form\Form;
 class Login extends Form
 {
 
+    /**
+     * Constructor
+     *
+     * Instantiate the form object
+     *
+     * @param  array  $fields
+     * @param  string $action
+     * @param  string $method
+     */
+    public function __construct(array $fields = null, $action = null, $method = 'post')
+    {
+        parent::__construct($fields, $action, $method);
+        $this->setAttribute('class', 'login-form');
+        $this->setAttribute('id', 'login-form');
+    }
+
 }

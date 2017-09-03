@@ -45,6 +45,23 @@ class IndexController extends AbstractController
         $this->send();
     }
 
+
+    /**
+     * Orders action method
+     *
+     * @return void
+     */
+    public function orders()
+    {
+        $sess = $this->application->services['session'];
+
+        $this->prepareView('orders.phtml');
+        $this->view->title    = 'Orders';
+        $this->view->username = $sess->user->username;
+
+        $this->send();
+    }
+
     /**
      * Login action method
      *
@@ -100,33 +117,6 @@ class IndexController extends AbstractController
             $this->request->getQuery('revoke')
         );
         $this->redirect('/login');
-    }
-
-    /**
-     * Forgot action method
-     *
-     * @return void
-     */
-    public function forgot()
-    {
-        echo 'Forgot';
-    }
-
-    /**
-     * Captcha action method
-     *
-     * @return void
-     */
-    public function captcha()
-    {
-        $captcha = new Captcha\Model\Captcha();
-        $captcha->createToken($this->request->getQuery('reload'))
-                ->createImage();
-
-        $this->prepareView('captcha/image.phtml');
-        $this->view->image = $captcha->image;
-        $this->response->setHeader('Content-Type', 'image/gif');
-        $this->send();
     }
 
 }

@@ -39,6 +39,10 @@ class IndexController extends AbstractController
 
         if (stripos($this->request->getHeader('Accept'), 'text/html') !== false) {
             $view = new View(__DIR__ . '/../../view/error.phtml', $response);
+            if ($this->application->services->isLoaded('session')) {
+                $sess = $this->application->services['session'];
+                $view->username = $sess->user->username;
+            }
             $this->response->setHeader('Content-Type', 'text/html');
             $this->response->setBody($view->render());
         } else {

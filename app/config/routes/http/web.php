@@ -6,6 +6,10 @@ return [
             'controller' => 'App\Web\Controller\IndexController',
             'action'     => 'index'
         ],
+        '/orders[/]' => [
+            'controller' => 'App\Web\Controller\IndexController',
+            'action'     => 'orders'
+        ],
         '/logout[/]' => [
             'controller' => 'App\Web\Controller\IndexController',
             'action'     => 'logout'

@@ -169,6 +169,10 @@ class Module extends \Pop\Module\Module
                 $message = 'Error: ' . $message;
             }
             $view = new View(__DIR__ . '/../view/exception.phtml', ['message' => $message]);
+            if ($this->application->services->isLoaded('session')) {
+                $sess = $this->application->services['session'];
+                $view->username = $sess->user->username;
+            }
             $response->setHeader('Content-Type', 'text/html');
             $response->setBody($view->render());
         } else {
