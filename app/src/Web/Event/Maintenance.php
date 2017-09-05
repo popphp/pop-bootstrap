@@ -47,7 +47,8 @@ class Maintenance
                 $controller->error(406);
             } else {
                 $view     = new View(__DIR__ . '/../../../view/maintenance.phtml');
-                if ($application->services->isLoaded('session')) {
+                $view->title = 'Maintenance';
+                if ($application->services->isAvailable('session')) {
                     $sess = $application->services['session'];
                     $view->username = $sess->user->username;
                 }

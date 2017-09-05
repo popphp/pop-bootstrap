@@ -1,69 +1,6 @@
-<!DOCTYPE html>
-<!-- Header //-->
-<html>
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title><?=$title; ?></title>
-
-    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons" />
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,300italic,400italic,700,700italic,900,900italic" />
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/pop.css" />
-
-</head>
+<?php include 'inc/header.phtml'; ?>
 <body class="main">
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top top-nav">
-        <a class="home" href="/">Pop Bootstrap</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <ul class="nav navbar-nav navbar-right user-nav">
-            <li><a href="#" title="Messages"><i class="material-icons">message</i></a><span class="msg-num"><span>3</span></span></li>
-            <li><a href="#" title="Profile"><i class="material-icons">account_box</i></a></li>
-            <li><a href="/logout?revoke=1" title="Logout"><i class="material-icons">exit_to_app</i></a></li>
-        </ul>
-        <div class="logged-in">
-            <h5><a href="#"><?=$username; ?></a></h5>
-            <p><?=date('M j, Y g:i A'); ?></p>
-        </div>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto main-nav">
-                <li>
-                    <a href="/orders" title="Orders"><i class="material-icons icon-sm">edit</i><span>Orders</span></a>
-                    <ul>
-                        <li><a href="#">Search</a></li>
-                        <li><a href="#">Create</a></li>
-                        <li><a href="#">Submit</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" title="Services"><i class="fa fa-gears"></i><span>Services</span></a>
-                    <ul>
-                        <li>
-                            <a href="#">Clients</a>
-                            <ul>
-                                <li><a href="#">Sub Menu</a></li>
-                                <li><a href="#">Another Menu</a></li>
-                                <li><a href="#">One More Menu</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Vendors</a></li>
-                    </ul>
-                </li>
-                <li><a href="#" title="Reports"><i class="material-icons">timeline</i><span>Reports</span></a></li>
-                <li><a href="#" title="Billing"><i class="material-icons">attach_money</i><span>Billing</span></a></li>
-                <li><a href="#" title="Tools"><i class="material-icons icon-sm">build</i><span>Tools</span></a></li>
-                <li><a href="#" title="Users"><i class="material-icons">group</i><span>Users</span></a></li>
-                <li><a href="#" title="Admin"><i class="material-icons icon-sm">verified_user</i><span>Admin</span></a></li>
-            </ul>
-        </div>
-    </nav>
+<?php include 'inc/nav.phtml'; ?>
     <div class="container-fluid">
         <div class="col-md-12 main-dashboard">
             <h1 class="dashboard-header">Dashboard</h1>
@@ -126,10 +63,4 @@
     <footer class="footer">
         <div class="text-muted">Pop Boostrap. <a href="http://www.popphp.org/" target="_blank">Pop PHP Framework</a>.</div>
     </footer>
-    <script src="/assets/js/jquery-3.2.1.min.js"></script>
-    <script src="/assets/js/popper.min.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/pop.js"></script>
-</body>
-
-</html>
+<?php include 'inc/footer.phtml'; ?>

@@ -1,69 +1,7 @@
-<!DOCTYPE html>
-<!-- Header //-->
-<html>
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title><?=$title; ?></title>
-
-    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons" />
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,300italic,400italic,700,700italic,900,900italic" />
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/pop.css" />
-
-</head>
+<?php include 'inc/header.phtml'; ?>
 <body class="main main-side-nav">
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top top-nav">
-        <a class="home" href="/">Pop Bootstrap</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <ul class="nav navbar-nav navbar-right user-nav">
-            <li><a href="#" title="Messages"><i class="material-icons">message</i></a><span class="msg-num"><span>3</span></span></li>
-            <li><a href="#" title="Profile"><i class="material-icons">account_box</i></a></li>
-            <li><a href="/logout?revoke=1" title="Logout"><i class="material-icons">exit_to_app</i></a></li>
-        </ul>
-        <div class="logged-in">
-            <h5><a href="#"><?=$username; ?></a></h5>
-            <p><?=date('M j, Y g:i A'); ?></p>
-        </div>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto main-nav">
-                <li>
-                    <a href="/orders" title="Orders"><i class="material-icons icon-sm">edit</i><span>Orders</span></a>
-                    <ul>
-                        <li><a href="#">Search</a></li>
-                        <li><a href="#">Create</a></li>
-                        <li><a href="#">Submit</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" title="Services"><i class="fa fa-gears"></i><span>Services</span></a>
-                    <ul>
-                        <li>
-                            <a href="#">Clients</a>
-                            <ul>
-                                <li><a href="#">Sub Menu</a></li>
-                                <li><a href="#">Another Menu</a></li>
-                                <li><a href="#">One More Menu</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Vendors</a></li>
-                    </ul>
-                </li>
-                <li><a href="#" title="Reports"><i class="material-icons">timeline</i><span>Reports</span></a></li>
-                <li><a href="#" title="Billing"><i class="material-icons">attach_money</i><span>Billing</span></a></li>
-                <li><a href="#" title="Tools"><i class="material-icons icon-sm">build</i><span>Tools</span></a></li>
-                <li><a href="#" title="Users"><i class="material-icons">group</i><span>Users</span></a></li>
-                <li><a href="#" title="Admin"><i class="material-icons icon-sm">verified_user</i><span>Admin</span></a></li>
-            </ul>
-        </div>
-    </nav><div class="clearfix"></div>
+<?php include 'inc/nav.phtml'; ?>
+    <div class="clearfix"></div>
     <div id="sidebar-nav" class="sidebar-nav">
         <ul class="side-nav">
             <li><a href="#" title="Overview" class="nav-on"><i class="material-icons">web</i><span>Overview</span></a></li>
@@ -102,14 +40,12 @@
             <li class="nav-item"><a href="#" title="Assignment" class="nav-link"><i class="material-icons">assignment_ind</i><span>Assignment</span></a></li>
             <li class="nav-item"><a href="#" title="Notes" class="nav-link"><i class="material-icons">speaker_notes</i><span>Notes</span></a></li>
         </ul>
+        <br />
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque volutpat tortor diam, eu ullamcorper lacus efficitur id. Cras sodales est eu finibus laoreet. Nulla imperdiet pellentesque ex, non rutrum sem iaculis quis. Duis eget leo urna. Integer sodales, massa sed feugiat dignissim, risus enim venenatis augue, non mollis dui nibh in turpis. Sed ac lorem commodo, efficitur sem ac, maximus odio. Nam lorem ante, tempor ut orci vel, malesuada cursus velit. Morbi sem ante, hendrerit quis sapien vel, pulvinar ultrices nulla. Duis arcu ligula, congue id magna ut, efficitur sodales mauris.</p>
+        <p>Aliquam nec sollicitudin ante, sollicitudin tempus orci. Pellentesque fringilla, dui eu sodales tincidunt, nisi risus rhoncus magna, non ullamcorper augue urna ut justo. Donec vitae augue venenatis dui scelerisque ultricies eu non arcu. Morbi tempus, purus id cursus bibendum, risus orci fermentum augue, nec fermentum dolor ex ut magna. Nulla facilisi. Proin a dui rhoncus, mattis purus eu, vestibulum lacus. Nam quis urna pharetra, rutrum ipsum a, aliquet elit. Etiam gravida id magna vitae accumsan. Maecenas aliquam ex non arcu fermentum vulputate nec sit amet nunc. Integer tempor lacus a gravida mollis. Donec rhoncus imperdiet nisl in placerat. Vestibulum viverra rhoncus purus sed aliquam. Vivamus rhoncus maximus sem quis ultricies. Duis dignissim, turpis vel tristique efficitur, odio quam pellentesque ex, vitae vestibulum tortor dolor faucibus diam. Praesent egestas finibus accumsan. Nunc vestibulum rutrum orci, in porta massa sagittis in.</p>
+        <p>Donec vestibulum libero in semper sollicitudin. Donec sit amet felis tempus, suscipit felis in, tincidunt erat. Nunc mollis nec nisl sit amet dictum. Cras vel est eu lectus tempor ullamcorper ac eget orci. In lorem nulla, finibus eu consequat non, ultrices non augue. Curabitur pellentesque in nisi at semper. Aliquam leo arcu, sodales volutpat massa et, varius dapibus nulla.</p>
     </div>
     <footer class="footer footer-side">
         <div class="text-muted">Pop Boostrap. <a href="http://www.popphp.org/" target="_blank">Pop PHP Framework</a>.</div>
     </footer>
-    <script src="/assets/js/jquery-3.2.1.min.js"></script>
-    <script src="/assets/js/popper.min.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/pop.js"></script>
-</body>
-
-</html>
+<?php include 'inc/footer.phtml'; ?>

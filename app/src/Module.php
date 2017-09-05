@@ -165,12 +165,11 @@ class Module extends \Pop\Module\Module
         $message  = $exception->getMessage();
 
         if (stripos($request->getHeader('Accept'), 'text/html') !== false) {
-            if (substr($message, 0, 7) != 'Error: ') {
-                $message = 'Error: ' . $message;
-            }
-            $view = new View(__DIR__ . '/../view/exception.phtml', ['message' => $message]);
-            if ($this->application->services->isLoaded('session')) {
-                $sess = $this->application->services['session'];
+            $view          = new View(__DIR__ . '/../view/exception.phtml');
+            $view->title   = $message;
+            $view->message = (substr($message, 0, 7) != 'Error: ') ? 'Error: ' . $message : $message;
+            $sess = \Pop\Session\Session::getInstance();
+            if (isset($sess->user)) {
                 $view->username = $sess->user->username;
             }
             $response->setHeader('Content-Type', 'text/html');

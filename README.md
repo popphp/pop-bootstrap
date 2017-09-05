@@ -46,6 +46,14 @@ to a login screen. The default credentials are:
 * Username: `admin`
 * Password: `password`
 
+Demo Pages
+----------
+
+Most of the navigation displayed is not active, with the exception of
+the `Orders` page, the `Users` page and the `Logout` icon. The `Orders`
+page just demonstrates a mock layout with side navigation. The `Users`
+page will let you manage users. The `Logout` icon executes a user logout. 
+
 Console Access
 --------------
 
