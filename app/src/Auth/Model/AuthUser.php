@@ -100,4 +100,25 @@ class AuthUser extends AbstractModel
         $session->kill();
     }
 
+    /**
+     * Get all users
+     *
+     * @return \Pop\Db\Record\Collection
+     */
+    public function getAll()
+    {
+        return Table\AuthUsers::findAll();
+    }
+
+    /**
+     * Get user by ID
+     *
+     * @param  int $id
+     * @return Table\AuthUsers
+     */
+    public function getById($id)
+    {
+        return Table\AuthUsers::findById($id);
+    }
+
 }

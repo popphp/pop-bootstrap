@@ -1,0 +1,14 @@
+<?php include __DIR__ . '/../inc/header.phtml'; ?>
+<body class="main">
+<?php include __DIR__ . '/../inc/nav.phtml'; ?>
+    <div class="container-fluid">
+        <div class="col-md-12 main-dashboard">
+            <a class="btn btn-info btn-sm text-uppercase pull-right add-user-btn" href="/users/add"><i class="material-icons">person_add</i></a>
+            <h1 class="users-header"><i class="material-icons">group</i><?=$title; ?></h1>
+<?=$form; ?>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="text-muted">Pop Boostrap. <a href="http://www.popphp.org/" target="_blank">Pop PHP Framework</a>.</div>
+    </footer>
+<?php include __DIR__ . '/../inc/footer.phtml'; ?>

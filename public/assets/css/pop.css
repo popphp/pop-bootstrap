@@ -394,6 +394,63 @@ a.home {
   padding: 0 8px 0 0;
   color: #696b6c; }
 
+.users-header {
+  margin: 10px 0 10px 0;
+  padding: 10px 0 10px 0; }
+
+.users-header > i {
+  margin-right: 6px;
+  font-size: 1.2em;
+  float: left;
+}
+
+.add-user-btn {
+  margin-top: 30px;
+  padding: 4px 5px;
+  height: 32px; }
+
+.add-user-btn > i {
+  margin: 0;
+  padding: 0; }
+
+.data-form {
+  margin: 10px auto 10px auto;
+  padding: 15px 0 15px 0;
+  width: 100%;
+  border-top: solid 1px #dcdcdc; }
+
+.data-form > fieldset {
+  margin: 0;
+  padding: 0; }
+
+.data-form > fieldset:first-child {
+  margin: 0 0 20px 20px;
+  padding: 0 0 40px 20px;
+  width: 220px;
+  min-height: 400px;
+  border-left: solid 1px #dcdcdc;
+  float: right; }
+
+.data-form > fieldset:first-child > dl {
+  margin: 0;
+  padding: 0; }
+
+.data-form > fieldset:first-child > dl > dt {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-top: 5px;
+  padding-bottom: 0;
+  border-bottom: dotted 1px #ccc; }
+
+.data-form > fieldset:not(:first-child) {
+  margin: 0;
+  padding: 0;
+  width: calc(100% - 260px);
+  float: left; }
+
+.data-form > fieldset:not(:first-child) > dl {
+  padding-bottom: 20px; }
+
 .sidebar-nav {
   position: relative;
   margin: 25px 0 25px 0;

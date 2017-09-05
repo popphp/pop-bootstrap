@@ -45,23 +45,6 @@ class IndexController extends AbstractController
         $this->send();
     }
 
-
-    /**
-     * Orders action method
-     *
-     * @return void
-     */
-    public function orders()
-    {
-        $sess = $this->application->services['session'];
-
-        $this->prepareView('orders.phtml');
-        $this->view->title    = 'Orders';
-        $this->view->username = $sess->user->username;
-
-        $this->send();
-    }
-
     /**
      * Login action method
      *

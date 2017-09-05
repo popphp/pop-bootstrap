@@ -1,0 +1,47 @@
+<?php
+/**
+ * Pop Bootstrap Application
+ *
+ * @link       https://github.com/popphp/pop-bootstrap
+ * @author     Nick Sagona, III <nick@nolainteractive.com>
+ * @copyright  Copyright (c) 2012-2018 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.popphp.org/license     New BSD License
+ */
+
+/**
+ * @namespace
+ */
+namespace App\Web\Form;
+
+use Pop\Form\Form;
+
+/**
+ * Web user form class
+ *
+ * @category   App
+ * @package    App
+ * @link       https://github.com/popphp/pop-bootstrap
+ * @author     Nick Sagona, III <nick@nolainteractive.com>
+ * @copyright  Copyright (c) 2012-2018 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @version    4.0.0
+ */
+class User extends Form
+{
+
+    /**
+     * Constructor
+     *
+     * Instantiate the form object
+     *
+     * @param  array  $fields
+     * @param  string $action
+     * @param  string $method
+     */
+    public function __construct(array $fields = null, $action = null, $method = 'post')
+    {
+        parent::__construct($fields, $action, $method);
+        $this->setAttribute('class', 'data-form');
+        $this->setAttribute('id', 'user-form');
+    }
+
+}
