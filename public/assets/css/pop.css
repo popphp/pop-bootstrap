@@ -66,10 +66,17 @@ a {
   left: 0;
   right: 0;
   margin: auto;
-  padding: 80px 40px 20px 40px;
+  padding: 150px 40px 40px 40px;
   width: 25%;
-  height: 380px;
+  background-image: url(../img/pop-php-logo.png);
+  background-position: center 25px;
+  background-repeat: no-repeat;
+  height: 420px;
   background-color: #1d2532; }
+
+.login-div > h5 {
+  margin: 0;
+  padding: 0; }
 
 .login-btn {
   font-size: 1.4em;
@@ -81,7 +88,7 @@ a {
   background-color: #26a7f1; }
 
 .login-form > fieldset > dl > dd {
-  padding: 10px 0 10px 0; }
+  padding: 20px 0 0 0; }
 
 .login-field {
   font-size: 1.0em;
@@ -146,22 +153,19 @@ nav.navbar {
   width: 98%; }
 
 a.home {
-  margin: 0 15px 0 0;
-  padding: 20px 0 0 0;
+  margin: 0 10px 0 0;
+  padding: 0;
   display: block;
   float: left;
   width: 100px;
   height: 60px;
-  color: #fff;
-  font-size: 1.0em;
-  text-align: center;
+  text-indent: -9999px;
   overflow: hidden;
-  border-right: solid 1px #556682; }
+  background-image: url(../img/pop-php-logo.png);
+  background-size: 90px 90px;
+  background-position: center -8px;
+  background-repeat: no-repeat; }
 
-a.home:hover {
-  color: #ccc;
-  text-decoration: none;
-}
 .user-nav {
   position: relative;
   margin: 0 5px 0 5px;
