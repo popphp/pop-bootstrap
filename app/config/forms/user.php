@@ -18,7 +18,7 @@ return [
             ],
             'checked' => 0
         ],
-        'failed_attempts'   => [
+        'attempts'   => [
             'type'  => 'text',
             'label' => 'Failed Attempts',
             'value' => 0,

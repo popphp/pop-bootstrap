@@ -34,7 +34,7 @@ return [
         ]
     ],
     'post' => [
-        '/users/remove' => [
+        '/users/remove[/]' => [
             'controller' => 'App\Web\Controller\UsersController',
             'action'     => 'remove'
         ]

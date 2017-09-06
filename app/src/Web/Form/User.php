@@ -13,7 +13,9 @@
  */
 namespace App\Web\Form;
 
+use App\Auth\Table;
 use Pop\Form\Form;
+use Pop\Validator;
 
 /**
  * Web user form class
@@ -42,6 +44,46 @@ class User extends Form
         parent::__construct($fields, $action, $method);
         $this->setAttribute('class', 'data-form');
         $this->setAttribute('id', 'user-form');
+    }
+
+    /**
+     * Set the field values
+     *
+     * @param  array $values
+     * @return User
+     */
+    public function setFieldValues(array $values = null)
+    {
+        parent::setFieldValues($values);
+
+        if (($_POST) && (null !== $this->username)) {
+            // Check for dupe username and email
+            $user  = null;
+            $email = null;
+            if (!empty($this->username)) {
+                $user = Table\AuthUsers::findOne(['username' => $this->username]);
+                if (isset($user->id) && ($this->id != $user->id)) {
+                    $this->getField('username')
+                         ->addValidator(new Validator\NotEqual($this->username, 'That username already exists.'));
+                }
+            }
+
+            // If existing user
+            if ((int)$_POST['id'] > 0) {
+                if (!empty($this->password1)) {
+                    $this->getField('password2')
+                         ->setRequired(true)
+                         ->addValidator(new Validator\Equal($this->password1, 'The passwords do not match.'));
+                }
+            // Else, if new user, check email and password matches
+            } else {
+                $this->getField('password2')
+                     ->setRequired(true)
+                     ->addValidator(new Validator\Equal($this->password1, 'The passwords do not match.'));
+            }
+        }
+
+        return $this;
     }
 
 }

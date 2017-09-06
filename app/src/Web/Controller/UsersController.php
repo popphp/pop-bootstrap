@@ -68,13 +68,13 @@ class UsersController extends AbstractController
 
             if ($this->view->form->isValid()) {
                 $this->view->form->clearFilters()
-                    ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
-                    ->filterValues();
+                     ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
+                     ->filterValues();
 
                 $user = new AuthUser();
                 $user->save($this->view->form);
 
-                $this->redirect('/users/edit/' . $user->id);
+                $this->redirect('/users/' . $user->id);
             }
         }
 
@@ -82,7 +82,7 @@ class UsersController extends AbstractController
     }
 
     /**
-     * Users add action method
+     * Users edit action method
      *
      * @param  int $id
      * @return void
@@ -98,6 +98,23 @@ class UsersController extends AbstractController
         $this->view->form     = Form\User::createFromFieldsetConfig($this->application->config()['forms']['App\Web\Form\User']);
         $this->view->form->setFieldValues($user->toArray());
 
+        if ($this->request->isPost()) {
+            $this->view->form->addFilter('strip_tags')
+                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8', false])
+                 ->setFieldValues($this->request->getPost());
+
+            if ($this->view->form->isValid()) {
+                $this->view->form->clearFilters()
+                     ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
+                     ->filterValues();
+
+                $user = new AuthUser();
+                $user->update($id, $this->view->form);
+
+                $this->redirect('/users/' . $id);
+            }
+        }
+
         $this->send();
     }
 
@@ -108,6 +125,10 @@ class UsersController extends AbstractController
      */
     public function remove()
     {
+        if (null !== $this->request->getPost('rm_users')) {
+            $user = new AuthUser();
+            $user->remove($this->request->getPost('rm_users'));
+        }
         $this->redirect('/users');
     }
 

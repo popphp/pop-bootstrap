@@ -131,8 +131,9 @@ class AuthUser extends AbstractModel
     {
         $user = new Table\AuthUsers([
             'username' => $user['username'],
-            'password' => password_hash($user['password'], PASSWORD_BCRYPT),
-            'active'   => (int)$user['active']
+            'password' => password_hash($user['password1'], PASSWORD_BCRYPT),
+            'active'   => (int)$user['active'],
+            'attempts' => (isset($user['attempts'])) ? (int)$user['attempts'] : 0
         ]);
         $user->save();
     }
@@ -146,13 +147,48 @@ class AuthUser extends AbstractModel
      */
     public function update($id, $user)
     {
+        $currentUser = Table\AuthUsers::findById($id);
+        $ary = $user->toArray();
+        if (isset($currentUser->id)) {
+            $password = (!empty($user['password1'])) ?
+                password_hash($user['password1'], PASSWORD_BCRYPT) : $currentUser->password;
+
+            $currentUser->username = (!empty($user['username'])) ? $user['username'] : $currentUser->username;
+            $currentUser->password = $password;
+            $currentUser->active   = (isset($user['active'])) ? (int)$user['active'] : $currentUser->active;
+            $currentUser->attempts = (isset($user['attempts'])) ? (int)$user['attempts'] : $currentUser->attempts;
+            $currentUser->save();
+        }
+    }
+
+    /**
+     * Delete existing user
+     *
+     * @param  int   $id
+     * @return void
+     */
+    public function delete($id)
+    {
         $user = Table\AuthUsers::findById($id);
 
         if (isset($user->id)) {
-            $user->username = (!empty($user['username'])) ? $user['username'] : $user->username;
-            $user->password = (!empty($user['password'])) ? password_hash($user['password'], PASSWORD_BCRYPT) : $user->password;
-            $user->active   = (!empty($user['active']))   ? (int)$user['active'] : $user->active;
-            $user->save();
+            $user->delete();
+        }
+    }
+
+    /**
+     * Delete existing users
+     *
+     * @param  array $ids
+     * @return void
+     */
+    public function remove(array $ids)
+    {
+        foreach ($ids as $id) {
+            $user = Table\AuthUsers::findById($id);
+            if (isset($user->id)) {
+                $user->delete();
+            }
         }
     }
 
