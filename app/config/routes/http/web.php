@@ -7,11 +7,11 @@ return [
             'action'     => 'index'
         ],
         '/orders[/]' => [
-            'controller' => 'App\Web\Controller\OrdersController',
-            'action'     => 'index'
+            'controller' => 'App\Web\Controller\IndexController',
+            'action'     => 'orders'
         ],
         '/users[/]' => [
-            'controller' => 'App\Web\Controller\UsersController',
+            'controller' => 'App\Web\Users\Controller\IndexController',
             'action'     => 'index'
         ],
         '/logout[/]' => [
@@ -25,17 +25,17 @@ return [
             'action'     => 'login'
         ],
         '/users/add[/]' => [
-            'controller' => 'App\Web\Controller\UsersController',
+            'controller' => 'App\Web\Users\Controller\IndexController',
             'action'     => 'add'
         ],
         '/users/:id' => [
-            'controller' => 'App\Web\Controller\UsersController',
+            'controller' => 'App\Web\Users\Controller\IndexController',
             'action'     => 'edit'
         ]
     ],
     'post' => [
         '/users/remove[/]' => [
-            'controller' => 'App\Web\Controller\UsersController',
+            'controller' => 'App\Web\Users\Controller\IndexController',
             'action'     => 'remove'
         ]
     ]

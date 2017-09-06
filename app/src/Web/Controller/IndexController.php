@@ -46,6 +46,22 @@ class IndexController extends AbstractController
     }
 
     /**
+     * Orders action method
+     *
+     * @return void
+     */
+    public function orders()
+    {
+        $sess = $this->application->services['session'];
+
+        $this->prepareView('orders/index.phtml');
+        $this->view->title    = 'Orders';
+        $this->view->username = $sess->user->username;
+
+        $this->send();
+    }
+
+    /**
      * Login action method
      *
      * @return void

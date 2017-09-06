@@ -52,6 +52,7 @@ class IndexController extends AbstractController
         }
 
         $this->response->send(404);
+        exit();
     }
 
 }
