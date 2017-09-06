@@ -161,7 +161,7 @@ class Composer
                 $console->write();
             }
         } else {
-            $console->write($console->colorize('Application already configuration. Nothing to do.', Console::BOLD_GREEN));
+            $console->write($console->colorize('Application already configured. Nothing to do.', Console::BOLD_GREEN));
             $console->write();
         }
     }
