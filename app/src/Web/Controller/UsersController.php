@@ -90,6 +90,11 @@ class UsersController extends AbstractController
     public function edit($id)
     {
         $user = (new AuthUser())->getById($id);
+
+        if (!isset($user->id)) {
+            $this->redirect('/users');
+        }
+
         $sess = $this->application->services['session'];
 
         $this->prepareView('users/edit.phtml');

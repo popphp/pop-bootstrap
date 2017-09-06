@@ -404,17 +404,18 @@ a.home {
   float: left;
 }
 
-.add-user-btn {
+.sub-nav-btn {
   margin-top: 30px;
+  margin-left: 5px;
   padding: 4px 5px;
   background-color: #337ab7;
   border: none;
   height: 32px; }
 
-.add-user-btn:hover {
+.sub-nav-btn:hover {
   background-color: #154d7c; }
 
-.add-user-btn > i {
+.sub-nav-btn > i {
   margin: 0;
   padding: 0; }
 

@@ -136,6 +136,8 @@ class AuthUser extends AbstractModel
             'attempts' => (isset($user['attempts'])) ? (int)$user['attempts'] : 0
         ]);
         $user->save();
+
+        $this->data['id'] = $user->id;
     }
 
     /**
@@ -148,7 +150,7 @@ class AuthUser extends AbstractModel
     public function update($id, $user)
     {
         $currentUser = Table\AuthUsers::findById($id);
-        $ary = $user->toArray();
+
         if (isset($currentUser->id)) {
             $password = (!empty($user['password1'])) ?
                 password_hash($user['password1'], PASSWORD_BCRYPT) : $currentUser->password;
@@ -158,6 +160,8 @@ class AuthUser extends AbstractModel
             $currentUser->active   = (isset($user['active'])) ? (int)$user['active'] : $currentUser->active;
             $currentUser->attempts = (isset($user['attempts'])) ? (int)$user['attempts'] : $currentUser->attempts;
             $currentUser->save();
+
+            $this->data['id'] = $currentUser->id;
         }
     }
 
