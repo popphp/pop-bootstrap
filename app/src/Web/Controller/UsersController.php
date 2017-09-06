@@ -42,6 +42,7 @@ class UsersController extends AbstractController
         $this->prepareView('users/index.phtml');
         $this->view->title    = 'Users';
         $this->view->username = $sess->user->username;
+        $this->view->userId   = $sess->user->id;
         $this->view->users    = $users->getAll();
         $this->send();
     }
@@ -59,6 +60,24 @@ class UsersController extends AbstractController
         $this->view->title    = 'Users : Add';
         $this->view->username = $sess->user->username;
         $this->view->form     = Form\User::createFromFieldsetConfig($this->application->config()['forms']['App\Web\Form\User']);
+
+        if ($this->request->isPost()) {
+            $this->view->form->addFilter('strip_tags')
+                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8', false])
+                 ->setFieldValues($this->request->getPost());
+
+            if ($this->view->form->isValid()) {
+                $this->view->form->clearFilters()
+                    ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
+                    ->filterValues();
+
+                $user = new AuthUser();
+                $user->save($this->view->form);
+
+                $this->redirect('/users/edit/' . $user->id);
+            }
+        }
+
         $this->send();
     }
 

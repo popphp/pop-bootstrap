@@ -23,8 +23,8 @@ return [
             'label' => 'Failed Attempts',
             'value' => 0,
             'attributes' => [
-                'class' => 'form-control input-sm',
-                'size'  => 3
+                'class' => 'form-control form-control-inline input-sm',
+                'size'  => 2
             ]
         ],
         'id' => [

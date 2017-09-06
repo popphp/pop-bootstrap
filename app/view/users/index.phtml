@@ -19,11 +19,11 @@
 <?php if (isset($users) && (count($users) > 0)): ?>
 <?php foreach ($users as $user): ?>
                 <tr>
-                    <td><a href="/users/<?=$user->id; ?>"><i class="material-icons">create</i></a></td>
+                    <td><a class="gray-link" href="/users/<?=$user->id; ?>"><i class="material-icons">create</i></a></td>
                     <td><?=$user->id; ?></td>
                     <td><?=$user->username; ?></td>
                     <td><?=($user->active) ? 'Yes' : 'No'; ?></td>
-                    <td><input type="checkbox" name="rm_users" value="<?=$user->id; ?>" /></td>
+                    <td><?php if ($userId != $user->id): ?><input type="checkbox" name="rm_users" value="<?=$user->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
                 </tr>
 <?php endforeach; ?>
 <?php else: ?>

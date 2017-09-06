@@ -121,4 +121,39 @@ class AuthUser extends AbstractModel
         return Table\AuthUsers::findById($id);
     }
 
+    /**
+     * Save new user
+     *
+     * @param  mixed $user
+     * @return void
+     */
+    public function save($user)
+    {
+        $user = new Table\AuthUsers([
+            'username' => $user['username'],
+            'password' => password_hash($user['password'], PASSWORD_BCRYPT),
+            'active'   => (int)$user['active']
+        ]);
+        $user->save();
+    }
+
+    /**
+     * Update existing user
+     *
+     * @param  int   $id
+     * @param  mixed $user
+     * @return void
+     */
+    public function update($id, $user)
+    {
+        $user = Table\AuthUsers::findById($id);
+
+        if (isset($user->id)) {
+            $user->username = (!empty($user['username'])) ? $user['username'] : $user->username;
+            $user->password = (!empty($user['password'])) ? password_hash($user['password'], PASSWORD_BCRYPT) : $user->password;
+            $user->active   = (!empty($user['active']))   ? (int)$user['active'] : $user->active;
+            $user->save();
+        }
+    }
+
 }

@@ -407,11 +407,29 @@ a.home {
 .add-user-btn {
   margin-top: 30px;
   padding: 4px 5px;
+  background-color: #337ab7;
+  border: none;
   height: 32px; }
+
+.add-user-btn:hover {
+  background-color: #154d7c; }
 
 .add-user-btn > i {
   margin: 0;
   padding: 0; }
+
+.radio-span {
+  display: inline-block;
+  margin: 0 20px 0 3px; }
+
+.form-control-inline {
+  width: auto;
+  display: inline; }
+
+.input-sm {
+  height: 28px;
+  padding: 5px 10px;
+  font-size: 0.9em; }
 
 .data-form {
   margin: 10px auto 10px auto;
@@ -690,6 +708,12 @@ a.home {
   margin-right: 2px;
   padding-top: 10px;
   padding-bottom: 8px; }
+
+.gray-link {
+  color: #999; }
+
+.gray-link:hover {
+  color: #777; }
 
 @media (max-width: 1600px) {
   .login-div {
