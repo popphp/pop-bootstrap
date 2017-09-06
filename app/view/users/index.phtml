@@ -3,8 +3,10 @@
 <?php include __DIR__ . '/../inc/nav.phtml'; ?>
     <div class="container-fluid">
         <div class="col-md-12 main-dashboard">
-            <a class="btn btn-info btn-sm text-uppercase pull-right sub-nav-btn" href="/users/add" title="Add User"><i class="material-icons">person_add</i></a>
             <h1 class="users-header"><i class="material-icons">group</i><?=$title; ?></h1>
+            <nav class="sub-nav">
+                <a class="btn btn-info btn-sm text-uppercase" href="/users/add" title="Add User"><i class="material-icons">person_add</i></a>
+            </nav>
 <?php if (isset($users) && (count($users) > 0)): ?>
             <form action="/users/remove" method="post">
 <?php endif; ?>

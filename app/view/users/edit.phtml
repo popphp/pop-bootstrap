@@ -3,9 +3,11 @@
 <?php include __DIR__ . '/../inc/nav.phtml'; ?>
     <div class="container-fluid">
         <div class="col-md-12 main-dashboard">
-            <a class="btn btn-info btn-sm text-uppercase pull-right sub-nav-btn" href="/users" title="Back"><i class="material-icons">chevron_left</i></a>
-            <a class="btn btn-info btn-sm text-uppercase pull-right sub-nav-btn" href="/users/add" title="Add User"><i class="material-icons">person_add</i></a>
             <h1 class="users-header"><i class="material-icons">group</i><?=$title; ?></h1>
+            <nav class="sub-nav">
+                <a class="btn btn-info btn-sm text-uppercase" href="/users/add" title="Add User"><i class="material-icons">person_add</i></a>
+                <a class="btn btn-info btn-sm text-uppercase" href="/users" title="Back"><i class="material-icons">chevron_left</i></a>
+            </nav>
 <?=$form; ?>
         </div>
     </div>

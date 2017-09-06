@@ -60,6 +60,8 @@ class UsersController extends AbstractController
         $this->view->title    = 'Users : Add';
         $this->view->username = $sess->user->username;
         $this->view->form     = Form\User::createFromFieldsetConfig($this->application->config()['forms']['App\Web\Form\User']);
+        $this->view->form->addColumn(1, 'form-left-column');
+        $this->view->form->addColumn([2, 3], 'form-right-column');
 
         if ($this->request->isPost()) {
             $this->view->form->addFilter('strip_tags')
@@ -101,6 +103,8 @@ class UsersController extends AbstractController
         $this->view->title    = 'Users : ' . $user->username;
         $this->view->username = $sess->user->username;
         $this->view->form     = Form\User::createFromFieldsetConfig($this->application->config()['forms']['App\Web\Form\User']);
+        $this->view->form->addColumn(1, 'form-left-column');
+        $this->view->form->addColumn([2, 3], 'form-right-column');
         $this->view->form->setFieldValues($user->toArray());
 
         if ($this->request->isPost()) {

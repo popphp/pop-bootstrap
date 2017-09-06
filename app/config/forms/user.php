@@ -2,13 +2,33 @@
 
 return [
     [
-        'submit' => [
-            'type'       => 'submit',
-            'value'      => 'Save',
+        'username' => [
+            'type'     => 'text',
+            'label'    => 'Username',
+            'required' => true,
             'attributes' => [
-                'class'  => 'btn btn-md btn-info btn-block text-uppercase'
+                'size'    => 40,
+                'class'   => 'form-control'
             ]
         ],
+        'password1' => [
+            'type'       => 'password',
+            'label'      => 'Password',
+            'attributes' => [
+                'size'    => 40,
+                'class'   => 'form-control'
+            ]
+        ],
+        'password2' => [
+            'type'       => 'password',
+            'label'      => 'Re-Type Password',
+            'attributes' => [
+                'size'    => 40,
+                'class'   => 'form-control'
+            ]
+        ]
+    ],
+    [
         'active' => [
             'type'      => 'radio',
             'label'     => 'Active',
@@ -33,29 +53,11 @@ return [
         ]
     ],
     [
-        'username' => [
-            'type'     => 'text',
-            'label'    => 'Username',
-            'required' => true,
+        'submit' => [
+            'type'       => 'submit',
+            'value'      => 'Save',
             'attributes' => [
-                'size'    => 40,
-                'class'   => 'form-control'
-            ]
-        ],
-        'password1' => [
-            'type'       => 'password',
-            'label'      => 'Password',
-            'attributes' => [
-                'size'    => 40,
-                'class'   => 'form-control'
-            ]
-        ],
-        'password2' => [
-            'type'       => 'password',
-            'label'      => 'Re-Type Password',
-            'attributes' => [
-                'size'    => 40,
-                'class'   => 'form-control'
+                'class'  => 'btn btn-md btn-info btn-block text-uppercase'
             ]
         ]
     ]
