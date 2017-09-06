@@ -80,9 +80,41 @@ class ConsoleController extends \Pop\Controller\AbstractController
      */
     public function help()
     {
-        $command = $this->console->colorize("./app", Console::BOLD_CYAN) . ' ' .
-            $this->console->colorize("help", Console::BOLD_YELLOW) ;
-        $this->console->append($command . "\t\t\t Show the help screen");
+        $this->console->append($this->console->colorize("./app", Console::BOLD_CYAN) . ' ' .
+            $this->console->colorize("help", Console::BOLD_YELLOW) . "\t\t\t\tShow the help screen");
+        $this->console->append($this->console->colorize('./app', Console::BOLD_CYAN) . ' ' .
+            $this->console->colorize('users', Console::BOLD_YELLOW) . "\t\t\t\tList users");
+        $this->console->append($this->console->colorize('./app', Console::BOLD_CYAN) . ' ' .
+            $this->console->colorize('users', Console::BOLD_YELLOW) . ' ' .
+            $this->console->colorize('add', Console::BOLD_GREEN) . "\t\t\tAdd a user");
+        $this->console->append($this->console->colorize('./app', Console::BOLD_CYAN) . ' ' .
+            $this->console->colorize('users', Console::BOLD_YELLOW) . ' ' .
+            $this->console->colorize('username', Console::BOLD_GREEN) . ' ' .
+            $this->console->colorize('<user>', Console::WHITE) . "\t\tChange a user's username");
+        $this->console->append($this->console->colorize('./app', Console::BOLD_CYAN) . ' ' .
+            $this->console->colorize('users', Console::BOLD_YELLOW) . ' ' .
+            $this->console->colorize('password', Console::BOLD_GREEN) . ' ' .
+            $this->console->colorize('<user>', Console::WHITE) . "\t\tChange a user's password");
+        $this->console->append($this->console->colorize('./app', Console::BOLD_CYAN) . ' ' .
+            $this->console->colorize('users', Console::BOLD_YELLOW) . ' ' .
+            $this->console->colorize('-a', Console::BOLD_GREEN) . ' ' .
+            $this->console->colorize('<user>', Console::WHITE) . "\t\tActivate a user");
+        $this->console->append($this->console->colorize('./app', Console::BOLD_CYAN) . ' ' .
+            $this->console->colorize('users', Console::BOLD_YELLOW) . ' ' .
+            $this->console->colorize('-d', Console::BOLD_GREEN) . ' ' .
+            $this->console->colorize('<user>', Console::WHITE) . "\t\tDeactivate a user");
+        $this->console->append($this->console->colorize('./app', Console::BOLD_CYAN) . ' ' .
+            $this->console->colorize('users', Console::BOLD_YELLOW) . ' ' .
+            $this->console->colorize('clear', Console::BOLD_GREEN) . ' ' .
+            $this->console->colorize('<user>', Console::WHITE) . "\t\tClear a user's failed login attempts");
+        $this->console->append($this->console->colorize('./app', Console::BOLD_CYAN) . ' ' .
+            $this->console->colorize('users', Console::BOLD_YELLOW) . ' ' .
+            $this->console->colorize('revoke', Console::BOLD_GREEN) . ' ' .
+            $this->console->colorize('<user>', Console::WHITE) . "\t\tRevoke a user's auth tokens");
+        $this->console->append($this->console->colorize('./app', Console::BOLD_CYAN) . ' ' .
+            $this->console->colorize('users', Console::BOLD_YELLOW) . ' ' .
+            $this->console->colorize('remove', Console::BOLD_GREEN) . ' ' .
+            $this->console->colorize('<user>', Console::WHITE) . "\t\tRemove a user");
 
         $this->console->send();
     }

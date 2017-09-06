@@ -11,7 +11,7 @@ return [
                 'class'   => 'form-control'
             ]
         ],
-        'password1' => [
+        'password' => [
             'type'       => 'password',
             'label'      => 'Password',
             'attributes' => [

@@ -13,6 +13,7 @@
  */
 namespace App\Web\Event;
 
+use App\Auth\Model;
 use Pop\Application;
 use Pop\Http\Response;
 
@@ -34,7 +35,7 @@ class Session
      */
     protected static $publicActions = [
         'App\Web\Controller\IndexController' => [
-            'login', 'forgot', 'captcha'
+            'login'
         ]
     ];
 
@@ -56,10 +57,14 @@ class Session
             } else {
                 $sess   = $application->services['session'];
                 $action = $application->router()->getRouteMatch()->getAction();
-                if (isset($sess->user) && self::isPublicAction($application->router()->getControllerClass(), $action)) {
+                if (self::isAuth($sess) && self::isPublicAction($application->router()->getControllerClass(), $action)) {
                     Response::redirect('/');
                     exit();
-                } else if (!isset($sess->user) && !self::isPublicAction($application->router()->getControllerClass(), $action)) {
+                } else if (!self::isAuth($sess, false) && !self::isPublicAction($application->router()->getControllerClass(), $action)) {
+                    if (isset($sess->user)) {
+                        $user = new Model\AuthUser();
+                        $user->logout($sess, $application->services['cookie']);
+                    }
                     Response::redirect('/login');
                     exit();
                 }
@@ -77,6 +82,18 @@ class Session
     public static function isPublicAction($controller, $action)
     {
         return (isset(self::$publicActions[$controller]) && in_array($action, self::$publicActions[$controller]));
+    }
+
+    /**
+     * Check if user is auth'ed
+     *
+     * @param  \Pop\Session\Session $sess
+     * @param  boolean              $count
+     * @return boolean
+     */
+    public static function isAuth(\Pop\Session\Session $sess, $count = true)
+    {
+        return (isset($sess->user) && isset($sess->user->token) && (new Model\AuthToken())->validateToken($sess->user->token, $count));
     }
 
 }

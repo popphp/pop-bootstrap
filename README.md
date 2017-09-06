@@ -62,5 +62,14 @@ with application management from the CLI as well. You can build
 upon this to add console-level features and functionality
 
 ```console
-$ ./app help                Show this help screen
+$ ./app help                       Show this help screen
+$ ./app users                      List users
+$ ./app users add                  Add a user
+$ ./app users username <user>      Change a user's username
+$ ./app users password <user>      Change a user's password
+$ ./app users -a <user>            Activate a user
+$ ./app users -d <user>            Deactivate a user
+$ ./app users clear <user>         Clear a user's failed login attempts
+$ ./app users revoke <user>        Revoke a user's auth tokens
+$ ./app users remove <user>        Remove a user
 ```

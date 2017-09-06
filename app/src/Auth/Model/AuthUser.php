@@ -131,7 +131,7 @@ class AuthUser extends AbstractModel
     {
         $user = new Table\AuthUsers([
             'username' => $user['username'],
-            'password' => password_hash($user['password1'], PASSWORD_BCRYPT),
+            'password' => password_hash($user['password'], PASSWORD_BCRYPT),
             'active'   => (int)$user['active'],
             'attempts' => (isset($user['attempts'])) ? (int)$user['attempts'] : 0
         ]);
@@ -152,8 +152,8 @@ class AuthUser extends AbstractModel
         $currentUser = Table\AuthUsers::findById($id);
 
         if (isset($currentUser->id)) {
-            $password = (!empty($user['password1'])) ?
-                password_hash($user['password1'], PASSWORD_BCRYPT) : $currentUser->password;
+            $password = (!empty($user['password'])) ?
+                password_hash($user['password'], PASSWORD_BCRYPT) : $currentUser->password;
 
             $currentUser->username = (!empty($user['username'])) ? $user['username'] : $currentUser->username;
             $currentUser->password = $password;

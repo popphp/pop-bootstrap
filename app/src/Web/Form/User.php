@@ -70,16 +70,16 @@ class User extends Form
 
             // If existing user
             if ((int)$_POST['id'] > 0) {
-                if (!empty($this->password1)) {
+                if (!empty($this->password)) {
                     $this->getField('password2')
                          ->setRequired(true)
-                         ->addValidator(new Validator\Equal($this->password1, 'The passwords do not match.'));
+                         ->addValidator(new Validator\Equal($this->password, 'The passwords do not match.'));
                 }
             // Else, if new user, check email and password matches
             } else {
                 $this->getField('password2')
                      ->setRequired(true)
-                     ->addValidator(new Validator\Equal($this->password1, 'The passwords do not match.'));
+                     ->addValidator(new Validator\Equal($this->password, 'The passwords do not match.'));
             }
         }
 

@@ -186,12 +186,13 @@ class AuthToken extends AbstractModel
     /**
      * Validate user token
      *
-     * @param  string $tokenValue
+     * @param  string  $tokenValue
+     * @param  boolean $count
      * @return boolean
      */
-    public function validateToken($tokenValue)
+    public function validateToken($tokenValue, $count = true)
     {
-        return (!($this->tokenExpired($tokenValue)) && ($this->isUserActive($tokenValue)));
+        return (!($this->tokenExpired($tokenValue, $count)) && ($this->isUserActive($tokenValue)));
     }
 
     /**
@@ -212,10 +213,11 @@ class AuthToken extends AbstractModel
     /**
      * Determined if the token is expired
      *
-     * @param  string $tokenValue
+     * @param  string  $tokenValue
+     * @param  boolean $count
      * @return boolean
      */
-    public function tokenExpired($tokenValue)
+    public function tokenExpired($tokenValue, $count = true)
     {
         if (substr($tokenValue, 0, 7) == 'Bearer ') {
             $tokenValue = substr($tokenValue, 7);
@@ -225,7 +227,7 @@ class AuthToken extends AbstractModel
         $token  = Table\AuthTokens::findOne(['token' => $tokenValue]);
         if (isset($token->token)) {
             $result = !(((int)$token->expires == 0) || (time() < (int)$token->expires));
-            if (!$result) {
+            if ((!$result) && ($count)) {
                 $token->requests++;
                 $token->save();
             }
