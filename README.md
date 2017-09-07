@@ -138,42 +138,42 @@ Access-Control-Allow-Methods: HEAD, OPTIONS, GET, PUT, POST, PATCH, DELETE
 **Get Users**
 
 ```bash
-curl -i -X GET --header "Authorization: Bearer 449d8625fb26753ebce8acbbf38ba2321dd21621" \
+curl -i -X GET --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b5796f08" \
     http://localhost:8000/api/users
 ```
 
 **Get a User**
 
 ```bash
-curl -i -X GET --header "Authorization: Bearer 449d8625fb26753ebce8acbbf38ba2321dd21621" \
+curl -i -X GET --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b5796f08" \
     http://localhost:8000/api/users/1
 ```
 
 **Create User**
 
 ```bash
-curl -i -X PUT --header "Authorization: Bearer 449d8625fb26753ebce8acbbf38ba2321dd21621" \
+curl -i -X PUT --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b5796f08" \
     -d"username=testuser1&password=123456" http://localhost:8000/api/users
 ```
 
 **Update a User**
 
 ```bash
-curl -i -X POST --header "Authorization: Bearer 449d8625fb26753ebce8acbbf38ba2321dd21621" \
+curl -i -X POST --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b5796f08" \
     -d"username=testuser1&active=1" http://localhost:8000/api/users/2
 ```
 
 **Delete a User**
 
 ```bash
-curl -i -X DELETE --header "Authorization: Bearer 449d8625fb26753ebce8acbbf38ba2321dd21621" \
+curl -i -X DELETE --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b5796f08" \
     http://localhost:8000/api/users/2
 ```
 
 **Delete Users**
 
 ```bash
-curl -i -X DELETE --header "Authorization: Bearer 449d8625fb26753ebce8acbbf38ba2321dd21621" \
+curl -i -X DELETE --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b5796f08" \
     -d"rm_users[]=2&rm_users=3" http://localhost:8000/api/users
 ```
 
