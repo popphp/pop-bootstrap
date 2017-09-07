@@ -36,7 +36,7 @@ that allows access view a basic web interface, an API and also the console.
 * Apache 2+, IIS 7+, or any web server with URL rewrite support
 * MySQL 5.0+
 
-[Top](#pop-boostrap)
+[Top](#pop-bootstrap)
 
 ## Installation
 
@@ -46,6 +46,8 @@ take you through the installation steps automatically:
 ```console
 $ composer create-project popphp/pop-bootstrap project-folder
 ```
+
+[Top](#pop-bootstrap)
 
 ## Getting Started
 
@@ -63,6 +65,8 @@ to a login screen. The default credentials are:
 * Username: `admin`
 * Password: `password`
 
+[Top](#pop-bootstrap)
+
 ## Web Access 
 
 Once logged in via a web browser, you will see that most of the navigation
@@ -70,6 +74,8 @@ displayed is not active, with the exception of the `Orders` page, the `Users`
 page and the `Logout` icon. The `Orders` page demonstrates a mock layout with
 side navigation. The `Users` page will let you manage users. The `Logout`
 icon executes a user logout. 
+
+[Top](#pop-bootstrap)
 
 ## API Access
 
@@ -106,6 +112,8 @@ Access-Control-Allow-Methods: HEAD, OPTIONS, GET, PUT, POST, PATCH, DELETE
 ```
 With that, you'll be able to continue accessing the API.
 
+[Top](#pop-bootstrap)
+
 #### Validate the Token
 
 ```bash
@@ -124,6 +132,8 @@ Access-Control-Allow-Headers: Authorization, Content-Type
 Access-Control-Allow-Methods: HEAD, OPTIONS, GET, PUT, POST, PATCH, DELETE
 
 ```
+
+[Top](#pop-bootstrap)
 
 #### Refresh the Token
 
@@ -149,6 +159,8 @@ Access-Control-Allow-Methods: HEAD, OPTIONS, GET, PUT, POST, PATCH, DELETE
 }
 
 ```
+
+[Top](#pop-bootstrap)
 
 #### Get Users
 
@@ -192,6 +204,8 @@ curl -i -X DELETE --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640
     -d"rm_users[]=2&rm_users=3" http://localhost:8000/api/users
 ```
 
+[Top](#pop-bootstrap)
+
 ## Console Access
 
 The application comes with a simple console interface to assist
@@ -210,3 +224,5 @@ $ ./app users clear <user>         Clear a user's failed login attempts
 $ ./app users revoke <user>        Revoke a user's auth tokens
 $ ./app users remove <user>        Remove a user
 ```
+
+[Top](#pop-bootstrap)
