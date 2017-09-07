@@ -14,9 +14,9 @@
                 <thead>
                 <tr>
                     <th>&nbsp;</th>
-                    <th>#</th>
+                    <th class="table-sm">#</th>
                     <th>Username</th>
-                    <th>Active</th>
+                    <th class="table-sm">Active</th>
                     <th>&nbsp;</th>
                 </tr>
                 </thead>
@@ -24,10 +24,10 @@
 <?php if (isset($users) && (count($users) > 0)): ?>
 <?php foreach ($users as $user): ?>
                 <tr>
-                    <td><a class="gray-link" href="/users/<?=$user->id; ?>"><i class="material-icons">create</i></a></td>
-                    <td><?=$user->id; ?></td>
+                    <td><a class="gray-link" href="/users/<?=$user->id; ?>"><i class="material-icons edit-icon-md">edit</i></a></td>
+                    <td class="table-sm"><?=$user->id; ?></td>
                     <td><?=$user->username; ?></td>
-                    <td><?=($user->active) ? 'Yes' : 'No'; ?></td>
+                    <td class="table-sm"><?=($user->active) ? 'Yes' : 'No'; ?></td>
                     <td><?php if ($userId != $user->id): ?><input type="checkbox" name="rm_users[]" value="<?=$user->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
                 </tr>
 <?php endforeach; ?>

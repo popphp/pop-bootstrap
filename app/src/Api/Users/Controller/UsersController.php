@@ -15,6 +15,7 @@ namespace App\Api\Users\Controller;
 
 use App\Api\Controller\AbstractController;
 use App\Auth\Model;
+use App\Auth\Table;
 use Pop\Http\Response;
 
 /**
@@ -39,19 +40,9 @@ class UsersController extends AbstractController
     public function index($id = null)
     {
         if (null === $id) {
-            $users = (new Model\AuthUser())->getAll();
             $json  = [
-                'users' => []
+                'users' => (new Model\AuthUser())->getAll()->toArray()
             ];
-
-            foreach ($users as $i => $user) {
-                $json['users'][] = [
-                    'id'       => $user->id,
-                    'username' => $user->username,
-                    'active'   => $user->active,
-                    'attempts' => $user->attempts
-                ];
-            }
             $this->send(200, $json);
         } else {
             $user = (new Model\AuthUser())->getById($id);
@@ -66,44 +57,84 @@ class UsersController extends AbstractController
     }
 
     /**
-     * Users add action method
+     * Users create action method
      *
      * @return void
      */
-    public function add()
+    public function create()
     {
         $data = $this->request->getParsedData();
 
         if (empty($data['username']) || empty($data['password'])) {
             $this->send(400, ['code' => 400, 'message' => Response::getMessageFromCode(400)]);
         } else {
-            $user = new Model\AuthUser();
-            $user->save($data);
-
-            if (!empty($user->id)) {
-                $this->send(201, ['code' => 201, 'message' => Response::getMessageFromCode(201)]);
+            $dupeUser = (new Model\AuthUser())->getByUsername($data['username']);
+            if (isset($dupeUser->id)) {
+                $this->send(409, ['code' => 409, 'message' => Response::getMessageFromCode(409)]);
             } else {
-                $this->send(400, ['code' => 400, 'message' => Response::getMessageFromCode(400)]);
+                $user = new Model\AuthUser();
+                $user->save($data);
+
+                if (!empty($user->id)) {
+                    $this->send(201, $user->toArray());
+                } else {
+                    $this->send(400, ['code' => 400, 'message' => Response::getMessageFromCode(400)]);
+                }
             }
         }
     }
 
     /**
-     * Users edit action method
+     * Users update action method
      *
      * @param  int $id
      * @return void
      */
-    public function edit($id)
+    public function update($id)
     {
+        $data = $this->request->getParsedData();
         $user = (new Model\AuthUser())->getById($id);
-        if (isset($user->id)) {
+
+        $dupe = Table\AuthUsers::findOne(['username' => $data['username'], 'id!=' => $id]);
+        if (isset($dupe->id)) {
+            $this->send(409, ['code' => 409, 'message' => Response::getMessageFromCode(409)]);
+        } else if (isset($user->id)) {
             $user = new Model\AuthUser();
-            $user->update($id, $this->request->getParsedData());
-            $this->send(200, ['code' => 200, 'message' => Response::getMessageFromCode(200)]);
+            $user->update($id, $data);
+            $this->send(200, $user->toArray());
         } else {
             $this->send(404, ['code' => 404, 'message' => Response::getMessageFromCode(404)]);
         }
+    }
+
+    /**
+     * Users delete action method
+     *
+     * @param  int $id
+     * @return void
+     */
+    public function delete($id = null)
+    {
+        $data = $this->request->getParsedData();
+        $user = new Model\AuthUser();
+
+        if (null !== $id) {
+            $user = (new Model\AuthUser())->getById($id);
+            if (isset($user->id)) {
+                $u = new Model\AuthUser();
+                $u->delete($id);
+                $code = 204;
+            } else {
+                $code = 404;
+            }
+        } else if (isset($data['rm_users']) && is_array($data['rm_users'])) {
+            $user->remove($data['rm_users']);
+            $code = 204;
+        } else {
+            $code = 400;
+        }
+
+        $this->send($code, ['code' => $code, 'message' => Response::getMessageFromCode($code)]);
     }
 
 }

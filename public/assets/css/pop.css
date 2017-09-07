@@ -59,12 +59,19 @@ a {
   background-position: -140px 0px;
   background-repeat: repeat-y; }
 
+.login-pad {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  min-height: 640px; }
+
 .login-div {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: 100;
   margin: auto;
   padding: 150px 40px 40px 40px;
   width: 25%;
@@ -686,6 +693,9 @@ a.home {
   border-right: 1px solid #ddd;
   border-bottom: 1px solid #ddd; }
 
+th.table-sm, td.table-sm {
+  display: table-cell; }
+
 .overview-nav {
   font-size: 0.9em; }
 
@@ -721,6 +731,9 @@ a.home {
 
 .gray-link:hover {
   color: #777; }
+
+.edit-icon-md {
+  font-size: 1.5em; }
 
 @media (max-width: 1600px) {
   .login-div {
@@ -874,6 +887,9 @@ a.home {
     display: none; } }
 
 @media (max-width: 576px) {
+  th.table-sm, td.table-sm {
+    display: none; }
+
   .sub-nav {
     margin: 0 0 10px 0;
     padding: 0;

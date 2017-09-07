@@ -107,7 +107,9 @@ class AuthUser extends AbstractModel
      */
     public function getAll()
     {
-        return Table\AuthUsers::findAll();
+        $sql = Table\AuthUsers::getSql();
+        $sql->select(['id', 'username', 'active', 'attempts'])->from(Table\AuthUsers::table());
+        return Table\AuthUsers::query($sql);
     }
 
     /**
@@ -122,6 +124,17 @@ class AuthUser extends AbstractModel
     }
 
     /**
+     * Get user by username
+     *
+     * @param  string $username
+     * @return Table\AuthUsers
+     */
+    public function getByUsername($username)
+    {
+        return Table\AuthUsers::findOne(['username' => $username]);
+    }
+
+    /**
      * Save new user
      *
      * @param  mixed $user
@@ -132,12 +145,15 @@ class AuthUser extends AbstractModel
         $user = new Table\AuthUsers([
             'username' => $user['username'],
             'password' => password_hash($user['password'], PASSWORD_BCRYPT),
-            'active'   => (int)$user['active'],
+            'active'   => (isset($user['active'])) ? (int)$user['active'] : 0,
             'attempts' => (isset($user['attempts'])) ? (int)$user['attempts'] : 0
         ]);
         $user->save();
 
-        $this->data['id'] = $user->id;
+        $this->data['id']       = $user->id;
+        $this->data['username'] = $user->username;
+        $this->data['active']   = $user->active;
+        $this->data['attempts'] = $user->attempts;
     }
 
     /**
@@ -161,12 +177,15 @@ class AuthUser extends AbstractModel
             $currentUser->attempts = (isset($user['attempts'])) ? (int)$user['attempts'] : $currentUser->attempts;
             $currentUser->save();
 
-            $this->data['id'] = $currentUser->id;
+            $this->data['id']       = $currentUser->id;
+            $this->data['username'] = $currentUser->username;
+            $this->data['active']   = $currentUser->active;
+            $this->data['attempts'] = $currentUser->attempts;
         }
     }
 
     /**
-     * Delete existing user
+     * Delete an existing user
      *
      * @param  int   $id
      * @return void

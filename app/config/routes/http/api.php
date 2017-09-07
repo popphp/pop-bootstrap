@@ -2,11 +2,7 @@
 
 return [
     'options,get' => [
-        '/api/users[/]' => [
-            'controller' => 'App\Api\Users\Controller\UsersController',
-            'action'     => 'index'
-        ],
-        '/api/users/:id' => [
+        '/api/users[/:id]' => [
             'controller' => 'App\Api\Users\Controller\UsersController',
             'action'     => 'index'
         ]
@@ -14,7 +10,7 @@ return [
     'options,put' => [
         '/api/users[/]' => [
             'controller' => 'App\Api\Users\Controller\UsersController',
-            'action'     => 'add'
+            'action'     => 'create'
         ]
     ],
     'options,post' => [
@@ -36,7 +32,13 @@ return [
         ],
         '/api/users/:id' => [
             'controller' => 'App\Api\Users\Controller\UsersController',
-            'action'     => 'edit'
+            'action'     => 'update'
         ]
-    ]
+    ],
+    'options,delete' => [
+        '/api/users[/:id]' => [
+            'controller' => 'App\Api\Users\Controller\UsersController',
+            'action'     => 'delete'
+        ]
+    ],
 ];
