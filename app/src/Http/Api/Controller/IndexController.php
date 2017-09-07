@@ -11,12 +11,10 @@
 /**
  * @namespace
  */
-namespace App\Api\Event;
-
-use Pop\Application;
+namespace App\Http\Api\Controller;
 
 /**
- * Maintenance mode event class
+ * API index controller class
  *
  * @category   App
  * @package    App
@@ -25,20 +23,7 @@ use Pop\Application;
  * @copyright  Copyright (c) 2012-2018 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @version    4.0.0
  */
-class Maintenance
+class IndexController extends AbstractController
 {
-
-    /**
-     * Check for maintenance mode
-     *
-     * @param  Application $application
-     * @return void
-     */
-    public static function check(Application $application)
-    {
-        if (($application->config['maintenance']) && ($application->modules['pop-bootstrap']->isApi())) {
-            $application->router()->getController()->error(503);
-        }
-    }
 
 }

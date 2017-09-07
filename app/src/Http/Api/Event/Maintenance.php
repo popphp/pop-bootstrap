@@ -11,12 +11,12 @@
 /**
  * @namespace
  */
-namespace App\Api\Event;
+namespace App\Http\Api\Event;
 
 use Pop\Application;
 
 /**
- * Options API event class
+ * Maintenance mode event class
  *
  * @category   App
  * @package    App
@@ -25,20 +25,19 @@ use Pop\Application;
  * @copyright  Copyright (c) 2012-2018 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @version    4.0.0
  */
-class Options
+class Maintenance
 {
+
     /**
-     * Check for and re-route OPTIONS requests
+     * Check for maintenance mode
      *
      * @param  Application $application
      * @return void
      */
     public static function check(Application $application)
     {
-        if (($application->router()->hasController()) && (null !== $application->router()->getController()->request()) &&
-            ($application->router()->getController()->request()->isOptions())) {
-            $application->router()->getController()->sendOptions();
-            exit();
+        if (($application->config['maintenance']) && ($application->modules['pop-bootstrap']->isApi())) {
+            $application->router()->getController()->error(503);
         }
     }
 

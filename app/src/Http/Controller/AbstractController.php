@@ -11,7 +11,7 @@
 /**
  * @namespace
  */
-namespace App\Controller;
+namespace App\Http\Controller;
 
 use Pop\Application;
 use Pop\Http\Request;

@@ -11,10 +11,12 @@
 /**
  * @namespace
  */
-namespace App\Api\Controller;
+namespace App\Http\Web\Form;
+
+use Pop\Form\Form;
 
 /**
- * API index controller class
+ * Web login form class
  *
  * @category   App
  * @package    App
@@ -23,7 +25,23 @@ namespace App\Api\Controller;
  * @copyright  Copyright (c) 2012-2018 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @version    4.0.0
  */
-class IndexController extends AbstractController
+class Login extends Form
 {
+
+    /**
+     * Constructor
+     *
+     * Instantiate the form object
+     *
+     * @param  array  $fields
+     * @param  string $action
+     * @param  string $method
+     */
+    public function __construct(array $fields = null, $action = null, $method = 'post')
+    {
+        parent::__construct($fields, $action, $method);
+        $this->setAttribute('class', 'login-form');
+        $this->setAttribute('id', 'login-form');
+    }
 
 }

@@ -11,7 +11,7 @@
 /**
  * @namespace
  */
-namespace App\Controller;
+namespace App\Http\Controller;
 
 use Pop\View\View;
 

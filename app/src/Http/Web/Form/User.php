@@ -11,7 +11,7 @@
 /**
  * @namespace
  */
-namespace App\Web\Form;
+namespace App\Http\Web\Form;
 
 use App\Auth\Table;
 use Pop\Form\Form;

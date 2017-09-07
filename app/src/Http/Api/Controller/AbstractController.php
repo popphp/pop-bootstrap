@@ -11,7 +11,7 @@
 /**
  * @namespace
  */
-namespace App\Api\Controller;
+namespace App\Http\Api\Controller;
 
 use Pop\Http\Response;
 
@@ -25,7 +25,7 @@ use Pop\Http\Response;
  * @copyright  Copyright (c) 2012-2018 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @version    4.0.0
  */
-abstract class AbstractController extends \App\Controller\AbstractController
+abstract class AbstractController extends \App\Http\Controller\AbstractController
 {
 
     /**

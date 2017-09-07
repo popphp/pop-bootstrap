@@ -11,7 +11,7 @@
 /**
  * @namespace
  */
-namespace App\Api\Controller;
+namespace App\Http\Api\Controller;
 
 use App\Auth\Model;
 

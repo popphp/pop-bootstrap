@@ -4,7 +4,7 @@
  */
 
 return [
-    'routes'   => include 'routes/cli.php',
+    'routes'   => include 'routes/console.php',
     'database' => include 'database/mysql.php'
 ];
 

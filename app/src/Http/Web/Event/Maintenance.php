@@ -11,7 +11,7 @@
 /**
  * @namespace
  */
-namespace App\Web\Event;
+namespace App\Http\Web\Event;
 
 use Pop\Application;
 use Pop\Http\Response;
@@ -41,7 +41,7 @@ class Maintenance
         if (($application->config['maintenance']) && ($application->modules['pop-bootstrap']->isWeb())) {
             $acceptHeader = $application->router()->getController()->request()->getHeader('Accept');
             if (stripos($acceptHeader, 'text/html') === false) {
-                $controller = new \App\Api\Controller\IndexController(
+                $controller = new \App\Http\Api\Controller\IndexController(
                     $application, $application->router()->getController()->request(), $application->router()->getController()->response()
                 );
                 $controller->error(406);

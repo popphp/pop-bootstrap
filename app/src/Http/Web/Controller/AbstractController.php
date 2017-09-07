@@ -11,7 +11,7 @@
 /**
  * @namespace
  */
-namespace App\Web\Controller;
+namespace App\Http\Web\Controller;
 
 use Pop\Http\Response;
 use Pop\View\View;
@@ -26,14 +26,14 @@ use Pop\View\View;
  * @copyright  Copyright (c) 2012-2018 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @version    4.0.0
  */
-abstract class AbstractController extends \App\Controller\AbstractController
+abstract class AbstractController extends \App\Http\Controller\AbstractController
 {
 
     /**
      * View path
      * @var string
      */
-    protected $viewPath = __DIR__ . '/../../../view';
+    protected $viewPath = __DIR__ . '/../../../../view';
 
     /**
      * View object

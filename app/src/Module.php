@@ -83,11 +83,11 @@ class Module extends \Pop\Module\Module
             );
         }
 
-        $this->application->on('app.dispatch.pre', 'App\Api\Event\Options::check')
-             ->on('app.dispatch.pre', 'App\Api\Event\Auth::check')
-             ->on('app.dispatch.pre', 'App\Api\Event\Maintenance::check')
-             ->on('app.dispatch.pre', 'App\Web\Event\Session::check')
-             ->on('app.dispatch.pre', 'App\Web\Event\Maintenance::check');
+        $this->application->on('app.dispatch.pre', 'App\Http\Api\Event\Options::check')
+             ->on('app.dispatch.pre', 'App\Http\Api\Event\Auth::check')
+             ->on('app.dispatch.pre', 'App\Http\Api\Event\Maintenance::check')
+             ->on('app.dispatch.pre', 'App\Http\Web\Event\Session::check')
+             ->on('app.dispatch.pre', 'App\Http\Web\Event\Maintenance::check');
     }
 
     /**

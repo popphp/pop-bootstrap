@@ -11,12 +11,12 @@
 /**
  * @namespace
  */
-namespace App\Web\Form;
+namespace App\Http\Api\Event;
 
-use Pop\Form\Form;
+use Pop\Application;
 
 /**
- * Web login form class
+ * Options API event class
  *
  * @category   App
  * @package    App
@@ -25,23 +25,21 @@ use Pop\Form\Form;
  * @copyright  Copyright (c) 2012-2018 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @version    4.0.0
  */
-class Login extends Form
+class Options
 {
-
     /**
-     * Constructor
+     * Check for and re-route OPTIONS requests
      *
-     * Instantiate the form object
-     *
-     * @param  array  $fields
-     * @param  string $action
-     * @param  string $method
+     * @param  Application $application
+     * @return void
      */
-    public function __construct(array $fields = null, $action = null, $method = 'post')
+    public static function check(Application $application)
     {
-        parent::__construct($fields, $action, $method);
-        $this->setAttribute('class', 'login-form');
-        $this->setAttribute('id', 'login-form');
+        if (($application->router()->hasController()) && (null !== $application->router()->getController()->request()) &&
+            ($application->router()->getController()->request()->isOptions())) {
+            $application->router()->getController()->sendOptions();
+            exit();
+        }
     }
 
 }

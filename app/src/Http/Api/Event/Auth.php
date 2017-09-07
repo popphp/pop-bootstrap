@@ -11,7 +11,7 @@
 /**
  * @namespace
  */
-namespace App\Api\Event;
+namespace App\Http\Api\Event;
 
 use Pop\Application;
 use App\Auth\Model;
@@ -33,10 +33,10 @@ class Auth
      * Public actions
      */
     protected static $publicActions = [
-        'App\Api\Controller\AuthController' => [
+        'App\Http\Api\Controller\AuthController' => [
             'auth'
         ],
-        'App\Api\Controller\TokenController' => [
+        'App\Http\Api\Controller\TokenController' => [
             'token', 'refresh'
         ]
     ];

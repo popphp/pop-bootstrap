@@ -11,10 +11,10 @@
 /**
  * @namespace
  */
-namespace App\Web\Controller;
+namespace App\Http\Web\Controller;
 
 use App\Auth;
-use App\Web\Form;
+use App\Http\Web\Form;
 
 /**
  * Web index controller class
