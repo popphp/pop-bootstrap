@@ -21,7 +21,7 @@ that allows access view a basic web interface, an API and also the console.
 * [API Access](#api-access)
     + [Authentication](#authentication)
     + [Validate the Token](#validate-the-token) 
-    + [Refresh the Token](#Refresh the Token)
+    + [Refresh the Token](#refresh-the-token)
     + [Get Users](#get-users)
     + [Get a User](#get-a-user)
     + [Create User](#create-user)
