@@ -37,7 +37,7 @@ that allows access view a basic web interface, an API and also the console.
 * Apache 2+, IIS 7+, or any web server with URL rewrite support
 * MySQL 5.0+
 
-[Top](#top)
+[Top](#pop-boostrap)
 
 ## Installation
 
