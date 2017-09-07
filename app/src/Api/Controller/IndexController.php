@@ -14,7 +14,7 @@
 namespace App\Api\Controller;
 
 /**
- * Abstract API controller class
+ * API index controller class
  *
  * @category   App
  * @package    App

@@ -11,9 +11,8 @@
 /**
  * @namespace
  */
-namespace App\Api\Auth\Controller;
+namespace App\Api\Controller;
 
-use App\Api\Controller\AbstractController;
 use App\Auth\Model;
 
 /**

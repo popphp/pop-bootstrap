@@ -4,13 +4,13 @@ Pop Bootstrap
 Release Information
 -------------------
 Version 4.0.0  
-TBD
+September 6, 2017
 
 Overview
 --------
 
 A skeleton web application for the Pop Web Application Framework,
-using the Bootstrap and Font Awesome frameworks. 
+using the Bootstrap (v4) and Font Awesome frameworks. 
 
 Requirements
 ------------
@@ -46,13 +46,136 @@ to a login screen. The default credentials are:
 * Username: `admin`
 * Password: `password`
 
-Demo Pages
+Web Access 
 ----------
 
-Most of the navigation displayed is not active, with the exception of
-the `Orders` page, the `Users` page and the `Logout` icon. The `Orders`
-page just demonstrates a mock layout with side navigation. The `Users`
-page will let you manage users. The `Logout` icon executes a user logout. 
+Once logged in via a web browser, you will see that most of the navigation
+displayed is not active, with the exception of the `Orders` page, the `Users`
+page and the `Logout` icon. The `Orders` page demonstrates a mock layout with
+side navigation. The `Users` page will let you manage users. The `Logout`
+icon executes a user logout. 
+
+API Access
+----------
+
+You can access the API to authenticate a user or manage users as well. The
+following examples use cURL to demonstrate the accessing the API:
+
+**Authenticate**
+
+```bash
+curl -i -X POST -d"username=admin&password=password" \
+    http://localhost:8000/api/auth
+```
+Upon a successful authentication, you will receive a JSON response that looks
+like this:
+
+```text
+HTTP/1.1 200 OK
+Host: localhost:8000
+Connection: close
+X-Powered-By: PHP/7.0.8
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization, Content-Type
+Access-Control-Allow-Methods: HEAD, OPTIONS, GET, PUT, POST, PATCH, DELETE
+
+{
+    "id": 1,
+    "username": "admin",
+    "token": "449d8625fb26753ebce8acbbf38ba2321dd21621",
+    "refresh": "a5bba1af879c64e591307b48e1fdd7f2d85cba5f",
+    "expires": 1504754891
+}
+
+```
+With that, you'll be able to continue accessing the API.
+
+**Validate the Token**
+
+```bash
+curl -i -X POST --header "Authorization: Bearer 449d8625fb26753ebce8acbbf38ba2321dd21621" \
+    http://localhost:8000/api/auth/token/
+```
+
+```text
+HTTP/1.1 200 OK
+Host: localhost:8000
+Connection: close
+X-Powered-By: PHP/7.0.8
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization, Content-Type
+Access-Control-Allow-Methods: HEAD, OPTIONS, GET, PUT, POST, PATCH, DELETE
+
+```
+
+**Refresh the Token**
+
+```bash
+curl -i -X POST --header "Authorization: Bearer 449d8625fb26753ebce8acbbf38ba2321dd21621" \
+    -d"refresh=a5bba1af879c64e591307b48e1fdd7f2d85cba5f" http://localhost:8000/api/auth/token/refresh
+```
+
+```text
+HTTP/1.1 200 OK
+Host: localhost:8000
+Connection: close
+X-Powered-By: PHP/7.0.8
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization, Content-Type
+Access-Control-Allow-Methods: HEAD, OPTIONS, GET, PUT, POST, PATCH, DELETE
+
+{
+    "token": "8012796bbedb79fc4cecedcf174640f1b5796f08",
+    "refresh": "a5bba1af879c64e591307b48e1fdd7f2d85cba5f",
+    "expires": 1504754891
+}
+
+```
+
+**Get Users**
+
+```bash
+curl -i -X GET --header "Authorization: Bearer 449d8625fb26753ebce8acbbf38ba2321dd21621" \
+    http://localhost:8000/api/users
+```
+
+**Get a User**
+
+```bash
+curl -i -X GET --header "Authorization: Bearer 449d8625fb26753ebce8acbbf38ba2321dd21621" \
+    http://localhost:8000/api/users/1
+```
+
+**Create User**
+
+```bash
+curl -i -X PUT --header "Authorization: Bearer 449d8625fb26753ebce8acbbf38ba2321dd21621" \
+    -d"username=testuser1&password=123456" http://localhost:8000/api/users
+```
+
+**Update a User**
+
+```bash
+curl -i -X POST --header "Authorization: Bearer 449d8625fb26753ebce8acbbf38ba2321dd21621" \
+    -d"username=testuser1&active=1" http://localhost:8000/api/users/2
+```
+
+**Delete a User**
+
+```bash
+curl -i -X DELETE --header "Authorization: Bearer 449d8625fb26753ebce8acbbf38ba2321dd21621" \
+    http://localhost:8000/api/users/2
+```
+
+**Delete Users**
+
+```bash
+curl -i -X DELETE --header "Authorization: Bearer 449d8625fb26753ebce8acbbf38ba2321dd21621" \
+    -d"rm_users[]=2&rm_users=3" http://localhost:8000/api/users
+```
 
 Console Access
 --------------

@@ -3,41 +3,41 @@
 return [
     'options,get' => [
         '/api/users[/:id]' => [
-            'controller' => 'App\Api\Users\Controller\UsersController',
+            'controller' => 'App\Api\Controller\UsersController',
             'action'     => 'index'
         ]
     ],
     'options,put' => [
         '/api/users[/]' => [
-            'controller' => 'App\Api\Users\Controller\UsersController',
+            'controller' => 'App\Api\Controller\UsersController',
             'action'     => 'create'
         ]
     ],
     'options,post' => [
         '/api/auth[/]' => [
-            'controller' => 'App\Api\Auth\Controller\AuthController',
+            'controller' => 'App\Api\Controller\AuthController',
             'action'     => 'auth'
         ],
         '/api/auth/token[/]' => [
-            'controller' => 'App\Api\Auth\Controller\TokenController',
+            'controller' => 'App\Api\Controller\TokenController',
             'action'     => 'token'
         ],
         '/api/auth/token/refresh[/]' => [
-            'controller' => 'App\Api\Auth\Controller\TokenController',
+            'controller' => 'App\Api\Controller\TokenController',
             'action'     => 'refresh'
         ],
         '/api/auth/token/revoke[/]' => [
-            'controller' => 'App\Api\Auth\Controller\TokenController',
+            'controller' => 'App\Api\Controller\TokenController',
             'action'     => 'revoke'
         ],
         '/api/users/:id' => [
-            'controller' => 'App\Api\Users\Controller\UsersController',
+            'controller' => 'App\Api\Controller\UsersController',
             'action'     => 'update'
         ]
     ],
     'options,delete' => [
         '/api/users[/:id]' => [
-            'controller' => 'App\Api\Users\Controller\UsersController',
+            'controller' => 'App\Api\Controller\UsersController',
             'action'     => 'delete'
         ]
     ],

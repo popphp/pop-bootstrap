@@ -10,9 +10,7 @@ return [
     'auth_attempts'  => 3,
     'token_expires'  => 1800,
     'maintenance'    => false,
-    'pagination'     => 25,
     'services'       => [
-        'acl'        => 'Pop\Acl\Acl',
         'session'    => 'Pop\Session\Session::getInstance',
         'cookie'     => [
             'call'   => 'Pop\Cookie\Cookie::getInstance',

@@ -11,9 +11,8 @@
 /**
  * @namespace
  */
-namespace App\Api\Users\Controller;
+namespace App\Api\Controller;
 
-use App\Api\Controller\AbstractController;
 use App\Auth\Model;
 use App\Auth\Table;
 use Pop\Http\Response;

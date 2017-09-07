@@ -11,7 +11,7 @@ return [
             'action'     => 'orders'
         ],
         '/users[/]' => [
-            'controller' => 'App\Web\Users\Controller\IndexController',
+            'controller' => 'App\Web\Controller\UsersController',
             'action'     => 'index'
         ],
         '/logout[/]' => [
@@ -25,17 +25,17 @@ return [
             'action'     => 'login'
         ],
         '/users/add[/]' => [
-            'controller' => 'App\Web\Users\Controller\IndexController',
+            'controller' => 'App\Web\Controller\UsersController',
             'action'     => 'add'
         ],
         '/users/:id' => [
-            'controller' => 'App\Web\Users\Controller\IndexController',
+            'controller' => 'App\Web\Controller\UsersController',
             'action'     => 'edit'
         ]
     ],
     'post' => [
         '/users/remove[/]' => [
-            'controller' => 'App\Web\Users\Controller\IndexController',
+            'controller' => 'App\Web\Controller\UsersController',
             'action'     => 'remove'
         ]
     ]

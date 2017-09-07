@@ -11,11 +11,10 @@
 /**
  * @namespace
  */
-namespace App\Web\Users\Controller;
+namespace App\Web\Controller;
 
 use App\Auth\Model\AuthUser;
 use App\Web\Form;
-use App\Web\Controller\AbstractController;
 
 /**
  * Web users controller class
@@ -27,7 +26,7 @@ use App\Web\Controller\AbstractController;
  * @copyright  Copyright (c) 2012-2018 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @version    4.0.0
  */
-class IndexController extends AbstractController
+class UsersController extends AbstractController
 {
 
     /**

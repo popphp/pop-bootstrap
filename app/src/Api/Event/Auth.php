@@ -33,10 +33,10 @@ class Auth
      * Public actions
      */
     protected static $publicActions = [
-        'App\Api\Auth\Controller\AuthController' => [
+        'App\Api\Controller\AuthController' => [
             'auth'
         ],
-        'App\Api\Auth\Controller\TokenController' => [
+        'App\Api\Controller\TokenController' => [
             'token', 'refresh'
         ]
     ];
