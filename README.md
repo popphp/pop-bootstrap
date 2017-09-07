@@ -21,12 +21,7 @@ that allows access view a basic web interface, an API and also the console.
     + [Authentication](#authentication)
     + [Validate the Token](#validate-the-token) 
     + [Refresh the Token](#refresh-the-token)
-    + [Get Users](#get-users)
-    + [Get a User](#get-a-user)
-    + [Create User](#create-user)
-    + [Update a User](#update-a-user)
-    + [Delete a User](#delete-a-user)
-    + [Delete Users](#delete-users)
+    + [Manage Users](#manage-users)
 * [Console Access](#console-access)
 
 
@@ -162,42 +157,44 @@ Access-Control-Allow-Methods: HEAD, OPTIONS, GET, PUT, POST, PATCH, DELETE
 
 [Top](#pop-bootstrap)
 
-#### Get Users
+#### Manage Users
+
+###### Get Users
 
 ```bash
 curl -i -X GET --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b5796f08" \
     http://localhost:8000/api/users
 ```
 
-#### Get a User
+###### Get a User
 
 ```bash
 curl -i -X GET --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b5796f08" \
     http://localhost:8000/api/users/1
 ```
 
-#### Create User
+###### Create User
 
 ```bash
 curl -i -X PUT --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b5796f08" \
     -d"username=testuser1&password=123456" http://localhost:8000/api/users
 ```
 
-#### Update a User
+###### Update a User
 
 ```bash
 curl -i -X POST --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b5796f08" \
     -d"username=testuser1&active=1" http://localhost:8000/api/users/2
 ```
 
-#### Delete a User
+###### Delete a User
 
 ```bash
 curl -i -X DELETE --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b5796f08" \
     http://localhost:8000/api/users/2
 ```
 
-#### Delete Users
+###### Delete Users
 
 ```bash
 curl -i -X DELETE --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b5796f08" \
