@@ -9,18 +9,35 @@ September 6, 2017
 Overview
 --------
 
-A skeleton web application for the Pop Web Application Framework,
-using the Bootstrap (v4) and Font Awesome frameworks. 
+This repository is a skeleton web application for the Pop Web Application
+Framework using the Bootstrap v4, Material Icons and Font Awesome frameworks.
+The concept behind this skeleton framework focuses on a minimal feature set
+that allows access view a basic web interface, an API and also the console.
 
-Requirements
-------------
+* [Requirements](#requirements)
+* [Installation](#installation)
+* [Getting Started](#getting-started)
+* [Web Access](#web-access)
+* [API Access](#api-access)
+    + [Authentication](#authentication)
+    + [Validate the Token](#validate-the-token) 
+    + [Refresh the Token](#Refresh the Token)
+    + [Get Users](#get-users)
+    + [Get a User](#get-a-user)
+    + [Create User](#create-user)
+    + [Update a User](#update-a-user)
+    + [Delete a User](#delete-a-user)
+    + [Delete Users](#delete-users)
+* [Console Access](#console-access)
+
+
+## Requirements
 
 * Minimum of PHP 7.0.0
 * Apache 2+, IIS 7+, or any web server with URL rewrite support
 * MySQL 5.0+
 
-Installation
-------------
+## Installation
 
 The command below will install all of the necessary components and
 take you through the installation steps automatically:
@@ -29,8 +46,7 @@ take you through the installation steps automatically:
 $ composer create-project popphp/pop-bootstrap project-folder
 ```
 
-Get Started
------------
+## Getting Started
 
 Either create a vhost on your web server or start the PHP web server
 and point the document root to the `public` folder:
@@ -46,8 +62,7 @@ to a login screen. The default credentials are:
 * Username: `admin`
 * Password: `password`
 
-Web Access 
-----------
+## Web Access 
 
 Once logged in via a web browser, you will see that most of the navigation
 displayed is not active, with the exception of the `Orders` page, the `Users`
@@ -55,13 +70,12 @@ page and the `Logout` icon. The `Orders` page demonstrates a mock layout with
 side navigation. The `Users` page will let you manage users. The `Logout`
 icon executes a user logout. 
 
-API Access
-----------
+## API Access
 
 You can access the API to authenticate a user or manage users as well. The
 following examples use cURL to demonstrate the accessing the API:
 
-**Authenticate**
+#### Authentication
 
 ```bash
 curl -i -X POST -d"username=admin&password=password" \
@@ -91,7 +105,7 @@ Access-Control-Allow-Methods: HEAD, OPTIONS, GET, PUT, POST, PATCH, DELETE
 ```
 With that, you'll be able to continue accessing the API.
 
-**Validate the Token**
+#### Validate the Token
 
 ```bash
 curl -i -X POST --header "Authorization: Bearer 449d8625fb26753ebce8acbbf38ba2321dd21621" \
@@ -110,7 +124,7 @@ Access-Control-Allow-Methods: HEAD, OPTIONS, GET, PUT, POST, PATCH, DELETE
 
 ```
 
-**Refresh the Token**
+#### Refresh the Token
 
 ```bash
 curl -i -X POST --header "Authorization: Bearer 449d8625fb26753ebce8acbbf38ba2321dd21621" \
@@ -135,50 +149,49 @@ Access-Control-Allow-Methods: HEAD, OPTIONS, GET, PUT, POST, PATCH, DELETE
 
 ```
 
-**Get Users**
+#### Get Users
 
 ```bash
 curl -i -X GET --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b5796f08" \
     http://localhost:8000/api/users
 ```
 
-**Get a User**
+#### Get a User
 
 ```bash
 curl -i -X GET --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b5796f08" \
     http://localhost:8000/api/users/1
 ```
 
-**Create User**
+#### Create User
 
 ```bash
 curl -i -X PUT --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b5796f08" \
     -d"username=testuser1&password=123456" http://localhost:8000/api/users
 ```
 
-**Update a User**
+#### Update a User
 
 ```bash
 curl -i -X POST --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b5796f08" \
     -d"username=testuser1&active=1" http://localhost:8000/api/users/2
 ```
 
-**Delete a User**
+#### Delete a User
 
 ```bash
 curl -i -X DELETE --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b5796f08" \
     http://localhost:8000/api/users/2
 ```
 
-**Delete Users**
+#### Delete Users
 
 ```bash
 curl -i -X DELETE --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b5796f08" \
     -d"rm_users[]=2&rm_users=3" http://localhost:8000/api/users
 ```
 
-Console Access
---------------
+## Console Access
 
 The application comes with a simple console interface to assist
 with application management from the CLI as well. You can build
