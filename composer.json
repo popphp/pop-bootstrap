@@ -1,7 +1,7 @@
 {
     "name": "popphp/pop-bootstrap",
     "description": "A skeleton application for the Pop Web Application Framework, using Bootstrap Material Icons and Font Awesome frameworks.",
-    "license": "New BSD",
+    "license": "BSD-3-Clause",
     "authors": [
         {
             "name": "Nick Sagona",
