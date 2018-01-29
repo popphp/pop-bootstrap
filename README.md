@@ -2,8 +2,8 @@
 
 Release Information
 -------------------
-Version 4.0.0  
-September 6, 2017
+Version 4.0.1  
+January 29, 2018
 
 Overview
 --------

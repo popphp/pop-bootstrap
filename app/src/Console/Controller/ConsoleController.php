@@ -24,7 +24,7 @@ use Pop\Console\Console;
  * @link       https://github.com/popphp/pop-bootstrap
  * @author     Nick Sagona, III <nick@nolainteractive.com>
  * @copyright  Copyright (c) 2012-2018 NOLA Interactive, LLC. (http://www.nolainteractive.com)
- * @version    4.0.0
+ * @version    4.0.1
  */
 class ConsoleController extends \Pop\Controller\AbstractController
 {

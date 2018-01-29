@@ -21,7 +21,7 @@ namespace App\Model;
  * @link       https://github.com/popphp/pop-bootstrap
  * @author     Nick Sagona, III <nick@nolainteractive.com>
  * @copyright  Copyright (c) 2012-2018 NOLA Interactive, LLC. (http://www.nolainteractive.com)
- * @version    4.0.0
+ * @version    4.0.1
  */
 abstract class AbstractModel implements \ArrayAccess, \IteratorAggregate
 {
