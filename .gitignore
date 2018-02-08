@@ -1,6 +1,7 @@
 /app/config/database/mysql.php
 /logs
 composer.lock
+package-lock.json
 vendor
 /public/assets/fonts
 /public/assets/app.*
