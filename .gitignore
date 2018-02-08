@@ -1,6 +1,8 @@
 /app/config/database/mysql.php
-/app/config/database/pgsql.php
-/app/config/database/sqlite.php
 /logs
 composer.lock
 vendor
+/public/assets/fonts
+/public/assets/app.*
+/node_modules
+/npm-debug.log
