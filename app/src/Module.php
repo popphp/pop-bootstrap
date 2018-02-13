@@ -28,7 +28,7 @@ use Pop\View\View;
  * @link       https://github.com/popphp/pop-bootstrap
  * @author     Nick Sagona, III <nick@nolainteractive.com>
  * @copyright  Copyright (c) 2012-2018 NOLA Interactive, LLC. (http://www.nolainteractive.com)
- * @version    4.0.1
+ * @version    4.1.0
  */
 class Module extends \Pop\Module\Module
 {
@@ -37,7 +37,7 @@ class Module extends \Pop\Module\Module
      * Application version
      * @var string
      */
-    const VERSION = '4.0.1';
+    const VERSION = '4.1.0';
 
     /**
      * Module name

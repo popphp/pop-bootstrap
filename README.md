@@ -2,8 +2,8 @@
 
 Release Information
 -------------------
-Version 4.0.1  
-January 29, 2018
+Version 4.1.0  
+February 13, 2018
 
 Overview
 --------
@@ -176,14 +176,14 @@ curl -i -X GET --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b
 ###### Create User
 
 ```bash
-curl -i -X PUT --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b5796f08" \
+curl -i -X POST --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b5796f08" \
     -d"username=testuser1&password=123456" http://localhost:8000/api/users
 ```
 
 ###### Update a User
 
 ```bash
-curl -i -X POST --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b5796f08" \
+curl -i -X PUT --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b5796f08" \
     -d"username=testuser1&active=1" http://localhost:8000/api/users/2
 ```
 

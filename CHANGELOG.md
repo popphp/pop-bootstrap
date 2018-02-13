@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+## 4.1.0
+
+* Migrated JS/CSS and UI elements to nodejs.
+
 ## 4.0.0
 
 The focus of this version was to strip the application down to simple, core

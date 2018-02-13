@@ -24,7 +24,7 @@ use Pop\Db\Db;
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2018 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    4.0.1
+ * @version    4.1.0
  */
 class Composer
 {

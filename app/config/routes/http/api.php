@@ -8,9 +8,9 @@ return [
         ]
     ],
     'options,put' => [
-        '/api/users[/]' => [
+        '/api/users/:id' => [
             'controller' => 'App\Http\Api\Controller\UsersController',
-            'action'     => 'create'
+            'action'     => 'update'
         ]
     ],
     'options,post' => [
@@ -30,9 +30,9 @@ return [
             'controller' => 'App\Http\Api\Controller\TokenController',
             'action'     => 'revoke'
         ],
-        '/api/users/:id' => [
+        '/api/users[/]' => [
             'controller' => 'App\Http\Api\Controller\UsersController',
-            'action'     => 'update'
+            'action'     => 'create'
         ]
     ],
     'options,delete' => [
