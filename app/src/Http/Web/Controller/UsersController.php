@@ -13,7 +13,7 @@
  */
 namespace App\Http\Web\Controller;
 
-use App\Auth\Model\AuthUser;
+use App\Users\Model\User;
 use App\Http\Web\Form;
 
 /**
@@ -36,7 +36,7 @@ class UsersController extends AbstractController
      */
     public function index()
     {
-        $users = new AuthUser();
+        $users = new User();
         $sess  = $this->application->services['session'];
 
         $this->prepareView('users/index.phtml');
@@ -48,32 +48,33 @@ class UsersController extends AbstractController
     }
 
     /**
-     * Users add action method
+     * Users create action method
      *
      * @return void
      */
-    public function add()
+    public function create()
     {
         $sess = $this->application->services['session'];
 
         $this->prepareView('users/add.phtml');
         $this->view->title    = 'Users : Add';
         $this->view->username = $sess->user->username;
-        $this->view->form     = Form\User::createFromFieldsetConfig($this->application->config()['forms']['App\Web\Form\User']);
+        $this->view->form     = Form\User::createFromFieldsetConfig($this->application->config()['forms']['App\Http\Web\Form\User']);
         $this->view->form->addColumn(1, 'form-left-column');
         $this->view->form->addColumn([2, 3], 'form-right-column');
 
         if ($this->request->isPost()) {
             $this->view->form->addFilter('strip_tags')
                  ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8', false])
-                 ->setFieldValues($this->request->getPost());
+                 ->setFieldValues($this->request->getPost())
+                 ->addValidators();
 
             if ($this->view->form->isValid()) {
                 $this->view->form->clearFilters()
                      ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
                      ->filterValues();
 
-                $user = new AuthUser();
+                $user = new User();
                 $user->save($this->view->form);
 
                 $this->redirect('/users/' . $user->id);
@@ -84,14 +85,14 @@ class UsersController extends AbstractController
     }
 
     /**
-     * Users edit action method
+     * Users update action method
      *
      * @param  int $id
      * @return void
      */
-    public function edit($id)
+    public function update($id)
     {
-        $user = (new AuthUser())->getById($id);
+        $user = (new User())->getById($id);
 
         if (!isset($user->id)) {
             $this->redirect('/users');
@@ -102,7 +103,7 @@ class UsersController extends AbstractController
         $this->prepareView('users/edit.phtml');
         $this->view->title    = 'Users : ' . $user->username;
         $this->view->username = $sess->user->username;
-        $this->view->form     = Form\User::createFromFieldsetConfig($this->application->config()['forms']['App\Web\Form\User']);
+        $this->view->form     = Form\User::createFromFieldsetConfig($this->application->config()['forms']['App\Http\Web\Form\User']);
         $this->view->form->addColumn(1, 'form-left-column');
         $this->view->form->addColumn([2, 3], 'form-right-column');
         $this->view->form->setFieldValues($user->toArray());
@@ -110,14 +111,15 @@ class UsersController extends AbstractController
         if ($this->request->isPost()) {
             $this->view->form->addFilter('strip_tags')
                  ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8', false])
-                 ->setFieldValues($this->request->getPost());
+                 ->setFieldValues($this->request->getPost())
+                 ->addValidators();
 
             if ($this->view->form->isValid()) {
                 $this->view->form->clearFilters()
                      ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
                      ->filterValues();
 
-                $user = new AuthUser();
+                $user = new User();
                 $user->update($id, $this->view->form);
 
                 $this->redirect('/users/' . $id);
@@ -128,14 +130,14 @@ class UsersController extends AbstractController
     }
 
     /**
-     * Users remove action method
+     * Users delete action method
      *
      * @return void
      */
-    public function remove()
+    public function delete()
     {
         if (null !== $this->request->getPost('rm_users')) {
-            $user = new AuthUser();
+            $user = new User();
             $user->remove($this->request->getPost('rm_users'));
         }
         $this->redirect('/users');

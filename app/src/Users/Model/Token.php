@@ -11,13 +11,13 @@
 /**
  * @namespace
  */
-namespace App\Auth\Model;
+namespace App\Users\Model;
 
 use App\Model\AbstractModel;
-use App\Auth\Table;
+use App\Users\Table;
 
 /**
- * Auth token model class
+ * Token model class
  *
  * @category   App
  * @package    App
@@ -26,7 +26,7 @@ use App\Auth\Table;
  * @copyright  Copyright (c) 2012-2018 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @version    4.1.0
  */
-class AuthToken extends AbstractModel
+class Token extends AbstractModel
 {
 
     /**
@@ -51,7 +51,7 @@ class AuthToken extends AbstractModel
         if (substr($tokenValue, 0, 7) == 'Bearer ') {
             $tokenValue = substr($tokenValue, 7);
         }
-        $token = new Table\AuthTokens();
+        $token = new Table\Tokens();
         $token->delete(['token' => $tokenValue]);
     }
 
@@ -66,10 +66,10 @@ class AuthToken extends AbstractModel
     {
         $userData = [];
 
-        $user = Table\AuthUsers::findById($id);
+        $user = Table\Users::findById($id);
 
         if (isset($user->id) && ($user->active)) {
-            $token = Table\AuthTokens::findOne(['user_id' => $id]);
+            $token = Table\Tokens::findOne(['user_id' => $id]);
             if (isset($token->token)) {
                 if (((int)$token->expires > 0) && (time() >= (int)$token->expires)) {
                     $token->delete();
@@ -101,7 +101,7 @@ class AuthToken extends AbstractModel
             $tokenValue = substr($tokenValue, 7);
         }
 
-        $token = Table\AuthTokens::findOne(['token' => $tokenValue]);
+        $token = Table\Tokens::findOne(['token' => $tokenValue]);
         return (isset($token->token)) ? $token->expires : 0;
     }
 
@@ -119,7 +119,7 @@ class AuthToken extends AbstractModel
             $tokenValue = substr($tokenValue, 7);
         }
 
-        $token = Table\AuthTokens::findOne(['token' => $tokenValue]);
+        $token = Table\Tokens::findOne(['token' => $tokenValue]);
         $userId = $token->user_id;
         $token->delete();
 
@@ -145,10 +145,10 @@ class AuthToken extends AbstractModel
         }
 
         $userData = [];
-        $token    = Table\AuthTokens::findOne(['token' => $tokenValue]);
+        $token    = Table\Tokens::findOne(['token' => $tokenValue]);
 
         if (!empty($token->user_id)) {
-            $user = Table\AuthUsers::findById($token->user_id);
+            $user = Table\Users::findById($token->user_id);
             if (isset($user->id)) {
                 $userData['id']       = $user->id;
                 $userData['username'] = $user->username;
@@ -174,9 +174,9 @@ class AuthToken extends AbstractModel
         }
 
         $result = false;
-        $token  = Table\AuthTokens::findOne(['token' => $tokenValue]);
+        $token  = Table\Tokens::findOne(['token' => $tokenValue]);
         if (!empty($token->user_id)) {
-            $user   = Table\AuthUsers::findById($token->user_id);
+            $user   = Table\Users::findById($token->user_id);
             $result = (isset($user->id) && ($user->active));
         }
 
@@ -207,7 +207,7 @@ class AuthToken extends AbstractModel
             $tokenValue = substr($tokenValue, 7);
         }
 
-        return (isset(Table\AuthTokens::findOne(['token' => $tokenValue])->token));
+        return (isset(Table\Tokens::findOne(['token' => $tokenValue])->token));
     }
 
     /**
@@ -224,7 +224,7 @@ class AuthToken extends AbstractModel
         }
 
         $result = true;
-        $token  = Table\AuthTokens::findOne(['token' => $tokenValue]);
+        $token  = Table\Tokens::findOne(['token' => $tokenValue]);
         if (isset($token->token)) {
             $result = !(((int)$token->expires == 0) || (time() < (int)$token->expires));
             if ((!$result) && ($count)) {
@@ -242,7 +242,7 @@ class AuthToken extends AbstractModel
      * @param  int    $id
      * @param  int    $expires
      * @param  string $refresh
-     * @return Table\AuthTokens
+     * @return Table\Tokens
      */
     public function createToken($id, $expires, $refresh = null)
     {
@@ -250,7 +250,7 @@ class AuthToken extends AbstractModel
             $refresh = sha1($id . '-refresh-' . (time() + (int)$expires));
         }
 
-        $token = new Table\AuthTokens([
+        $token = new Table\Tokens([
             'token'   => sha1($id . '-' . time()),
             'user_id' => $id,
             'refresh' => $refresh,

@@ -14,7 +14,7 @@
 namespace App\Http\Api\Event;
 
 use Pop\Application;
-use App\Auth\Model;
+use App\Users\Model;
 
 /**
  * Auth event class
@@ -50,7 +50,7 @@ class Auth
     public static function check(Application $application)
     {
         if ($application->modules['pop-bootstrap']->isApi()) {
-            $token     = new Model\AuthToken();
+            $token     = new Model\Token();
             $authToken = $application->router()->getController()->request()->getHeader('Authorization');
             $action    = $application->router()->getRouteMatch()->getAction();
             if (!self::isPublicAction($application->router()->getControllerClass(), $action) &&

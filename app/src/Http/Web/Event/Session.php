@@ -13,7 +13,7 @@
  */
 namespace App\Http\Web\Event;
 
-use App\Auth\Model;
+use App\Users\Model;
 use Pop\Application;
 use Pop\Http\Response;
 
@@ -62,7 +62,7 @@ class Session
                     exit();
                 } else if (!self::isAuth($sess, false) && !self::isPublicAction($application->router()->getControllerClass(), $action)) {
                     if (isset($sess->user)) {
-                        $user = new Model\AuthUser();
+                        $user = new Model\User();
                         $user->logout($sess, $application->services['cookie']);
                     }
                     Response::redirect('/login');
@@ -93,7 +93,7 @@ class Session
      */
     public static function isAuth(\Pop\Session\Session $sess, $count = true)
     {
-        return (isset($sess->user) && isset($sess->user->token) && (new Model\AuthToken())->validateToken($sess->user->token, $count));
+        return (isset($sess->user) && isset($sess->user->token) && (new Model\Token())->validateToken($sess->user->token, $count));
     }
 
 }

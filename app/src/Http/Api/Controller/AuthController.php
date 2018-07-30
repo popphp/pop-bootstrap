@@ -13,7 +13,7 @@
  */
 namespace App\Http\Api\Controller;
 
-use App\Auth\Model;
+use App\Users\Model;
 
 /**
  * Auth controller class
@@ -35,7 +35,7 @@ class AuthController extends AbstractController
      */
     public function auth()
     {
-        $user      = new Model\AuthUser();
+        $user      = new Model\User();
         $data      = $this->request->getParsedData();
         $code      = 401;
         $response  = null;
@@ -61,7 +61,7 @@ class AuthController extends AbstractController
         if ((null !== $username) && (null !== $password)) {
             $result = $user->authenticate($username, $password, $this->application->config['auth_attempts']);
             if ($result == 1) {
-                $token    = new Model\AuthToken();
+                $token    = new Model\Token();
                 $code     = 200;
                 $response = $token->getToken($user->id, $this->application->config()['token_expires']);
             } else if ($result == -1) {

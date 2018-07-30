@@ -11,12 +11,12 @@
 /**
  * @namespace
  */
-namespace App\Auth\Table;
+namespace App\Users\Table;
 
 use Pop\Db\Record;
 
 /**
- * Auth tokens table class
+ * Tokens table class
  *
  * @category   App
  * @package    App
@@ -25,7 +25,7 @@ use Pop\Db\Record;
  * @copyright  Copyright (c) 2012-2018 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @version    4.1.0
  */
-class AuthTokens extends Record
+class Tokens extends Record
 {
 
     /**

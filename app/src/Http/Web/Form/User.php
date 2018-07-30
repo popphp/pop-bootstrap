@@ -13,7 +13,7 @@
  */
 namespace App\Http\Web\Form;
 
-use App\Auth\Table;
+use App\Users\Table;
 use Pop\Form\Form;
 use Pop\Validator;
 
@@ -47,39 +47,29 @@ class User extends Form
     }
 
     /**
-     * Set the field values
+     * Add validators
      *
-     * @param  array $values
      * @return User
      */
-    public function setFieldValues(array $values = null)
+    public function addValidators()
     {
-        parent::setFieldValues($values);
-
-        if (($_POST) && (null !== $this->username)) {
-            // Check for dupe username and email
-            $user  = null;
-            $email = null;
+        if (null !== $this->username) {
+            // Check for dupe username
             if (!empty($this->username)) {
-                $user = Table\AuthUsers::findOne(['username' => $this->username]);
+                $user = Table\Users::findOne(['username' => $this->username]);
                 if (isset($user->id) && ($this->id != $user->id)) {
                     $this->getField('username')
                          ->addValidator(new Validator\NotEqual($this->username, 'That username already exists.'));
                 }
             }
 
-            // If existing user
-            if ((int)$_POST['id'] > 0) {
-                if (!empty($this->password)) {
-                    $this->getField('password2')
-                         ->setRequired(true)
-                         ->addValidator(new Validator\Equal($this->password, 'The passwords do not match.'));
-                }
-            // Else, if new user, check email and password matches
-            } else {
+            if (!empty($this->password)) {
+                $this->getField('password')
+                    ->addValidator(new \Pop\Validator\LengthGte(6, 'The password must be at least 6 characters.'));
+
                 $this->getField('password2')
-                     ->setRequired(true)
-                     ->addValidator(new Validator\Equal($this->password, 'The passwords do not match.'));
+                    ->setRequired(true)
+                    ->addValidator(new Validator\Equal($this->password, 'The passwords do not match.'));
             }
         }
 

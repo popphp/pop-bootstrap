@@ -11,15 +11,15 @@
 /**
  * @namespace
  */
-namespace App\Auth\Model;
+namespace App\Users\Model;
 
 use App\Model\AbstractModel;
-use App\Auth\Table;
+use App\Users\Table;
 use Pop\Cookie\Cookie;
 use Pop\Session\Session;
 
 /**
- * Auth model class
+ * User model class
  *
  * @category   App
  * @package    App
@@ -28,7 +28,7 @@ use Pop\Session\Session;
  * @copyright  Copyright (c) 2012-2018 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @version    4.1.0
  */
-class AuthUser extends AbstractModel
+class User extends AbstractModel
 {
 
     /**
@@ -42,7 +42,7 @@ class AuthUser extends AbstractModel
     public function authenticate($username, $password, $attempts = 0)
     {
         $result = 0;
-        $user   = Table\AuthUsers::findOne(['username' => $username]);
+        $user   = Table\Users::findOne(['username' => $username]);
 
         if (((int)$attempts > 0) && ((int)$user->attempts >= (int)$attempts)) {
             $result = -1;
@@ -74,7 +74,7 @@ class AuthUser extends AbstractModel
      */
     public function login(Session $session, Cookie $cookie, $expires)
     {
-        $token    = new AuthToken();
+        $token    = new Token();
         $userData = $token->getToken($this->id, $expires);
 
         $cookie->set('user', json_encode($userData));
@@ -92,7 +92,7 @@ class AuthUser extends AbstractModel
     public function logout(Session $session, Cookie $cookie, $revoke = null)
     {
         if ((int)$revoke == 1) {
-            $token = new AuthToken();
+            $token = new Token();
             $token->revoke($session->user->token);
         }
 
@@ -107,31 +107,31 @@ class AuthUser extends AbstractModel
      */
     public function getAll()
     {
-        $sql = Table\AuthUsers::getSql();
-        $sql->select(['id', 'username', 'active', 'attempts'])->from(Table\AuthUsers::table());
-        return Table\AuthUsers::query($sql);
+        $sql = Table\Users::getSql();
+        $sql->select(['id', 'username', 'active', 'attempts'])->from(Table\Users::table());
+        return Table\Users::query($sql);
     }
 
     /**
      * Get user by ID
      *
      * @param  int $id
-     * @return Table\AuthUsers
+     * @return Table\Users
      */
     public function getById($id)
     {
-        return Table\AuthUsers::findById($id);
+        return Table\Users::findById($id);
     }
 
     /**
      * Get user by username
      *
      * @param  string $username
-     * @return Table\AuthUsers
+     * @return Table\Users
      */
     public function getByUsername($username)
     {
-        return Table\AuthUsers::findOne(['username' => $username]);
+        return Table\Users::findOne(['username' => $username]);
     }
 
     /**
@@ -142,7 +142,7 @@ class AuthUser extends AbstractModel
      */
     public function save($user)
     {
-        $user = new Table\AuthUsers([
+        $user = new Table\Users([
             'username' => $user['username'],
             'password' => password_hash($user['password'], PASSWORD_BCRYPT),
             'active'   => (isset($user['active'])) ? (int)$user['active'] : 0,
@@ -165,7 +165,7 @@ class AuthUser extends AbstractModel
      */
     public function update($id, $user)
     {
-        $currentUser = Table\AuthUsers::findById($id);
+        $currentUser = Table\Users::findById($id);
 
         if (isset($currentUser->id)) {
             $password = (!empty($user['password'])) ?
@@ -192,7 +192,7 @@ class AuthUser extends AbstractModel
      */
     public function delete($id)
     {
-        $user = Table\AuthUsers::findById($id);
+        $user = Table\Users::findById($id);
 
         if (isset($user->id)) {
             $user->delete();
@@ -208,7 +208,7 @@ class AuthUser extends AbstractModel
     public function remove(array $ids)
     {
         foreach ($ids as $id) {
-            $user = Table\AuthUsers::findById($id);
+            $user = Table\Users::findById($id);
             if (isset($user->id)) {
                 $user->delete();
             }

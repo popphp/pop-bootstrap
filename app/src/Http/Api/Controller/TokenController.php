@@ -13,7 +13,7 @@
  */
 namespace App\Http\Api\Controller;
 
-use App\Auth\Model;
+use App\Users\Model;
 
 /**
  * Token controller class
@@ -35,7 +35,7 @@ class TokenController extends AbstractController
      */
     public function token()
     {
-        $token     = new Model\AuthToken();
+        $token     = new Model\Token();
         $authToken = $this->request->getHeader('Authorization');
         $code      = ((null !== $authToken) && ($token->validateToken($authToken))) ? 200 : 401;
 
@@ -49,7 +49,7 @@ class TokenController extends AbstractController
      */
     public function refresh()
     {
-        $token     = new Model\AuthToken();
+        $token     = new Model\Token();
         $authToken = $this->request->getHeader('Authorization');
         $refresh   = $this->request->getParsedData('refresh');
 

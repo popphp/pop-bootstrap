@@ -24,19 +24,19 @@ return [
             'controller' => 'App\Http\Web\Controller\IndexController',
             'action'     => 'login'
         ],
-        '/users/add[/]' => [
+        '/users/create[/]' => [
             'controller' => 'App\Http\Web\Controller\UsersController',
-            'action'     => 'add'
+            'action'     => 'create'
         ],
         '/users/:id' => [
             'controller' => 'App\Http\Web\Controller\UsersController',
-            'action'     => 'edit'
+            'action'     => 'update'
         ]
     ],
     'post' => [
-        '/users/remove[/]' => [
+        '/users/delete[/]' => [
             'controller' => 'App\Http\Web\Controller\UsersController',
-            'action'     => 'remove'
+            'action'     => 'delete'
         ]
     ]
 ];

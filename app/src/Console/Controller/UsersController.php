@@ -13,9 +13,9 @@
  */
 namespace App\Console\Controller;
 
-use App\Auth\Model\AuthUser;
-use App\Auth\Table\AuthTokens;
-use App\Auth\Table\AuthUsers;
+use App\Users\Model\User;
+use App\Users\Table\Tokens;
+use App\Users\Table\Users;
 use Pop\Console\Console;
 
 /**
@@ -38,7 +38,7 @@ class UsersController extends ConsoleController
      */
     public function index()
     {
-        $users = (new AuthUser())->getAll();
+        $users = (new User())->getAll();
 
         foreach ($users as $user) {
             $this->console->append($user->id . "\t" . $user->username);
@@ -55,14 +55,14 @@ class UsersController extends ConsoleController
     public function add()
     {
         $username = $this->console->prompt('Enter Username: ');
-        $dupeUser = AuthUsers::findOne(['username' => $username]);
+        $dupeUser = Users::findOne(['username' => $username]);
 
         while (($username == '') || isset($dupeUser->id)) {
             if (isset($dupeUser->id)) {
                 $this->console->write($this->console->colorize('That username already exists.', Console::BOLD_RED));
             }
             $username = $this->console->prompt('Enter Username: ');
-            $dupeUser = AuthUsers::findOne(['username' => $username]);
+            $dupeUser = Users::findOne(['username' => $username]);
         }
 
         $password = '';
@@ -75,7 +75,7 @@ class UsersController extends ConsoleController
             $active = $this->console->prompt('Active? (Y/N): ');
         }
 
-        $user = new AuthUser();
+        $user = new User();
         $user->save([
             'username' => $username,
             'password' => $password,
@@ -94,20 +94,20 @@ class UsersController extends ConsoleController
      */
     public function username($user)
     {
-        $u = (is_numeric($user)) ? AuthUsers::findById((int)$user) : AuthUsers::findOne(['username' => $user]);
+        $u = (is_numeric($user)) ? Users::findById((int)$user) : Users::findOne(['username' => $user]);
 
         if (!isset($u->id)) {
             $this->console->write($this->console->colorize('That user does not exist.', Console::BOLD_RED));
         } else {
             $username = $this->console->prompt('Enter New Username: ');
-            $dupeUser = AuthUsers::findOne(['username' => $username, 'id!=' => $u->id]);
+            $dupeUser = Users::findOne(['username' => $username, 'id!=' => $u->id]);
 
             while (($username == '') || isset($dupeUser->id)) {
                 if (isset($dupeUser->id)) {
                     $this->console->write($this->console->colorize('That username already exists.', Console::BOLD_RED));
                 }
                 $username = $this->console->prompt('Enter New Username: ');
-                $dupeUser = AuthUsers::findOne(['username' => $username, 'id!=' => $u->id]);
+                $dupeUser = Users::findOne(['username' => $username, 'id!=' => $u->id]);
             }
             $u->username = $username;
             $u->save();
@@ -123,7 +123,7 @@ class UsersController extends ConsoleController
      */
     public function password($user)
     {
-        $u = (is_numeric($user)) ? AuthUsers::findById((int)$user) : AuthUsers::findOne(['username' => $user]);
+        $u = (is_numeric($user)) ? Users::findById((int)$user) : Users::findOne(['username' => $user]);
 
         if (!isset($u->id)) {
             $this->console->write($this->console->colorize('That user does not exist.', Console::BOLD_RED));
@@ -146,7 +146,7 @@ class UsersController extends ConsoleController
      */
     public function activate($user)
     {
-        $u = (is_numeric($user)) ? AuthUsers::findById((int)$user) : AuthUsers::findOne(['username' => $user]);
+        $u = (is_numeric($user)) ? Users::findById((int)$user) : Users::findOne(['username' => $user]);
         if (!isset($u->id)) {
             $this->console->write($this->console->colorize('That user does not exist.', Console::BOLD_RED));
         } else {
@@ -164,7 +164,7 @@ class UsersController extends ConsoleController
      */
     public function deactivate($user)
     {
-        $u = (is_numeric($user)) ? AuthUsers::findById((int)$user) : AuthUsers::findOne(['username' => $user]);
+        $u = (is_numeric($user)) ? Users::findById((int)$user) : Users::findOne(['username' => $user]);
         if (!isset($u->id)) {
             $this->console->write($this->console->colorize('That user does not exist.', Console::BOLD_RED));
         } else {
@@ -182,7 +182,7 @@ class UsersController extends ConsoleController
      */
     public function clear($user)
     {
-        $u = (is_numeric($user)) ? AuthUsers::findById((int)$user) : AuthUsers::findOne(['username' => $user]);
+        $u = (is_numeric($user)) ? Users::findById((int)$user) : Users::findOne(['username' => $user]);
         if (!isset($u->id)) {
             $this->console->write($this->console->colorize('That user does not exist.', Console::BOLD_RED));
         } else {
@@ -201,9 +201,9 @@ class UsersController extends ConsoleController
     public function revoke($user)
     {
         $id = (!is_numeric($user)) ?
-            (int)AuthUsers::findOne(['username' => $user])->id : (int)$user;
+            (int)Users::findOne(['username' => $user])->id : (int)$user;
 
-        $token = new AuthTokens();
+        $token = new Tokens();
         $token->delete(['user_id' => $id]);
 
         $this->console->write($this->console->colorize('That user has been revoked.', Console::BOLD_RED));
@@ -217,7 +217,7 @@ class UsersController extends ConsoleController
      */
     public function remove($user)
     {
-        $u = (is_numeric($user)) ? AuthUsers::findById((int)$user) : AuthUsers::findOne(['username' => $user]);
+        $u = (is_numeric($user)) ? Users::findById((int)$user) : Users::findOne(['username' => $user]);
         if (!isset($u->id)) {
             $this->console->write($this->console->colorize('That user does not exist.', Console::BOLD_RED));
         } else {

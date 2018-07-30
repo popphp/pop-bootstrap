@@ -13,7 +13,7 @@
  */
 namespace App\Http\Web\Controller;
 
-use App\Auth;
+use App\Users;
 use App\Http\Web\Form;
 
 /**
@@ -71,7 +71,7 @@ class IndexController extends AbstractController
         $this->prepareView('login.phtml');
         $this->view->title = 'Please Login';
         $this->view->form  = Form\Login::createFromFieldsetConfig(
-            $this->application->config()['forms']['App\Web\Form\Login']
+            $this->application->config()['forms']['App\Http\Web\Form\Login']
         );
 
         if ($this->request->isPost()) {
@@ -81,7 +81,7 @@ class IndexController extends AbstractController
 
             $username = $this->view->form->username;
             $password = $this->view->form->password;
-            $authUser = new Auth\Model\AuthUser();
+            $authUser = new Users\Model\User();
             $result   = $authUser->authenticate($username, $password, $this->application->config['auth_attempts']);
 
             if ($result == 1) {
@@ -109,7 +109,7 @@ class IndexController extends AbstractController
      */
     public function logout()
     {
-        $authUser = new Auth\Model\AuthUser();
+        $authUser = new Users\Model\User();
         $authUser->logout(
             $this->application->services['session'],
             $this->application->services['cookie'],

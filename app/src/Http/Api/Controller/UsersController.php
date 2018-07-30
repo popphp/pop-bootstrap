@@ -13,8 +13,8 @@
  */
 namespace App\Http\Api\Controller;
 
-use App\Auth\Model;
-use App\Auth\Table;
+use App\Users\Model;
+use App\Users\Table;
 use Pop\Http\Response;
 
 /**
@@ -40,11 +40,11 @@ class UsersController extends AbstractController
     {
         if (null === $id) {
             $json  = [
-                'users' => (new Model\AuthUser())->getAll()->toArray()
+                'users' => (new Model\User())->getAll()->toArray()
             ];
             $this->send(200, $json);
         } else {
-            $user = (new Model\AuthUser())->getById($id);
+            $user = (new Model\User())->getById($id);
             if (isset($user->id)) {
                 $u = $user->toArray();
                 unset($u['password']);
@@ -67,11 +67,11 @@ class UsersController extends AbstractController
         if (empty($data['username']) || empty($data['password'])) {
             $this->send(400, ['code' => 400, 'message' => Response::getMessageFromCode(400)]);
         } else {
-            $dupeUser = (new Model\AuthUser())->getByUsername($data['username']);
+            $dupeUser = (new Model\User())->getByUsername($data['username']);
             if (isset($dupeUser->id)) {
                 $this->send(409, ['code' => 409, 'message' => Response::getMessageFromCode(409)]);
             } else {
-                $user = new Model\AuthUser();
+                $user = new Model\User();
                 $user->save($data);
 
                 if (!empty($user->id)) {
@@ -92,13 +92,13 @@ class UsersController extends AbstractController
     public function update($id)
     {
         $data = $this->request->getParsedData();
-        $user = (new Model\AuthUser())->getById($id);
+        $user = (new Model\User())->getById($id);
 
-        $dupe = Table\AuthUsers::findOne(['username' => $data['username'], 'id!=' => $id]);
+        $dupe = Table\Users::findOne(['username' => $data['username'], 'id!=' => $id]);
         if (isset($dupe->id)) {
             $this->send(409, ['code' => 409, 'message' => Response::getMessageFromCode(409)]);
         } else if (isset($user->id)) {
-            $user = new Model\AuthUser();
+            $user = new Model\User();
             $user->update($id, $data);
             $this->send(200, $user->toArray());
         } else {
@@ -115,12 +115,12 @@ class UsersController extends AbstractController
     public function delete($id = null)
     {
         $data = $this->request->getParsedData();
-        $user = new Model\AuthUser();
+        $user = new Model\User();
 
         if (null !== $id) {
-            $user = (new Model\AuthUser())->getById($id);
+            $user = (new Model\User())->getById($id);
             if (isset($user->id)) {
-                $u = new Model\AuthUser();
+                $u = new Model\User();
                 $u->delete($id);
                 $code = 204;
             } else {
