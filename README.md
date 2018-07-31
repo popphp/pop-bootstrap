@@ -2,8 +2,8 @@
 
 Release Information
 -------------------
-Version 4.1.0  
-February 13, 2018
+Version 4.1.1  
+July 31, 2018
 
 Overview
 --------
@@ -20,7 +20,8 @@ that allows access view a basic web interface, an API and also the console.
 * [API Access](#api-access)
     + [Authentication](#authentication)
     + [Validate the Token](#validate-the-token) 
-    + [Refresh the Token](#refresh-the-token)
+    + [Refresh the Token](#refresh-the-token) 
+    + [Revoke the Token](#revoke-the-token)
     + [Manage Users](#manage-users)
 * [Console Access](#console-access)
 
@@ -113,7 +114,7 @@ With that, you'll be able to continue accessing the API.
 
 ```bash
 curl -i -X POST --header "Authorization: Bearer 449d8625fb26753ebce8acbbf38ba2321dd21621" \
-    http://localhost:8000/api/auth/token/
+    http://localhost:8000/api/auth/token
 ```
 
 ```text
@@ -152,6 +153,27 @@ Access-Control-Allow-Methods: HEAD, OPTIONS, GET, PUT, POST, PATCH, DELETE
     "refresh": "a5bba1af879c64e591307b48e1fdd7f2d85cba5f",
     "expires": 1504754891
 }
+
+```
+
+[Top](#pop-bootstrap)
+
+#### Revoke the Token
+
+```bash
+curl -i -X POST --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b5796f08" \
+    http://localhost:8000/api/auth/token/revoke
+```
+
+```text
+HTTP/1.1 200 OK
+Host: localhost:8000
+Connection: close
+X-Powered-By: PHP/7.0.8
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization, Content-Type
+Access-Control-Allow-Methods: HEAD, OPTIONS, GET, PUT, POST, PATCH, DELETE
 
 ```
 

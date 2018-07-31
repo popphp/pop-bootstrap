@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+## 4.1.1
+
+* Refactor namespace.
+
 ## 4.1.0
 
 * Migrated JS/CSS and UI elements to nodejs.
