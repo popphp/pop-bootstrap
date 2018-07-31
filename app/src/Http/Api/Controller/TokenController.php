@@ -78,7 +78,7 @@ class TokenController extends AbstractController
      */
     public function revoke()
     {
-        $token     = new Model\AuthToken();
+        $token     = new Model\Token();
         $authToken = $this->request->getHeader('Authorization');
         if ((null !== $authToken) && ($token->validateToken($authToken))) {
             $token->revoke($authToken);

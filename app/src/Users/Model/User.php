@@ -187,8 +187,8 @@ class User extends AbstractModel
     /**
      * Delete an existing user
      *
-     * @param  int   $id
-     * @return void
+     * @param  int $id
+     * @return int
      */
     public function delete($id)
     {
@@ -196,6 +196,9 @@ class User extends AbstractModel
 
         if (isset($user->id)) {
             $user->delete();
+            return 204;
+        } else {
+            return 404;
         }
     }
 

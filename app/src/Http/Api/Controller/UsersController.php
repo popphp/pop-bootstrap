@@ -118,14 +118,7 @@ class UsersController extends AbstractController
         $user = new Model\User();
 
         if (null !== $id) {
-            $user = (new Model\User())->getById($id);
-            if (isset($user->id)) {
-                $u = new Model\User();
-                $u->delete($id);
-                $code = 204;
-            } else {
-                $code = 404;
-            }
+            $code = $user->delete($id);
         } else if (isset($data['rm_users']) && is_array($data['rm_users'])) {
             $user->remove($data['rm_users']);
             $code = 204;

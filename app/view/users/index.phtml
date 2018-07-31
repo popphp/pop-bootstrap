@@ -5,10 +5,10 @@
         <div class="col-md-12 main-dashboard">
             <h1 class="users-header"><i class="material-icons">group</i><?=$title; ?></h1>
             <nav class="sub-nav">
-                <a class="btn btn-info btn-sm text-uppercase" href="/users/add" title="Add User"><i class="material-icons">person_add</i></a>
+                <a class="btn btn-info btn-sm text-uppercase" href="/users/create" title="Add User"><i class="material-icons">person_add</i></a>
             </nav>
 <?php if (isset($users) && (count($users) > 0)): ?>
-            <form action="/users/remove" method="post">
+            <form action="/users/delete" method="post">
 <?php endif; ?>
             <table class="table table-striped table-hover">
                 <thead>

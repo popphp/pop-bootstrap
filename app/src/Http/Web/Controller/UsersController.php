@@ -56,8 +56,8 @@ class UsersController extends AbstractController
     {
         $sess = $this->application->services['session'];
 
-        $this->prepareView('users/add.phtml');
-        $this->view->title    = 'Users : Add';
+        $this->prepareView('users/create.phtml');
+        $this->view->title    = 'Users : Create';
         $this->view->username = $sess->user->username;
         $this->view->form     = Form\User::createFromFieldsetConfig($this->application->config()['forms']['App\Http\Web\Form\User']);
         $this->view->form->addColumn(1, 'form-left-column');
@@ -100,7 +100,7 @@ class UsersController extends AbstractController
 
         $sess = $this->application->services['session'];
 
-        $this->prepareView('users/edit.phtml');
+        $this->prepareView('users/update.phtml');
         $this->view->title    = 'Users : ' . $user->username;
         $this->view->username = $sess->user->username;
         $this->view->form     = Form\User::createFromFieldsetConfig($this->application->config()['forms']['App\Http\Web\Form\User']);
