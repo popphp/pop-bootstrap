@@ -3,7 +3,7 @@
 <?php include __DIR__ . '/../inc/nav.phtml'; ?>
     <div class="container-fluid">
         <div class="col-md-12 main-dashboard">
-            <h1 class="users-header"><i class="material-icons">group</i><?=$title; ?></h1>
+            <h1 class="users-header"><i class="material-icons header-icon">group</i><?=$title; ?></h1>
             <nav class="sub-nav">
                 <a class="btn btn-info btn-sm text-uppercase" href="/users/create" title="Add User"><i class="material-icons">person_add</i></a>
             </nav>
@@ -13,10 +13,10 @@
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
-                    <th>&nbsp;</th>
                     <th class="table-sm">#</th>
                     <th>Username</th>
                     <th class="table-sm">Active</th>
+                    <th>&nbsp;</th>
                     <th>&nbsp;</th>
                 </tr>
                 </thead>
@@ -24,10 +24,10 @@
 <?php if (isset($users) && (count($users) > 0)): ?>
 <?php foreach ($users as $user): ?>
                 <tr>
-                    <td><a class="gray-link" href="/users/<?=$user->id; ?>"><i class="material-icons edit-icon-md">edit</i></a></td>
                     <td class="table-sm"><?=$user->id; ?></td>
                     <td><?=$user->username; ?></td>
                     <td class="table-sm"><?=($user->active) ? 'Yes' : 'No'; ?></td>
+                    <td><a class="gray-link" href="/users/<?=$user->id; ?>"><i class="fa fa-pencil fa-lg"></i></a></td>
                     <td><?php if ($userId != $user->id): ?><input type="checkbox" name="rm_users[]" value="<?=$user->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
                 </tr>
 <?php endforeach; ?>
@@ -40,7 +40,7 @@
             </table>
 <?php if (isset($users) && (count($users) > 0)): ?>
             <div class="form-footer">
-                <input type="submit" name="submit" class="btn btn-md btn-primary text-uppercase" value="Remove" />
+                <input type="submit" name="submit" class="btn btn-md btn-danger text-uppercase" value="Delete" />
             </div>
             </form>
 <?php endif; ?>

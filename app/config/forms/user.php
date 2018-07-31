@@ -57,7 +57,7 @@ return [
             'type'       => 'submit',
             'value'      => 'Save',
             'attributes' => [
-                'class'  => 'btn btn-md btn-info btn-block text-uppercase'
+                'class'  => 'btn btn-md btn-info btn-block btn-save text-uppercase'
             ]
         ]
     ]

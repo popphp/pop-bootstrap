@@ -550,6 +550,12 @@ a.home {
   background-color: $main-sub-sub-nav-hover-bg-color;
 }
 
+.header-icon {
+  float: left;
+  margin: 5px 5px 0 0;
+  font-size: 1.0em;
+}
+
 .icon-sm {
   font-size: 1.5em;
 }
@@ -619,7 +625,6 @@ a.home {
   font-size: 1.3em;
 }
 
-
 .btn-nav > nav > a > i.fa {
   position: relative;
   padding-left: 2px;
@@ -680,19 +685,19 @@ a.home {
 }
 .form-left-column {
   margin: 0;
-  padding: 0 30px 0 0;
-  width: calc(100% - 230px);
+  padding: 0 30px 25px 0;
+  width: calc(100% - 215px);
   float: left;
-  overflow: auto;
-  border-right: solid 1px #dcdcdc; }
+  border-right: solid 1px #dcdcdc;
+}
 
 .form-right-column {
   position: relative;
-  margin: 0 0 0 30px;
+  margin: 28px 0 0 30px;
   padding: 50px 0 0 0;
-  width: 200px;
+  width: 180px;
   float: right;
-  overflow: auto; }
+}
 
 .form-right-column > fieldset:last-child {
   position: absolute;
