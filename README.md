@@ -41,6 +41,13 @@ take you through the installation steps automatically:
 
 ```console
 $ composer create-project popphp/pop-bootstrap project-folder
+$ cd project-folder
+$ npm install
+$ npm run build
+```
+
+```console
+$ cd project-folder
 ```
 
 [Top](#pop-bootstrap)
