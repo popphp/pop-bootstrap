@@ -46,10 +46,6 @@ $ npm install
 $ npm run build
 ```
 
-```console
-$ cd project-folder
-```
-
 [Top](#pop-bootstrap)
 
 ## Getting Started
