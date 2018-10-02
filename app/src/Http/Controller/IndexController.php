@@ -38,7 +38,7 @@ class IndexController extends AbstractController
         $response = ['code' => 404, 'message' => 'Not Found'];
 
         if (stripos($this->request->getHeader('Accept'), 'text/html') !== false) {
-            $view = new View(__DIR__ . '/../../view/error.phtml', $response);
+            $view = new View(__DIR__ . '/../../../view/error.phtml', $response);
             $view->title = 'Error: ' .  $response['code'] . ' ' . $response['message'];
             if ($this->application->services->isLoaded('session')) {
                 $sess = $this->application->services['session'];
