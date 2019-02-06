@@ -51,6 +51,7 @@ class UsersController extends AbstractController
     /**
      * Users create action method
      *
+     * @throws \Pop\Db\Exception
      * @return void
      */
     public function create()
@@ -60,7 +61,7 @@ class UsersController extends AbstractController
         $this->prepareView('users/create.phtml');
         $this->view->title    = 'Users : Create';
         $this->view->username = $sess->user->username;
-        $this->view->form     = Form\User::createFromFieldsetConfig($this->application->config()['forms']['App\Http\Web\Form\User']);
+        $this->view->form     = Form\User::createFromFieldsetConfig($this->application->config['forms']['App\Http\Web\Form\User']);
         $this->view->form->addColumn(1, 'form-left-column');
         $this->view->form->addColumn([2, 3], 'form-right-column');
 
@@ -104,7 +105,7 @@ class UsersController extends AbstractController
         $this->prepareView('users/update.phtml');
         $this->view->title    = 'Users : ' . $user->username;
         $this->view->username = $sess->user->username;
-        $this->view->form     = Form\User::createFromFieldsetConfig($this->application->config()['forms']['App\Http\Web\Form\User']);
+        $this->view->form     = Form\User::createFromFieldsetConfig($this->application->config['forms']['App\Http\Web\Form\User']);
         $this->view->form->addColumn(1, 'form-left-column');
         $this->view->form->addColumn([2, 3], 'form-right-column');
         $this->view->form->setFieldValues($user->toArray());

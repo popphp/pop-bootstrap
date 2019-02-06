@@ -83,13 +83,13 @@ class IndexController extends AbstractController
             $username = $this->view->form->username;
             $password = $this->view->form->password;
             $authUser = new Users\Model\User();
-            $result   = $authUser->authenticate($username, $password, $this->application->config()['auth_attempts']);
+            $result   = $authUser->authenticate($username, $password, $this->application->config['auth_attempts']);
 
             if ($result == 1) {
                 $authUser->login(
                     $this->application->services['session'],
                     $this->application->services['cookie'],
-                    $this->application->config()['token_expires']
+                    $this->application->config['token_expires']
                 );
                 $this->redirect('/');
             } else {
@@ -106,6 +106,7 @@ class IndexController extends AbstractController
     /**
      * Logout action method
      *
+     * @throws \Pop\Db\Exception
      * @return void
      */
     public function logout()

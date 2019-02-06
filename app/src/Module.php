@@ -52,6 +52,8 @@ class Module extends \Pop\Module\Module
      * @throws \Pop\Db\Adapter\Exception
      * @throws \Pop\Http\Exception
      * @throws \Pop\Service\Exception
+     * @throws \Pop\Module\Exception
+     * @throws \ReflectionException
      * @return Module
      */
     public function register(Application $application)
@@ -220,6 +222,7 @@ class Module extends \Pop\Module\Module
      * @param  array $database
      * @throws \Pop\Db\Adapter\Exception
      * @throws \Pop\Service\Exception
+     * @throws \ReflectionException
      * @return void
      */
     protected function initDb($database)

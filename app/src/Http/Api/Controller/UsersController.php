@@ -34,7 +34,9 @@ class UsersController extends AbstractController
      * Users index action method
      *
      * @param  int $id
+     * @throws \Pop\Event\Exception
      * @throws \Pop\Http\Exception
+     * @throws \ReflectionException
      * @return void
      */
     public function index($id = null)
@@ -60,7 +62,9 @@ class UsersController extends AbstractController
      * Users create action method
      *
      * @throws \Pop\Db\Exception
+     * @throws \Pop\Event\Exception
      * @throws \Pop\Http\Exception
+     * @throws \ReflectionException
      * @return void
      */
     public function create()
@@ -90,7 +94,9 @@ class UsersController extends AbstractController
      * Users update action method
      *
      * @param  int $id
+     * @throws \Pop\Event\Exception
      * @throws \Pop\Http\Exception
+     * @throws \ReflectionException
      * @return void
      */
     public function update($id)
@@ -114,7 +120,9 @@ class UsersController extends AbstractController
      * Users delete action method
      *
      * @param  int $id
+     * @throws \Pop\Event\Exception
      * @throws \Pop\Http\Exception
+     * @throws \ReflectionException
      * @return void
      */
     public function delete($id = null)

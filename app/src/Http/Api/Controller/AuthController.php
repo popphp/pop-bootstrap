@@ -31,7 +31,10 @@ class AuthController extends AbstractController
     /**
      * Auth action method
      *
+     * @throws \Pop\Db\Exception
+     * @throws \Pop\Event\Exception
      * @throws \Pop\Http\Exception
+     * @throws \ReflectionException
      * @return void
      */
     public function auth()

@@ -61,6 +61,7 @@ class Token extends AbstractModel
      *
      * @param  int $id
      * @param  int $expires
+     * @throws \Pop\Db\Exception
      * @return array
      */
     public function getToken($id, $expires)
@@ -111,7 +112,8 @@ class Token extends AbstractModel
      *
      * @param  string $tokenValue
      * @param  string $refresh
-     * @param  int    $expires
+     * @param  int $expires
+     * @throws \Pop\Db\Exception
      * @return array
      */
     public function refreshToken($tokenValue, $refresh, $expires)

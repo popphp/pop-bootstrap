@@ -50,6 +50,7 @@ class UsersController extends AbstractController
     /**
      * Users add command
      *
+     * @throws \Pop\Db\Exception
      * @return void
      */
     public function add()
