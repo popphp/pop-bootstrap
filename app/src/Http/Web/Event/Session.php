@@ -43,6 +43,8 @@ class Session
      * Check for the user session
      *
      * @param  Application $application
+     * @throws \Pop\Db\Exception
+     * @throws \Pop\Http\Exception
      * @return void
      */
     public static function check(Application $application)

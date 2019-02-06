@@ -31,6 +31,7 @@ class AuthController extends AbstractController
     /**
      * Auth action method
      *
+     * @throws \Pop\Http\Exception
      * @return void
      */
     public function auth()
@@ -59,7 +60,7 @@ class AuthController extends AbstractController
         }
 
         if ((null !== $username) && (null !== $password)) {
-            $result = $user->authenticate($username, $password, $this->application->config['auth_attempts']);
+            $result = $user->authenticate($username, $password, $this->application->config()['auth_attempts']);
             if ($result == 1) {
                 $token    = new Model\Token();
                 $code     = 200;

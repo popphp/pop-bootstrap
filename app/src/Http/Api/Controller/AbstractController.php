@@ -31,10 +31,11 @@ abstract class AbstractController extends \App\Http\Controller\AbstractControlle
     /**
      * Send response
      *
-     * @param  int    $code
-     * @param  mixed  $body
+     * @param  int $code
+     * @param  mixed $body
      * @param  string $message
-     * @param  array  $headers
+     * @param  array $headers
+     * @throws \Pop\Http\Exception
      * @return void
      */
     public function send($code = 200, $body = null, $message = null, array $headers = null)
@@ -63,9 +64,10 @@ abstract class AbstractController extends \App\Http\Controller\AbstractControlle
     /**
      * Send OPTIONS response
      *
-     * @param  int    $code
+     * @param  int $code
      * @param  string $message
-     * @param  array  $headers
+     * @param  array $headers
+     * @throws \Pop\Http\Exception
      * @return void
      */
     public function sendOptions($code = 200, $message = null, array $headers = null)
@@ -76,8 +78,9 @@ abstract class AbstractController extends \App\Http\Controller\AbstractControlle
     /**
      * Custom error handler method
      *
-     * @param  int    $code
+     * @param  int $code
      * @param  string $message
+     * @throws \Pop\Http\Exception
      * @return void
      */
     public function error($code = 404, $message = null)

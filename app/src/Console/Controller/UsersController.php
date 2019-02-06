@@ -28,7 +28,7 @@ use Pop\Console\Console;
  * @copyright  Copyright (c) 2012-2018 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @version    4.1.0
  */
-class UsersController extends ConsoleController
+class UsersController extends AbstractController
 {
 
     /**
@@ -196,6 +196,7 @@ class UsersController extends ConsoleController
      * Users revoke command
      *
      * @param  mixed $user
+     * @throws \Pop\Db\Exception
      * @return void
      */
     public function revoke($user)

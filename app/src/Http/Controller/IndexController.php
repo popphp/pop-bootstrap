@@ -31,6 +31,8 @@ class IndexController extends AbstractController
     /**
      * Error handler method
      *
+     * @throws \Pop\Http\Exception
+     * @throws \Pop\View\Exception
      * @return void
      */
     public function error()

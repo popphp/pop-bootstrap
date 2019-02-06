@@ -49,6 +49,7 @@ class User extends Form
     /**
      * Add validators
      *
+     * @throws \Pop\Form\Element\Exception
      * @return User
      */
     public function addValidators()

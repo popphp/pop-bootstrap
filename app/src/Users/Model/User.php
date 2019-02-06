@@ -13,9 +13,9 @@
  */
 namespace App\Users\Model;
 
-use App\Model\AbstractModel;
 use App\Users\Table;
 use Pop\Cookie\Cookie;
+use Pop\Model\AbstractModel;
 use Pop\Session\Session;
 
 /**
@@ -85,8 +85,9 @@ class User extends AbstractModel
      * Log out user from web session
      *
      * @param  Session $session
-     * @param  Cookie  $cookie
-     * @param  int     $revoke
+     * @param  Cookie $cookie
+     * @param  int $revoke
+     * @throws \Pop\Db\Exception
      * @return void
      */
     public function logout(Session $session, Cookie $cookie, $revoke = null)
@@ -138,6 +139,7 @@ class User extends AbstractModel
      * Save new user
      *
      * @param  mixed $user
+     * @throws \Pop\Db\Exception
      * @return void
      */
     public function save($user)

@@ -15,6 +15,7 @@ namespace App\Http\Web\Controller;
 
 use App\Users;
 use App\Http\Web\Form;
+use Pop\Form\Filter\Filter;
 
 /**
  * Web index controller class
@@ -75,14 +76,14 @@ class IndexController extends AbstractController
         );
 
         if ($this->request->isPost()) {
-            $this->view->form->addFilter('strip_tags')
-                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8', false])
+            $this->view->form->addFilter(new Filter('strip_tags'))
+                 ->addFilter(new Filter('htmlentities', [ENT_QUOTES, 'UTF-8', false]))
                  ->setFieldValues($this->request->getPost());
 
             $username = $this->view->form->username;
             $password = $this->view->form->password;
             $authUser = new Users\Model\User();
-            $result   = $authUser->authenticate($username, $password, $this->application->config['auth_attempts']);
+            $result   = $authUser->authenticate($username, $password, $this->application->config()['auth_attempts']);
 
             if ($result == 1) {
                 $authUser->login(

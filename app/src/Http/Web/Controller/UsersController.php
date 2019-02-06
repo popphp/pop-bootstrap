@@ -15,6 +15,7 @@ namespace App\Http\Web\Controller;
 
 use App\Users\Model\User;
 use App\Http\Web\Form;
+use Pop\Form\Filter\Filter;
 
 /**
  * Web users controller class
@@ -64,14 +65,14 @@ class UsersController extends AbstractController
         $this->view->form->addColumn([2, 3], 'form-right-column');
 
         if ($this->request->isPost()) {
-            $this->view->form->addFilter('strip_tags')
-                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8', false])
+            $this->view->form->addFilter(new Filter('strip_tags'))
+                 ->addFilter(new Filter('htmlentities', [ENT_QUOTES, 'UTF-8', false]))
                  ->setFieldValues($this->request->getPost())
                  ->addValidators();
 
             if ($this->view->form->isValid()) {
                 $this->view->form->clearFilters()
-                     ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
+                     ->addFilter(new Filter('html_entity_decode', [ENT_QUOTES, 'UTF-8']))
                      ->filterValues();
 
                 $user = new User();
@@ -109,14 +110,14 @@ class UsersController extends AbstractController
         $this->view->form->setFieldValues($user->toArray());
 
         if ($this->request->isPost()) {
-            $this->view->form->addFilter('strip_tags')
-                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8', false])
+            $this->view->form->addFilter(new Filter('strip_tags'))
+                 ->addFilter(new Filter('htmlentities', [ENT_QUOTES, 'UTF-8', false]))
                  ->setFieldValues($this->request->getPost())
                  ->addValidators();
 
             if ($this->view->form->isValid()) {
                 $this->view->form->clearFilters()
-                     ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
+                     ->addFilter(new Filter('html_entity_decode', [ENT_QUOTES, 'UTF-8']))
                      ->filterValues();
 
                 $user = new User();

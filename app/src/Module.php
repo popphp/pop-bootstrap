@@ -49,6 +49,9 @@ class Module extends \Pop\Module\Module
      * Register module
      *
      * @param  Application $application
+     * @throws \Pop\Db\Adapter\Exception
+     * @throws \Pop\Http\Exception
+     * @throws \Pop\Service\Exception
      * @return Module
      */
     public function register(Application $application)
@@ -69,6 +72,7 @@ class Module extends \Pop\Module\Module
     /**
      * Register HTTP
      *
+     * @throws \Pop\Http\Exception
      * @return void
      */
     public function registerHttp()
@@ -156,6 +160,8 @@ class Module extends \Pop\Module\Module
      * Custom error handler method
      *
      * @param  \Exception $exception
+     * @throws \Pop\Http\Exception
+     * @throws \Pop\View\Exception
      * @return void
      */
     public function error(\Exception $exception)
@@ -213,6 +219,7 @@ class Module extends \Pop\Module\Module
      *
      * @param  array $database
      * @throws \Pop\Db\Adapter\Exception
+     * @throws \Pop\Service\Exception
      * @return void
      */
     protected function initDb($database)

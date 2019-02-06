@@ -31,6 +31,7 @@ class TokenController extends AbstractController
     /**
      * Token action method
      *
+     * @throws \Pop\Http\Exception
      * @return void
      */
     public function token()
@@ -45,6 +46,7 @@ class TokenController extends AbstractController
     /**
      * Refresh action method
      *
+     * @throws \Pop\Http\Exception
      * @return void
      */
     public function refresh()
@@ -74,6 +76,8 @@ class TokenController extends AbstractController
     /**
      * Revoke action method
      *
+     * @throws \Pop\Db\Exception
+     * @throws \Pop\Http\Exception
      * @return void
      */
     public function revoke()

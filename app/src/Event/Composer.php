@@ -33,6 +33,7 @@ class Composer
      * Composer install method
      *
      * @param  mixed $event
+     * @throws \Pop\Db\Exception
      * @return void
      */
     public static function install($event)

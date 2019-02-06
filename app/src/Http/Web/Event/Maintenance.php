@@ -34,11 +34,13 @@ class Maintenance
      * Check for maintenance mode
      *
      * @param  Application $application
+     * @throws \Pop\Http\Exception
+     * @throws \Pop\View\Exception
      * @return void
      */
     public static function check(Application $application)
     {
-        if (($application->config['maintenance']) && ($application->modules['pop-bootstrap']->isWeb())) {
+        if (($application->config()['maintenance']) && ($application->modules['pop-bootstrap']->isWeb())) {
             $acceptHeader = $application->router()->getController()->request()->getHeader('Accept');
             if (stripos($acceptHeader, 'text/html') === false) {
                 $controller = new \App\Http\Api\Controller\IndexController(

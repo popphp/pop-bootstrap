@@ -13,8 +13,8 @@
  */
 namespace App\Users\Model;
 
-use App\Model\AbstractModel;
 use App\Users\Table;
+use Pop\Model\AbstractModel;
 
 /**
  * Token model class
@@ -44,6 +44,7 @@ class Token extends AbstractModel
      * Revoke user access
      *
      * @param  string $tokenValue
+     * @throws \Pop\Db\Exception
      * @return void
      */
     public function revoke($tokenValue)
@@ -239,9 +240,10 @@ class Token extends AbstractModel
     /**
      * Create token
      *
-     * @param  int    $id
-     * @param  int    $expires
+     * @param  int $id
+     * @param  int $expires
      * @param  string $refresh
+     * @throws \Pop\Db\Exception
      * @return Table\Tokens
      */
     public function createToken($id, $expires, $refresh = null)
