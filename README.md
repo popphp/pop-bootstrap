@@ -2,8 +2,8 @@
 
 Release Information
 -------------------
-Version 4.1.1  
-July 31, 2018
+Version 4.2.0
+February 6, 2019
 
 Overview
 --------
@@ -28,7 +28,7 @@ that allows access view a basic web interface, an API and also the console.
 
 ## Requirements
 
-* Minimum of PHP 7.0.0
+* Minimum of PHP 7.1.0
 * Apache 2+, IIS 7+, or any web server with URL rewrite support
 * MySQL 5.0+
 
@@ -94,7 +94,7 @@ like this:
 HTTP/1.1 200 OK
 Host: localhost:8000
 Connection: close
-X-Powered-By: PHP/7.0.8
+X-Powered-By: PHP/7.1.9
 Content-Type: application/json
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Headers: Authorization, Content-Type
@@ -124,7 +124,7 @@ curl -i -X POST --header "Authorization: Bearer 449d8625fb26753ebce8acbbf38ba232
 HTTP/1.1 200 OK
 Host: localhost:8000
 Connection: close
-X-Powered-By: PHP/7.0.8
+X-Powered-By: PHP/7.1.9
 Content-Type: application/json
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Headers: Authorization, Content-Type
@@ -145,7 +145,7 @@ curl -i -X POST --header "Authorization: Bearer 449d8625fb26753ebce8acbbf38ba232
 HTTP/1.1 200 OK
 Host: localhost:8000
 Connection: close
-X-Powered-By: PHP/7.0.8
+X-Powered-By: PHP/7.1.9
 Content-Type: application/json
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Headers: Authorization, Content-Type
@@ -172,7 +172,7 @@ curl -i -X POST --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1
 HTTP/1.1 200 OK
 Host: localhost:8000
 Connection: close
-X-Powered-By: PHP/7.0.8
+X-Powered-By: PHP/7.1.9
 Content-Type: application/json
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Headers: Authorization, Content-Type
@@ -223,7 +223,7 @@ curl -i -X DELETE --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640
 
 ```bash
 curl -i -X DELETE --header "Authorization: Bearer 8012796bbedb79fc4cecedcf174640f1b5796f08" \
-    -d"rm_users[]=2&rm_users=3" http://localhost:8000/api/users
+    -d"rm_users[]=2&rm_users[]=3" http://localhost:8000/api/users
 ```
 
 [Top](#pop-bootstrap)
@@ -235,7 +235,6 @@ with application management from the CLI as well. You can build
 upon this to add console-level features and functionality
 
 ```console
-$ ./app help                       Show this help screen
 $ ./app users                      List users
 $ ./app users add                  Add a user
 $ ./app users username <user>      Change a user's username
@@ -245,6 +244,7 @@ $ ./app users -d <user>            Deactivate a user
 $ ./app users clear <user>         Clear a user's failed login attempts
 $ ./app users revoke <user>        Revoke a user's auth tokens
 $ ./app users remove <user>        Remove a user
+$ ./app help                       Show this help screen
 ```
 
 [Top](#pop-bootstrap)
