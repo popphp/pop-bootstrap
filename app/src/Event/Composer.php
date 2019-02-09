@@ -44,12 +44,16 @@ class Composer
         $location    = getcwd();
         $hasDbConfig = false;
 
-        if (file_exists($location . '/app/database.php')) {
-            $database = include $location . '/app/database.php';
+        if (file_exists($location . '/app/config/database.php')) {
+            $database    = include $location . '/app/config/database.php';
             $hasDbConfig = (!empty($database['adapter']));
+        } else if (!file_exists($location . '/app/config/database.php')) {
+            $hasDbConfig = false;
+            copy($location . '/app/config/database.orig.php', $location . '/app/config/database.php');
         }
 
         if (!$hasDbConfig) {
+            $console->write();
             $createDb = $console->prompt(
                 'Would you like configure the database? [Y/N] ', ['y', 'n']
             );
@@ -57,7 +61,6 @@ class Composer
             if (strtolower($createDb) == 'y') {
                 $dbModel->configure($console, $location);
 
-                $db    = $dbModel->createAdapter(include $location . '/app/config/database.php');
                 $dir   = new Dir($location . '/database/seeds', ['filesOnly' => true]);
                 $seeds = $dir->getFiles();
 
@@ -78,6 +81,7 @@ class Composer
 
         $console->write();
         $console->write('Done!');
+        $console->write();
     }
 
 }
