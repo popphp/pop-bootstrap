@@ -63,7 +63,8 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
             new Command('./app users -d', '<user>', "Deactivate a user"),
             new Command('./app users clear', '<user>', "Clear a user's failed login attempts"),
             new Command('./app users revoke', '<user>', "Revoke a user's auth tokens"),
-            new Command('./app users remove', '<user>', "Remove a user"),
+            new Command('./app users remove', '<user>', "Remove a user" . PHP_EOL),
+            new Command('./app version', null, "Show the version"),
             new Command('./app help', null, "Show the help screen")
         ]);
     }

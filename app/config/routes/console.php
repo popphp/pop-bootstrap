@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'version' => [
+        'controller' => 'App\Console\Controller\ConsoleController',
+        'action'     => 'version'
+    ],
     'help' => [
         'controller' => 'App\Console\Controller\ConsoleController',
         'action'     => 'help'

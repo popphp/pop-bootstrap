@@ -13,6 +13,8 @@
  */
 namespace App\Console\Controller;
 
+use Pop\Console\Console;
+
 /**
  * Console controller class
  *
@@ -25,6 +27,16 @@ namespace App\Console\Controller;
  */
 class ConsoleController extends AbstractController
 {
+
+    /**
+     * Version command
+     *
+     * @return void
+     */
+    public function version()
+    {
+        $this->console->write('Version: ' . $this->console->colorize(\App\Module::VERSION, Console::BOLD_GREEN));
+    }
 
     /**
      * Help command

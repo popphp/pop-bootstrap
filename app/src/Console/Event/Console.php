@@ -33,9 +33,8 @@ class Console
      */
     public static function header()
     {
-        $consoleTitle = 'Pop Console (v' . \App\Module::VERSION . ')';
-        echo PHP_EOL . '    ' . $consoleTitle . PHP_EOL;
-        echo '    ' . str_repeat('=', strlen($consoleTitle)) . PHP_EOL . PHP_EOL;
+        echo PHP_EOL . '    Pop Bootstrap Console' . PHP_EOL;
+        echo '    =====================' . PHP_EOL . PHP_EOL;
     }
 
     /**
