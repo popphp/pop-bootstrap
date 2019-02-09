@@ -36,8 +36,9 @@ that allows access view a basic web interface, an API and also the console.
 
 ## Installation
 
-The command below will install all of the necessary components and
-take you through the installation steps automatically:
+The command below will install all of the necessary components,
+seed the database and take you through the installation steps
+automatically:
 
 ```console
 $ composer create-project popphp/pop-bootstrap project-folder
@@ -50,16 +51,14 @@ $ npm run build
 
 ## Getting Started
 
-Either create a vhost on your web server or start the PHP web server
-and point the document root to the `public` folder:
+You can start the web server by running the `kettle` command:
 
 ```console
-$ sudo php -S localhost:8000 -t public
+$ ./kettle serve
 ```
 
-Visit the main web address. If you are using the PHP web server like
-above, you would visit `http://localhost:8000`. You will be redirected
-to a login screen. The default credentials are:
+Visit the main web address at `http://localhost:8000`. You will
+be redirected to a login screen. The default credentials are:
 
 * Username: `admin`
 * Password: `password`
