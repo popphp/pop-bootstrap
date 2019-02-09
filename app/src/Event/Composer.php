@@ -14,7 +14,8 @@
 namespace App\Event;
 
 use Pop\Console\Console;
-use Pop\Db\Db;
+use Pop\Dir\Dir;
+use Pop\Kettle\Model;
 
 /**
  * Composer event class
@@ -33,138 +34,50 @@ class Composer
      * Composer install method
      *
      * @param  mixed $event
-     * @throws \Pop\Db\Exception
      * @return void
      */
     public static function install($event)
     {
-        $console = new Console(100, '    ');
 
-        chmod(__DIR__ . '/../../../data', 0777);
+        $console     = new Console(100, '    ');
+        $dbModel     = new Model\Database();
+        $location    = getcwd();
+        $hasDbConfig = false;
 
-        if (!file_exists(__DIR__ . '/../../../app/config/database/mysql.php')) {
-            $console->write();
-            $console->write($console->colorize(
-                'A configuration file was not detected.', Console::BOLD_YELLOW
-            ));
-            $console->write();
-            $createConfig = $console->prompt(
-                'Would you like to create one and install the database? [Y/N] ', ['y', 'n']
+        if (file_exists($location . '/app/database.php')) {
+            $database = include $location . '/app/database.php';
+            $hasDbConfig = (!empty($database['adapter']));
+        }
+
+        if (!$hasDbConfig) {
+            $createDb = $console->prompt(
+                'Would you like configure the database? [Y/N] ', ['y', 'n']
             );
 
-            if (strtolower($createConfig) == 'y') {
-                $console->write();
+            if (strtolower($createDb) == 'y') {
+                $dbModel->configure($console, $location);
 
-                // Configure application database
-                $dbName     = '';
-                $dbUser     = '';
-                $dbPass     = '';
-                $dbHost     = '';
-                $realDbName = '';
-                $dbAdapters = [];
-                $pdoDrivers = (class_exists('Pdo', false)) ? \PDO::getAvailableDrivers() : [];
+                $db    = $dbModel->createAdapter(include $location . '/app/config/database.php');
+                $dir   = new Dir($location . '/database/seeds', ['filesOnly' => true]);
+                $seeds = $dir->getFiles();
 
-                if (class_exists('mysqli', false)) {
-                    $dbAdapters['mysql'] = 'Mysql';
-                }
-                if (in_array('mysql', $pdoDrivers)) {
-                    $dbAdapters['pdo_mysql'] = 'PDO Mysql';
-                }
-
-                $adapters  = array_keys($dbAdapters);
-                $dbChoices = [];
-                $i         = 1;
-
-                foreach ($dbAdapters as $a) {
-                    $console->write($i . ': ' . $a);
-                    $dbChoices[] = $i;
-                    $i++;
-                }
-
-                $console->write();
-                $adapter = $console->prompt('Please select one of the above database adapters: ', $dbChoices);
-                $console->write();
-
-                // If PDO
-                if (stripos($adapters[$adapter - 1], 'pdo') !== false) {
-                    $dbInterface = 'Pdo';
-                    $dbType      = 'mysql';
-                } else {
-                    $dbInterface = ucfirst(strtolower($adapters[$adapter - 1]));
-                    $dbType      = null;
-                }
-
-                $dbCheck = 1;
-                while (null !== $dbCheck) {
-                    $dbName     = $console->prompt('DB Name: ');
-                    $dbUser     = $console->prompt('DB User: ');
-                    $dbPass     = $console->prompt('DB Password: ');
-                    $dbHost     = $console->prompt('DB Host: [localhost] ');
-                    $realDbName = "'" . $dbName . "'";
-
-                    if ($dbHost == '') {
-                        $dbHost = 'localhost';
+                sort($seeds);
+                $console->write('Seeding database...');
+                foreach ($seeds as $seed) {
+                    if (stripos($seed, '.sql') !== false) {
+                        $dbModel->install(
+                            include $location . '/app/config/database.php',
+                            $location . '/database/seeds/' . $seed
+                        );
                     }
-
-                    $dbCheck = Db::check($dbInterface, [
-                        'database' => $dbName,
-                        'username' => $dbUser,
-                        'password' => $dbPass,
-                        'host'     => $dbHost,
-                        'type'     => $dbType,
-                    ]);
-
-                    if (null !== $dbCheck) {
-                        $console->write();
-                        $console->write($console->colorize(
-                            'Database configuration test failed. Please try again.', Console::BOLD_RED
-                        ));
-                    } else {
-                        $console->write();
-                        $console->write($console->colorize(
-                            'Database configuration test passed.', Console::BOLD_GREEN
-                        ));
-                    }
-                    $console->write();
                 }
-
-                Db::install(__DIR__ . '/../../database/app.mysql.sql', $dbInterface, [
-                    'database' => $dbName,
-                    'username' => $dbUser,
-                    'password' => $dbPass,
-                    'host'     => $dbHost,
-                    'type'     => $dbType
-                ]);
-
-                // Write web config file
-                $dbConfig = str_replace(
-                    [
-                        "'adapter'  => '',",
-                        "'database' => '',",
-                        "'username' => '',",
-                        "'password' => '',",
-                        "'host'     => '',",
-                        "'type'     => ''"
-                    ],
-                    [
-                        "'adapter'  => '" . strtolower($dbInterface) . "',",
-                        "'database' => " . $realDbName . ",",
-                        "'username' => '" . $dbUser . "',",
-                        "'password' => '" . $dbPass . "',",
-                        "'host'     => '" . $dbHost . "',",
-                        "'type'     => '" . $dbType . "'"
-                    ], file_get_contents(__DIR__ . '/../../../app/config/database/mysql.orig.php')
-                );
-
-                file_put_contents(__DIR__ . '/../../../app/config/database/mysql.php', $dbConfig);
-
-                $console->write($console->colorize('Application configuration completed.', Console::BOLD_GREEN));
-                $console->write();
             }
         } else {
             $console->write($console->colorize('Application already configured. Nothing to do.', Console::BOLD_GREEN));
-            $console->write();
         }
+
+        $console->write();
+        $console->write('Done!');
     }
 
 }

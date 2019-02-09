@@ -5,6 +5,6 @@
 
 return [
     'routes'   => include 'routes/console.php',
-    'database' => include 'database/mysql.php'
+    'database' => include 'database.php'
 ];
 

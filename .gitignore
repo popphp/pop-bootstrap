@@ -1,4 +1,4 @@
-/app/config/database/mysql.php
+/app/config/database.php
 /logs
 composer.lock
 package-lock.json

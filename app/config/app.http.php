@@ -5,7 +5,7 @@
 
 return [
     'routes'         => include 'routes/http.php',
-    'database'       => include 'database/mysql.php',
+    'database'       => include 'database.php',
     'forms'          => include 'forms.php',
     'auth_attempts'  => 3,
     'token_expires'  => 1800,
