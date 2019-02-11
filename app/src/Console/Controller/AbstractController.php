@@ -15,7 +15,6 @@ namespace App\Console\Controller;
 
 use Pop\Application;
 use Pop\Console\Console;
-use Pop\Console\Command;
 
 /**
  * Console controller class
