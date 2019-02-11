@@ -246,7 +246,9 @@ $ ./app users -d <user>            Deactivate a user
 $ ./app users clear <user>         Clear a user's failed login attempts
 $ ./app users revoke <user>        Revoke a user's auth tokens
 $ ./app users remove <user>        Remove a user
-$ ./app help                       Show this help screen
+
+$ ./app version                    Show the version
+$ ./app help                       Show the help screen
 ```
 
 [Top](#pop-bootstrap)
