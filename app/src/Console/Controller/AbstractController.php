@@ -54,19 +54,7 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
         $this->console     = $console;
 
         $this->console->setHelpColors(Console::BOLD_CYAN, Console::BOLD_YELLOW, Console::BOLD_GREEN);
-        $this->console->addCommands([
-            new Command('./app users', null, "List users"),
-            new Command('./app users add', null, "Add a user"),
-            new Command('./app users username', '<user>', "Change a user's username"),
-            new Command('./app users password', '<user>', "Change a user's password"),
-            new Command('./app users -a', '<user>', "Activate a user"),
-            new Command('./app users -d', '<user>', "Deactivate a user"),
-            new Command('./app users clear', '<user>', "Clear a user's failed login attempts"),
-            new Command('./app users revoke', '<user>', "Revoke a user's auth tokens"),
-            new Command('./app users remove', '<user>', "Remove a user" . PHP_EOL),
-            new Command('./app version', null, "Show the version"),
-            new Command('./app help', null, "Show the help screen")
-        ]);
+        $this->console->addCommandsFromRoutes($application->router()->getRouteMatch(), './app');
     }
 
     /**

@@ -47,6 +47,9 @@ $ npm install
 $ npm run build
 ```
 
+Alternatively, the last command above can be ``npm run dev`` if you'd
+like build the UI assets for a dev environment instead.
+
 [Top](#pop-bootstrap)
 
 ## Getting Started
