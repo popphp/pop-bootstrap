@@ -15,7 +15,7 @@ namespace App\Http\Web\Controller;
 
 use App\Users\Model\User;
 use App\Http\Web\Form;
-use Pop\Form\Filter\Filter;
+use Pop\Filter\Filter;
 
 /**
  * Web users controller class
