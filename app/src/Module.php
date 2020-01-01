@@ -37,7 +37,7 @@ class Module extends \Pop\Module\Module
      * Application version
      * @var string
      */
-    const VERSION = '4.2.0';
+    const VERSION = '4.5.0';
 
     /**
      * Module name
