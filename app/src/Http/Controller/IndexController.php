@@ -46,10 +46,10 @@ class IndexController extends AbstractController
                 $sess = $this->application->services['session'];
                 $view->username = $sess->user->username;
             }
-            $this->response->setHeader('Content-Type', 'text/html');
+            $this->response->addHeader('Content-Type', 'text/html');
             $this->response->setBody($view->render());
         } else {
-            $this->response->setHeader('Content-Type', 'application/json');
+            $this->response->addHeader('Content-Type', 'application/json');
             $this->response->setBody(json_encode($response, JSON_PRETTY_PRINT) . PHP_EOL);
         }
 

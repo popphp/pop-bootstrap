@@ -54,7 +54,7 @@ class User extends AbstractModel
                 $user->attempts = 0;
                 $user->save();
 
-                $this->data = array_merge($this->data, $user->toArray());
+                $this->data = array_merge($this->toArray(), $user->toArray());
             } else {
                 $user->attempts++;
                 $user->save();

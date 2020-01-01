@@ -74,7 +74,7 @@ class UsersController extends AbstractController
             if ($this->view->form->isValid()) {
                 $this->view->form->clearFilters()
                      ->addFilter(new Filter('html_entity_decode', [ENT_QUOTES, 'UTF-8']))
-                     ->filterValues();
+                     ->filter();
 
                 $user = new User();
                 $user->save($this->view->form);
@@ -119,7 +119,7 @@ class UsersController extends AbstractController
             if ($this->view->form->isValid()) {
                 $this->view->form->clearFilters()
                      ->addFilter(new Filter('html_entity_decode', [ENT_QUOTES, 'UTF-8']))
-                     ->filterValues();
+                     ->filter();
 
                 $user = new User();
                 $user->update($id, $this->view->form);

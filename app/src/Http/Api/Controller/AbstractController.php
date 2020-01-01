@@ -50,10 +50,10 @@ abstract class AbstractController extends \App\Http\Controller\AbstractControlle
             $this->response->setMessage($message);
         }
 
-        $this->response->setHeader('Access-Control-Allow-Origin', '*')
-             ->setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type')
-             ->setHeader('Access-Control-Allow-Methods', 'HEAD, OPTIONS, GET, PUT, POST, PATCH, DELETE')
-             ->setHeader('Content-Type', 'application/json');
+        $this->response->addHeader('Access-Control-Allow-Origin', '*')
+             ->addHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type')
+             ->addHeader('Access-Control-Allow-Methods', 'HEAD, OPTIONS, GET, PUT, POST, PATCH, DELETE')
+             ->addHeader('Content-Type', 'application/json');
 
         $responseBody = (!empty($body)) ? json_encode($body, JSON_PRETTY_PRINT) : '';
 
@@ -97,10 +97,10 @@ abstract class AbstractController extends \App\Http\Controller\AbstractControlle
 
         $this->response->setCode($code)
             ->setMessage($message)
-            ->setHeader('Access-Control-Allow-Origin', '*')
-            ->setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type')
-            ->setHeader('Access-Control-Allow-Methods', 'HEAD, OPTIONS, GET, PUT, POST, PATCH, DELETE')
-            ->setHeader('Content-Type', 'application/json')
+            ->addHeader('Access-Control-Allow-Origin', '*')
+            ->addHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type')
+            ->addHeader('Access-Control-Allow-Methods', 'HEAD, OPTIONS, GET, PUT, POST, PATCH, DELETE')
+            ->addHeader('Content-Type', 'application/json')
             ->setBody($responseBody)
             ->sendAndExit();
     }

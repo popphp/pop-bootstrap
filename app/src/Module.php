@@ -180,10 +180,10 @@ class Module extends \Pop\Module\Module
             if (isset($sess->user)) {
                 $view->username = $sess->user->username;
             }
-            $response->setHeader('Content-Type', 'text/html');
+            $response->addHeader('Content-Type', 'text/html');
             $response->setBody($view->render());
         } else {
-            $response->setHeader('Content-Type', 'application/json');
+            $response->addHeader('Content-Type', 'application/json');
             $response->setBody(json_encode(['error' => $message], JSON_PRETTY_PRINT) . PHP_EOL);
         }
 
@@ -239,7 +239,7 @@ class Module extends \Pop\Module\Module
 
             $check = Db::check($adapter, $options);
 
-            if (null !== $check) {
+            if ($check !== true) {
                 throw new \Pop\Db\Adapter\Exception('Error: ' . $check);
             }
 

@@ -89,7 +89,7 @@ abstract class AbstractController extends \App\Http\Controller\AbstractControlle
         $this->response->setCode($code);
 
         if (null === $this->response->getHeader('Content-Type')) {
-            $this->response->setHeader('Content-Type', 'text/html');
+            $this->response->addHeader('Content-Type', 'text/html');
         }
 
         $this->response->setBody($body . PHP_EOL . PHP_EOL);
