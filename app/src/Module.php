@@ -16,8 +16,8 @@ namespace App;
 use Pop\Application;
 use Pop\Db\Db;
 use Pop\Db\Record;
-use Pop\Http\Request;
-use Pop\Http\Response;
+use Pop\Http\Server\Request;
+use Pop\Http\Server\Response;
 use Pop\View\View;
 
 /**
@@ -28,7 +28,7 @@ use Pop\View\View;
  * @link       https://github.com/popphp/pop-bootstrap
  * @author     Nick Sagona, III <nick@nolainteractive.com>
  * @copyright  Copyright (c) 2012-2019 NOLA Interactive, LLC. (http://www.nolainteractive.com)
- * @version    4.2.0
+ * @version    4.5.0
  */
 class Module extends \Pop\Module\Module
 {
@@ -60,7 +60,7 @@ class Module extends \Pop\Module\Module
     {
         parent::register($application);
 
-        $this->initDb($this->application->config()['database']);
+        $this->initDb($this->application->config()['database']['default']);
 
         if ($this->application->router()->isCli()) {
             $this->registerCli();
@@ -74,7 +74,6 @@ class Module extends \Pop\Module\Module
     /**
      * Register HTTP
      *
-     * @throws \Pop\Http\Exception
      * @return void
      */
     public function registerHttp()
@@ -162,7 +161,6 @@ class Module extends \Pop\Module\Module
      * Custom error handler method
      *
      * @param  \Exception $exception
-     * @throws \Pop\Http\Exception
      * @throws \Pop\View\Exception
      * @return void
      */
@@ -172,7 +170,7 @@ class Module extends \Pop\Module\Module
         $response = new Response();
         $message  = $exception->getMessage();
 
-        if (stripos($request->getHeader('Accept'), 'text/html') !== false) {
+        if (stripos($request->getHeaderValue('Accept'), 'text/html') !== false) {
             $view          = new View(__DIR__ . '/../view/exception.phtml');
             $view->title   = $message;
             $view->message = (substr($message, 0, 7) != 'Error: ') ? 'Error: ' . $message : $message;
@@ -222,7 +220,6 @@ class Module extends \Pop\Module\Module
      * @param  array $database
      * @throws \Pop\Db\Adapter\Exception
      * @throws \Pop\Service\Exception
-     * @throws \ReflectionException
      * @return void
      */
     protected function initDb($database)

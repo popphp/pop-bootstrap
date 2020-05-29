@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+## 4.5.0
+
+* Refactor for Pop PHP Framework v4.5.0.
+
 ## 4.2.0
 
 * Refactor for Pop PHP Framework v4.0.1.  Incorporated the pop-kettle CLI-helper script

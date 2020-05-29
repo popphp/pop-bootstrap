@@ -24,7 +24,7 @@ use App\Users\Model;
  * @link       https://github.com/popphp/pop-bootstrap
  * @author     Nick Sagona, III <nick@nolainteractive.com>
  * @copyright  Copyright (c) 2012-2019 NOLA Interactive, LLC. (http://www.nolainteractive.com)
- * @version    4.2.0
+ * @version    4.5.0
  */
 class Auth
 {
@@ -51,7 +51,7 @@ class Auth
     {
         if ($application->modules['pop-bootstrap']->isApi()) {
             $token     = new Model\Token();
-            $authToken = $application->router()->getController()->request()->getHeader('Authorization');
+            $authToken = $application->router()->getController()->request()->getHeaderValue('Authorization');
             $action    = $application->router()->getRouteMatch()->getAction();
             if (!self::isPublicAction($application->router()->getControllerClass(), $action) &&
                 (!((null !== $authToken) && ($token->validateToken($authToken))))) {

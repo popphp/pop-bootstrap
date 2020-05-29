@@ -13,7 +13,7 @@
  */
 namespace App\Http\Api\Controller;
 
-use Pop\Http\Response;
+use Pop\Http\Server\Response;
 
 /**
  * Abstract API controller class
@@ -23,7 +23,7 @@ use Pop\Http\Response;
  * @link       https://github.com/popphp/pop-bootstrap
  * @author     Nick Sagona, III <nick@nolainteractive.com>
  * @copyright  Copyright (c) 2012-2019 NOLA Interactive, LLC. (http://www.nolainteractive.com)
- * @version    4.2.0
+ * @version    4.5.0
  */
 abstract class AbstractController extends \App\Http\Controller\AbstractController
 {
@@ -35,9 +35,6 @@ abstract class AbstractController extends \App\Http\Controller\AbstractControlle
      * @param  mixed $body
      * @param  string $message
      * @param  array $headers
-     * @throws \Pop\Event\Exception
-     * @throws \Pop\Http\Exception
-     * @throws \ReflectionException
      * @return void
      */
     public function send($code = 200, $body = null, $message = null, array $headers = null)
@@ -69,9 +66,6 @@ abstract class AbstractController extends \App\Http\Controller\AbstractControlle
      * @param  int $code
      * @param  string $message
      * @param  array $headers
-     * @throws \Pop\Event\Exception
-     * @throws \Pop\Http\Exception
-     * @throws \ReflectionException
      * @return void
      */
     public function sendOptions($code = 200, $message = null, array $headers = null)

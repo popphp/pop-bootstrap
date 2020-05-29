@@ -13,7 +13,7 @@
  */
 namespace App\Http\Web\Controller;
 
-use Pop\Http\Response;
+use Pop\Http\Server\Response;
 use Pop\View\View;
 
 /**
@@ -24,7 +24,7 @@ use Pop\View\View;
  * @link       https://github.com/popphp/pop-bootstrap
  * @author     Nick Sagona, III <nick@nolainteractive.com>
  * @copyright  Copyright (c) 2012-2019 NOLA Interactive, LLC. (http://www.nolainteractive.com)
- * @version    4.2.0
+ * @version    4.5.0
  */
 abstract class AbstractController extends \App\Http\Controller\AbstractController
 {
@@ -68,10 +68,6 @@ abstract class AbstractController extends \App\Http\Controller\AbstractControlle
      * @param  int $code
      * @param  string $message
      * @param  array $headers
-     * @throws \Pop\Event\Exception
-     * @throws \Pop\Http\Exception
-     * @throws \Pop\View\Exception
-     * @throws \ReflectionException
      * @return void
      */
     public function send($body = null, $code = 200, $message = null, array $headers = null)
@@ -88,7 +84,7 @@ abstract class AbstractController extends \App\Http\Controller\AbstractControlle
 
         $this->response->setCode($code);
 
-        if (null === $this->response->getHeader('Content-Type')) {
+        if (!$this->response->hasHeader('Content-Type')) {
             $this->response->addHeader('Content-Type', 'text/html');
         }
 

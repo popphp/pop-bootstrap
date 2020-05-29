@@ -15,7 +15,7 @@ namespace App\Http\Api\Controller;
 
 use App\Users\Model;
 use App\Users\Table;
-use Pop\Http\Response;
+use Pop\Http\Server\Response;
 
 /**
  * Users controller class
@@ -25,7 +25,7 @@ use Pop\Http\Response;
  * @link       https://github.com/popphp/pop-bootstrap
  * @author     Nick Sagona, III <nick@nolainteractive.com>
  * @copyright  Copyright (c) 2012-2019 NOLA Interactive, LLC. (http://www.nolainteractive.com)
- * @version    4.2.0
+ * @version    4.5.0
  */
 class UsersController extends AbstractController
 {

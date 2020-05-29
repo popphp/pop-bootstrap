@@ -23,7 +23,7 @@ use App\Users\Model;
  * @link       https://github.com/popphp/pop-bootstrap
  * @author     Nick Sagona, III <nick@nolainteractive.com>
  * @copyright  Copyright (c) 2012-2019 NOLA Interactive, LLC. (http://www.nolainteractive.com)
- * @version    4.2.0
+ * @version    4.5.0
  */
 class TokenController extends AbstractController
 {
@@ -39,7 +39,7 @@ class TokenController extends AbstractController
     public function token()
     {
         $token     = new Model\Token();
-        $authToken = $this->request->getHeader('Authorization');
+        $authToken = $this->request->getHeaderValue('Authorization');
         $code      = ((null !== $authToken) && ($token->validateToken($authToken))) ? 200 : 401;
 
         $this->send($code);
@@ -57,10 +57,12 @@ class TokenController extends AbstractController
     public function refresh()
     {
         $token     = new Model\Token();
-        $authToken = $this->request->getHeader('Authorization');
+        $authToken = $this->request->getHeaderValue('Authorization');
         $refresh   = $this->request->getParsedData('refresh');
 
-        if (!$token->tokenExists($authToken)) {
+        if (empty($refresh)) {
+            $this->send(400);
+        } else if (!$token->tokenExists($authToken, $refresh)) {
             $this->send(401);
         } else if (empty($refresh)) {
             $this->send(400);
@@ -90,7 +92,7 @@ class TokenController extends AbstractController
     public function revoke()
     {
         $token     = new Model\Token();
-        $authToken = $this->request->getHeader('Authorization');
+        $authToken = $this->request->getHeaderValue('Authorization');
         if ((null !== $authToken) && ($token->validateToken($authToken))) {
             $token->revoke($authToken);
             $this->send(200);

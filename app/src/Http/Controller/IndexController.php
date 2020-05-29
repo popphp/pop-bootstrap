@@ -23,7 +23,7 @@ use Pop\View\View;
  * @link       https://github.com/popphp/pop-bootstrap
  * @author     Nick Sagona, III <nick@nolainteractive.com>
  * @copyright  Copyright (c) 2012-2019 NOLA Interactive, LLC. (http://www.nolainteractive.com)
- * @version    4.2.0
+ * @version    4.5.0
  */
 class IndexController extends AbstractController
 {
@@ -39,7 +39,7 @@ class IndexController extends AbstractController
     {
         $response = ['code' => 404, 'message' => 'Not Found'];
 
-        if (stripos($this->request->getHeader('Accept'), 'text/html') !== false) {
+        if (stripos($this->request->getHeaderValue('Accept'), 'text/html') !== false) {
             $view = new View(__DIR__ . '/../../../view/error.phtml', $response);
             $view->title = 'Error: ' .  $response['code'] . ' ' . $response['message'];
             if ($this->application->services->isLoaded('session')) {

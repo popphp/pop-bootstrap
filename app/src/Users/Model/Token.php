@@ -24,7 +24,7 @@ use Pop\Model\AbstractModel;
  * @link       https://github.com/popphp/pop-bootstrap
  * @author     Nick Sagona, III <nick@nolainteractive.com>
  * @copyright  Copyright (c) 2012-2019 NOLA Interactive, LLC. (http://www.nolainteractive.com)
- * @version    4.2.0
+ * @version    4.5.0
  */
 class Token extends AbstractModel
 {
@@ -202,15 +202,18 @@ class Token extends AbstractModel
      * Determined if the token exists
      *
      * @param  string $tokenValue
+     * @param  string $refreshValue
      * @return boolean
      */
-    public function tokenExists($tokenValue)
+    public function tokenExists($tokenValue, $refreshValue = null)
     {
         if (substr($tokenValue, 0, 7) == 'Bearer ') {
             $tokenValue = substr($tokenValue, 7);
         }
 
-        return (isset(Table\Tokens::findOne(['token' => $tokenValue])->token));
+        return (!empty($refreshValue)) ?
+            (isset(Table\Tokens::findOne(['token' => $tokenValue, 'refresh' => $refreshValue])->token)) :
+            (isset(Table\Tokens::findOne(['token' => $tokenValue])->token));
     }
 
     /**

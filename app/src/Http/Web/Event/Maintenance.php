@@ -14,7 +14,7 @@
 namespace App\Http\Web\Event;
 
 use Pop\Application;
-use Pop\Http\Response;
+use Pop\Http\Server\Response;
 use Pop\View\View;
 
 /**
@@ -25,7 +25,7 @@ use Pop\View\View;
  * @link       https://github.com/popphp/pop-bootstrap
  * @author     Nick Sagona, III <nick@nolainteractive.com>
  * @copyright  Copyright (c) 2012-2019 NOLA Interactive, LLC. (http://www.nolainteractive.com)
- * @version    4.2.0
+ * @version    4.5.0
  */
 class Maintenance
 {
@@ -41,7 +41,7 @@ class Maintenance
     public static function check(Application $application)
     {
         if (($application->config()['maintenance']) && ($application->modules['pop-bootstrap']->isWeb())) {
-            $acceptHeader = $application->router()->getController()->request()->getHeader('Accept');
+            $acceptHeader = $application->router()->getController()->request()->getHeaderValue('Accept');
             if (stripos($acceptHeader, 'text/html') === false) {
                 $controller = new \App\Http\Api\Controller\IndexController(
                     $application, $application->router()->getController()->request(), $application->router()->getController()->response()

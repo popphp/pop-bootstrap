@@ -25,7 +25,7 @@ use Pop\Kettle\Model;
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2019 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    4.2.0
+ * @version    4.5.0
  */
 class Composer
 {
@@ -46,7 +46,7 @@ class Composer
 
         if (file_exists($location . '/app/config/database.php')) {
             $database    = include $location . '/app/config/database.php';
-            $hasDbConfig = (!empty($database['adapter']));
+            $hasDbConfig = (!empty($database['default']['adapter']));
         } else if (!file_exists($location . '/app/config/database.php')) {
             $hasDbConfig = false;
             copy($location . '/app/config/database.orig.php', $location . '/app/config/database.php');
@@ -61,16 +61,17 @@ class Composer
             if (strtolower($createDb) == 'y') {
                 $dbModel->configure($console, $location);
 
-                $dir   = new Dir($location . '/database/seeds', ['filesOnly' => true]);
+                $dir   = new Dir($location . '/database/seeds/default', ['filesOnly' => true]);
                 $seeds = $dir->getFiles();
 
                 sort($seeds);
                 $console->write('Seeding database...');
+                $dbConfig = include $location . '/app/config/database.php';
                 foreach ($seeds as $seed) {
                     if (stripos($seed, '.sql') !== false) {
                         $dbModel->install(
-                            include $location . '/app/config/database.php',
-                            $location . '/database/seeds/' . $seed
+                            $dbConfig['default'],
+                            $location . '/database/seeds/default/' . $seed
                         );
                     }
                 }

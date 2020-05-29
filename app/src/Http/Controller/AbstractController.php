@@ -14,8 +14,8 @@
 namespace App\Http\Controller;
 
 use Pop\Application;
-use Pop\Http\Request;
-use Pop\Http\Response;
+use Pop\Http\Server\Request;
+use Pop\Http\Server\Response;
 
 /**
  * Abstract controller class
@@ -25,7 +25,7 @@ use Pop\Http\Response;
  * @link       https://github.com/popphp/pop-bootstrap
  * @author     Nick Sagona, III <nick@nolainteractive.com>
  * @copyright  Copyright (c) 2012-2019 NOLA Interactive, LLC. (http://www.nolainteractive.com)
- * @version    4.2.0
+ * @version    4.5.0
  */
 abstract class AbstractController extends \Pop\Controller\AbstractController
 {
