@@ -1,5 +1,9 @@
 # Pop Bootstrap
 
+END OF LIFE
+-----------
+The `pop-bootstrap` component is now end-of-life and will no longer be maintained.
+
 Release Information
 -------------------
 Version 4.2.0
